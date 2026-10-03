@@ -1,0 +1,453 @@
+<!DOCTYPE html><html lang="fr"><head><script>(function(){try{var p=location.pathname,n=p.replace(/\.html$/,"").replace(/(.)\/$/,"$1");if(n!==p)history.replaceState(null,"",n+location.search+location.hash)}catch(e){}})();</script><script>window.__hfAuthOrigin="https://auth.higgsfield.app";// Notifications only: browser permissions and iframe policies enforce access.
+(function () {
+  try {
+    if (window.__hfAccessPatched || window.parent === window) return;
+    window.__hfAccessPatched = true;
+    var viewerOrigin = null;
+    var pending = [];
+    var reported = {};
+    function flush() {
+      if (!viewerOrigin || !pending.length) return;
+      window.parent.postMessage({
+        source: "hf-app-permissions",
+        type: "permission-request",
+        capabilities: pending.slice()
+      }, viewerOrigin);
+      pending = [];
+    }
+    function report(capabilities) {
+      capabilities.forEach(function (capability) {
+        if (!reported[capability]) {
+          reported[capability] = true;
+          pending.push(capability);
+        }
+      });
+      flush();
+    }
+    window.addEventListener("message", function (event) {
+      if (event.source !== window.parent || !/^https?:\/\//.test(event.origin)) return;
+      if (!event.data || event.data.source !== "hf-app-permissions" || event.data.type !== "init") return;
+      viewerOrigin = event.origin;
+      try { flush(); } catch (error) { /* Delivery is best-effort. */ }
+    });
+    function wrap(owner, method, capabilities) {
+      // One unavailable or read-only API must not prevent other wrappers installing.
+      try {
+        if (!owner || typeof owner[method] !== "function") return;
+        var original = owner[method];
+        owner[method] = function () {
+          try {
+            report(typeof capabilities === "function" ? capabilities(arguments) : capabilities);
+          } catch (error) { /* Preserve native results even if reporting fails. */ }
+          return original.apply(this, arguments);
+        };
+      } catch (error) { /* Some browsers expose non-writable methods. */ }
+    }
+    function mediaCapabilities(args) {
+      var constraints = args[0];
+      var capabilities = [];
+      if (constraints && constraints.video) capabilities.push("camera");
+      if (constraints && constraints.audio) capabilities.push("microphone");
+      return capabilities;
+    }
+    wrap(navigator.mediaDevices, "getUserMedia", mediaCapabilities);
+    ["getUserMedia", "webkitGetUserMedia", "mozGetUserMedia"].forEach(function (method) {
+      wrap(navigator, method, mediaCapabilities);
+    });
+    wrap(navigator.mediaDevices, "getDisplayMedia", ["screen"]);
+    wrap(navigator.mediaDevices, "enumerateDevices", ["media-devices"]);
+    wrap(navigator.mediaDevices, "selectAudioOutput", ["speakers"]);
+    ["getCurrentPosition", "watchPosition"].forEach(function (method) {
+      wrap(navigator.geolocation, method, ["location"]);
+    });
+    ["read", "readText"].forEach(function (method) {
+      wrap(navigator.clipboard, method, ["clipboard-read"]);
+    });
+    ["write", "writeText"].forEach(function (method) {
+      wrap(navigator.clipboard, method, ["clipboard-write"]);
+    });
+    wrap(window.Notification, "requestPermission", ["notifications"]);
+    wrap(window.PushManager && window.PushManager.prototype, "subscribe", ["notifications"]);
+    wrap(navigator.bluetooth, "requestDevice", ["bluetooth"]);
+    wrap(navigator.usb, "requestDevice", ["usb"]);
+    wrap(navigator.serial, "requestPort", ["serial"]);
+    wrap(navigator.hid, "requestDevice", ["hid"]);
+    wrap(navigator, "requestMIDIAccess", ["midi"]);
+    ["showOpenFilePicker", "showSaveFilePicker", "showDirectoryPicker"].forEach(function (method) {
+      wrap(window, method, ["files"]);
+    });
+    wrap(window.FileSystemHandle && window.FileSystemHandle.prototype, "requestPermission", ["files"]);
+    wrap(window.Element && window.Element.prototype, "requestFullscreen", ["fullscreen"]);
+    wrap(window.Element && window.Element.prototype, "requestPointerLock", ["pointer-lock"]);
+    wrap(navigator.wakeLock, "request", ["wake-lock"]);
+    wrap(navigator.storage, "persist", ["persistent-storage"]);
+    wrap(navigator.xr, "requestSession", ["xr"]);
+    wrap(window.DeviceMotionEvent, "requestPermission", ["motion"]);
+    wrap(window.DeviceOrientationEvent, "requestPermission", ["motion"]);
+    wrap(window.Sensor && window.Sensor.prototype, "start", ["sensors"]);
+    wrap(window.Document && window.Document.prototype, "requestStorageAccess", ["storage-access"]);
+    wrap(window.Document && window.Document.prototype, "requestStorageAccessFor", ["storage-access"]);
+  } catch (error) {
+    // Instrumentation must not prevent the rest of the SDK loading.
+  }
+})();
+
+/**
+ * Approval client SDK — the browser half of the approval flow (paired with
+ * approve.html), injected into every app page. A real file, imported as text and
+ * bundled at deploy (see injected-sdk.ts + the router wrangler). Runs in the
+ * untrusted app page: plain ES5, idempotent (window.__hfPatched), fully
+ * try/catch-wrapped, installed inline+synchronous at <head> so it's present
+ * before any app code runs.
+ *
+ * There is exactly ONE approval trigger: window.hf.requestGeneration(model,
+ * params, opts). The app calls it on the user's Generate action; the modal is
+ * visible exactly while the returned promise is pending. Approve resolves the
+ * minted single-use intent id, which the app threads to its server function and
+ * the fnf SDK adapter sends as the submit body's confirmation_token; cancel
+ * rejects with a DOMException named AbortError (a user choice, not a failure).
+ * Enforcement is entirely server-side: the outbound spend gate 403s any
+ * POST /jobs/submit that doesn't carry a matching minted approval (see
+ * outbound-worker/src/spend-gate.ts), so an app that skips the call gets a
+ * self-describing failed submit, never a silent spend. This SDK never inspects
+ * request bodies and never opens a modal on its own.
+ */
+(function () {
+  try {
+    if (window.__hfPatched) return;
+    window.__hfPatched = true;
+    var of = window.fetch;
+    if (typeof of !== "function") return;
+    // Approval surface origin (auth.<zone>, serving the consent page at
+    // /approve). Preferred source: the origin the router stamps ahead of this
+    // script (injected-sdk.ts) — apps can be served on CUSTOM DOMAINS, where
+    // deriving from the page host would fabricate a non-existent
+    // auth.<customdomain>. Host derivation stays as the fallback for stale
+    // cached HTML that predates the stamp.
+    var APPROVE =
+      typeof window.__hfAuthOrigin === "string" && window.__hfAuthOrigin.indexOf("https://") === 0
+        ? window.__hfAuthOrigin
+        : "https://auth." + location.host.split(".").slice(1).join(".");
+    window.__hfFetches = window.__hfFetches || [];
+
+    // Single-flight: at most ONE approval modal at a time. A fast double-click (or
+    // an app firing two requests) would otherwise open a second scrim+iframe stacked
+    // on the first — so a second approve() while one is open returns the in-flight
+    // promise instead of opening another modal.
+    var openModal = null;
+
+    // The modal is a cross-origin iframe of auth.<zone>/approve: the app cannot
+    // read or script it, and WHO may frame the page is pinned server-side by its
+    // frame-ancestors. The page itself obtains the authoritative price from fnf
+    // before enabling Generate; app-supplied display prices are intentionally
+    // ignored. The app DOM can still restyle, shrink or overlay this iframe, and
+    // job binding does NOT cover that (a hidden but genuine click on the app's
+    // own job is still a click): the page defends itself — Generate arms only
+    // after a delay and only while the browser vouches that the card is visible
+    // and unoccluded (IntersectionObserver v2); otherwise the commit moves to a
+    // top-level popup the app cannot overlay. See approve-ui/src/redress.ts.
+    function approve(job) {
+      if (openModal) return openModal;
+      openModal = new Promise(function (resolve, reject) {
+        var grant = null;
+        var ready = false;
+        var done = false;
+        var openedAt = Date.now();
+
+        // Three parent layers so the iframe body can stay fully TRANSPARENT and
+        // still show no white edge:
+        //  - scrim: full-screen div carrying the blur (backdrop-filter samples the
+        //    real app behind it) + a dark tint.
+        //  - wrap: a rounded, overflow:hidden div that CLIPS the iframe. The iframe
+        //    overlaps the backdrop-filter scrim, so Chromium backs its layer
+        //    opaquely; the iframe's OWN border-radius doesn't reliably clip that
+        //    layer (leaving white corners), but a parent clip does. So the corners
+        //    outside the radius are clipped away → the blurred scrim shows through,
+        //    no white ring.
+        //  - frame: the iframe, fully transparent, filling wrap. Its page paints
+        //    only the card (edge-to-edge, no radius — wrap provides the rounding).
+        var scrim = document.createElement("div");
+        scrim.style.cssText =
+          "position:fixed;inset:0;z-index:2147483646;background:rgba(0,0,0,0.28);" +
+          "-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)";
+        var wrap = document.createElement("div");
+        // opacity:0 until the page reports its height so the modal fades in at its
+        // final size (no empty-frame flash, no height re-center / layout shift).
+        // Round with clip-path (not just border-radius + overflow): clip-path is
+        // applied in the COMPOSITOR, so it clips the cross-origin iframe's own
+        // layer edge cleanly. border-radius/overflow only clip the shape and leave
+        // the iframe's opaque WHITE base fringing at the rounded corners (the white
+        // peek). background = card color as a second line of defense. Both the wrap
+        // and the iframe carry the clip; keep 24px in sync with the card radius.
+        wrap.style.cssText =
+          "position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);" +
+          "width:min(400px,calc(100vw - 32px));height:188px;border-radius:24px;overflow:hidden;" +
+          "-webkit-clip-path:inset(0 round 24px);clip-path:inset(0 round 24px);" +
+          "background:#23262a;opacity:0;transition:opacity 0.12s ease;z-index:2147483647";
+        var frame = document.createElement("iframe");
+        // referrerPolicy="origin": the page's frame-ancestors admits a registered
+        // CUSTOM DOMAIN only when this origin arrives as the Referer (approve.ts).
+        frame.referrerPolicy = "origin";
+        frame.src = APPROVE + "/approve";
+        frame.allowTransparency = "true";
+        frame.style.cssText =
+          "display:block;width:100%;height:100%;border:0;border-radius:24px;" +
+          "-webkit-clip-path:inset(0 round 24px);clip-path:inset(0 round 24px);background:#23262a";
+        wrap.appendChild(frame);
+        var revealTimer = null;
+
+        function cleanup() {
+          if (done) return;
+          done = true;
+          clearTimeout(revealTimer);
+          window.removeEventListener("message", onMessage);
+          document.removeEventListener("keydown", onKey, true);
+          wrap.remove();
+          scrim.remove();
+        }
+
+        function beacon(outcome) {
+          if (!grant) return;
+          try {
+            var payload = JSON.stringify({
+              grant: grant,
+              outcome: outcome,
+              ms_open: Date.now() - openedAt,
+            });
+            var url = APPROVE + "/approve/outcome";
+            if (navigator.sendBeacon) {
+              navigator.sendBeacon(url, new Blob([payload], { type: "text/plain" }));
+            } else {
+              of(url, { method: "POST", body: payload, mode: "no-cors", keepalive: true }).catch(
+                function () {},
+              );
+            }
+          } catch (e) {}
+        }
+
+        // Dismiss = the same "denied" path as the modal's Cancel button, so the
+        // caller turns it into an AbortError (a cancel, not a failure).
+        function dismiss() {
+          if (done) return;
+          cleanup();
+          beacon("denied");
+          var error = new Error("hf: denied");
+          error.hfReason = "denied";
+          reject(error);
+        }
+
+        function onKey(event) {
+          if (event.key === "Escape" || event.keyCode === 27) dismiss();
+        }
+
+        function sendRequest() {
+          if (!ready || !grant || done) return;
+          frame.contentWindow.postMessage(
+            { source: "hf-approve", type: "request", grant: grant, job: job },
+            APPROVE,
+          );
+        }
+
+        function onMessage(event) {
+          if (event.origin !== APPROVE || event.source !== frame.contentWindow) return;
+          var data = event.data || {};
+          if (data.source !== "hf-approve") return;
+          // Size the clip wrapper to the page's reported card height, and reveal
+          // ONLY once sized — modal fades in at its final height (no shift/flash).
+          if (typeof data.h === "number" && data.h > 0) {
+            wrap.style.height = data.h + "px";
+            clearTimeout(revealTimer);
+            wrap.style.opacity = "1";
+          }
+          if (data.type === "ready") {
+            ready = true;
+            sendRequest();
+            return;
+          }
+          if (data.type === "pending") {
+            // The decision moved to a top-level consent window (the iframe
+            // relays its verdict and reports a closed popup as "denied"). Keep
+            // the iframe alive for it: tearing it down on the 120 s deadline
+            // orphans the popup — Cancel/Generate there could reach nobody.
+            clearTimeout(deadline);
+            deadline = setTimeout(onDeadline, 600000);
+            return;
+          }
+          if (data.type !== "result") return;
+          cleanup();
+          if (data.ok && typeof data.intentId === "string") {
+            resolve(data.intentId);
+            return;
+          }
+          beacon("denied");
+          var error = new Error("hf: " + (data.reason || "denied"));
+          error.hfReason = data.reason || "denied";
+          reject(error);
+        }
+
+        window.addEventListener("message", onMessage);
+        // Close on background (scrim) click and on Escape. The scrim sits behind
+        // the card (wrap), so a click on it is a click OUTSIDE the modal. Escape
+        // is captured on the parent; the page also handles Escape when focus is
+        // inside the iframe (see approve-ui).
+        scrim.addEventListener("click", dismiss);
+        document.addEventListener("keydown", onKey, true);
+        document.documentElement.appendChild(scrim);
+        document.documentElement.appendChild(wrap);
+        // Fallback: reveal at the default height if the page never reports its
+        // size, so the modal is never stuck hidden.
+        revealTimer = setTimeout(function () {
+          wrap.style.opacity = "1";
+        }, 500);
+
+        of("/__auth/approval-grant", { method: "POST" })
+          .then(function (r) {
+            return r
+              .json()
+              .catch(function () {
+                return {};
+              })
+              .then(function (b) {
+                return { s: r.status, b: b };
+              });
+          })
+          .then(function (x) {
+            if (!x.b || !x.b.grant) {
+              cleanup();
+              reject(
+                new Error(
+                  x.s === 401 ? "hf: not signed in" : "hf: approval unavailable (" + x.s + ")",
+                ),
+              );
+              return;
+            }
+            grant = x.b.grant;
+            sendRequest();
+          })
+          .catch(function (error) {
+            cleanup();
+            reject(error);
+          });
+
+        function onDeadline() {
+          if (done) return;
+          cleanup();
+          beacon("timeout");
+          reject(new Error("hf: approval timeout"));
+        }
+        var deadline = setTimeout(onDeadline, 120000);
+      });
+      // Release the single-flight lock once this approval settles, so the next
+      // genuine generation can open a fresh modal.
+      var release = function () {
+        openModal = null;
+      };
+      openModal.then(release, release);
+      return openModal;
+    }
+
+    // Observability-only fetch patch: request log for debugging (__hfFetches +
+    // console). No interception, no body inspection, no classification — the
+    // approval flow is driven solely by window.hf.requestGeneration.
+    window.fetch = function (input, init) {
+      try {
+        var url = typeof input === "string" ? input : (input && input.url) || String(input);
+        var method = (init && init.method) || (input && input.method) || "GET";
+        window.__hfFetches.push({ url: url, method: method, ts: Date.now() });
+        console.log("[hf-fetch]", method, url);
+      } catch (e) {}
+      return of.apply(this, arguments);
+    };
+
+    // Public SDK. The app contract (see the builder instructions and
+    // docs/generation-approval): call this on the Generate action with the SDK
+    // WIRE shape of the exact submission (wire.jobSetType + wire.params — the
+    // approval is bound server-side to the hash of {job_set_type, params} of the
+    // actual submit body), thread the resolved intent id to the server as the
+    // confirmation token, and render a cancel quietly. opts.credits is an
+    // optional display-only estimate shown in the modal. The id is a token:
+    // never logged here, and apps must not log it either.
+    window.hf = {
+      requestGeneration: function (model, params, opts) {
+        // Fail fast on a bad job identity, BEFORE any UI. The approve page
+        // (protocol.ts) silently ignores a request whose job_set_type isn't a
+        // non-empty string or whose params don't survive structured clone —
+        // which would leave the modal stuck on "Waiting for the app…" with no
+        // way to reply. A typed rejection shows the app its own bug instead.
+        if (typeof model !== "string" || !model) {
+          return Promise.reject(
+            new TypeError("hf: requestGeneration(model, params) — model must be a non-empty string"),
+          );
+        }
+        if (typeof structuredClone === "function") {
+          try {
+            structuredClone(params);
+          } catch (e) {
+            return Promise.reject(
+              new TypeError("hf: requestGeneration params must be structured-cloneable (plain JSON)"),
+            );
+          }
+        }
+        return approve({ job_set_type: model, params: params }).then(
+          function (id) {
+            console.log("[hf] approved");
+            return id;
+          },
+          // Cancel → AbortError, per the app contract ("render a quiet cancelled
+          // state"). Other failures (not signed in, unavailable, timeout) bubble
+          // as-is — those ARE failures.
+          function (e) {
+            if (e && e.hfReason === "denied") {
+              console.log("[hf] cancelled");
+              throw new DOMException("Generation cancelled", "AbortError");
+            }
+            throw e;
+          },
+        );
+      },
+    };
+  } catch (e) {}
+})();
+</script><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/assets/styles-B6msdh3R.css" data-precedence="default"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600;6..96,700&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" data-precedence="default"/><title>Kit de publication — Studio Kanté</title><meta name="description" content="Présence en ligne pour les restaurants de Casablanca : site, fiche Google, photos et contenu. Installé en dix jours."/><meta property="og:title" content="Studio Kanté"/><meta property="og:description" content="Présence en ligne pour les restaurants de Casablanca : site, fiche Google, photos et contenu. Installé en dix jours."/><meta property="og:type" content="website"/><meta property="og:locale" content="fr_MA"/><meta name="twitter:card" content="summary_large_image"/><meta property="og:image" content="/assets/cover.webp"/><meta name="twitter:image" content="/assets/cover.webp"/><meta name="robots" content="noindex, nofollow"/><link rel="modulepreload" href="/assets/index-C7BK43AZ.js"/><link rel="modulepreload" href="/assets/kit-PSJ_f_h9.js"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="icon" href="/assets/favicon.png"/></head><body class="sk-body"><!--$--><main class="sk-shell"><header class="kit-head"><h1 class="kit-h1">Les neuf premiers posts</h1><p class="kit-intro">Appui long sur une image pour l&#x27;enregistrer. La légende se sélectionne juste en dessous.</p><p class="kit-rythme">Deux publications par jour maximum, une vers 11h30 et une vers 19h. Jamais les neuf d&#x27;un coup.</p></header><article class="kit-post"><div class="kit-meta"><span class="kit-num">01</span><span class="kit-slot">Jour 1 · 11h30</span><span class="kit-kind">Carte</span></div><h2 class="kit-t">Le constat</h2><img class="kit-img" src="/assets/ig/ig-1.jpg" width="1080" height="1080" alt="Salle de restaurant vide au crépuscule, avec la phrase « Votre cuisine est meilleure que ce qu&#x27;on en voit »" loading="lazy"/><p class="kit-cap">Un client vous cherche à midi. Il tape votre nom, il regarde trois secondes, il décide.
+
+Ce qu&#x27;il voit à cet instant décide s&#x27;il pousse votre porte ou celle d&#x27;à côté. Et ce n&#x27;est presque jamais à la hauteur de ce que vous servez.
+
+Je m&#x27;occupe de ça pour les restaurants de Casablanca. Site, fiche Google, photos, publications. Installé en dix jours.
+
+Lien en bio, ou appelez le 07 84 16 10 21.</p><p class="kit-tags">#RestaurantCasablanca #Casablanca #FoodCasa #RestaurantMaroc #MarketingRestaurant #FicheGoogle #PhotoCulinaire #CasablancaFood</p></article><article class="kit-post"><div class="kit-meta"><span class="kit-num">02</span><span class="kit-slot">Jour 1 · 19h</span><span class="kit-kind">Photo</span></div><h2 class="kit-t">La table dressée</h2><img class="kit-img" src="/assets/ig/ig-2.jpg" width="1080" height="1080" alt="Table dressée vue du dessus : tagine, pain, verre de thé à la menthe" loading="lazy"/><p class="kit-cap">La salle avant le service.
+
+C&#x27;est l&#x27;heure que je préfère pour photographier un restaurant. Lumière du jour, tables dressées, personne encore assis. Tout est net, rien n&#x27;est pressé.
+
+Deux heures sur place suffisent pour un mois de contenu.</p><p class="kit-tags">#RestaurantCasablanca #Casablanca #FoodCasa #RestaurantMaroc #MarketingRestaurant #FicheGoogle #PhotoCulinaire #CasablancaFood</p></article><article class="kit-post"><div class="kit-meta"><span class="kit-num">03</span><span class="kit-slot">Jour 2 · 11h30</span><span class="kit-kind">Photo</span></div><h2 class="kit-t">Les mains du chef</h2><img class="kit-img" src="/assets/ig/ig-3.jpg" width="1080" height="1080" alt="Mains d&#x27;un cuisinier posant des herbes fraîches sur une assiette" loading="lazy"/><p class="kit-cap">Ce que vos clients ne voient jamais.
+
+Le geste qui termine le plat. La sauce versée, les herbes posées, l&#x27;assiette essuyée. C&#x27;est là qu&#x27;est votre différence, et c&#x27;est exactement ce qui ne sort jamais de votre cuisine.
+
+On n&#x27;a pas besoin de montrer un visage pour raconter une maison.</p><p class="kit-tags">#RestaurantCasablanca #Casablanca #FoodCasa #RestaurantMaroc #MarketingRestaurant #FicheGoogle #PhotoCulinaire #CasablancaFood</p></article><article class="kit-post"><div class="kit-meta"><span class="kit-num">04</span><span class="kit-slot">Jour 2 · 19h</span><span class="kit-kind">Photo</span></div><h2 class="kit-t">Le marché</h2><img class="kit-img" src="/assets/ig/ig-4.jpg" width="1080" height="1080" alt="Cagettes de légumes et cônes d&#x27;épices sur un étal de marché au petit matin" loading="lazy"/><p class="kit-cap">Trois questions auxquelles votre fiche Google ne répond pas :
+
+Vous ouvrez à quelle heure aujourd&#x27;hui ?
+Ça coûte combien, un déjeuner ?
+À quoi ressemble la salle ?
+
+Si les trois réponses manquent, le client va voir ailleurs. C&#x27;est trente minutes de travail à corriger, et c&#x27;est la chose la plus rentable que vous ferez ce mois-ci.</p><p class="kit-tags">#RestaurantCasablanca #Casablanca #FoodCasa #RestaurantMaroc #MarketingRestaurant #FicheGoogle #PhotoCulinaire #CasablancaFood</p></article><article class="kit-post"><div class="kit-meta"><span class="kit-num">05</span><span class="kit-slot">Jour 3 · 11h30</span><span class="kit-kind">Carte</span></div><h2 class="kit-t">Le déroulé</h2><img class="kit-img" src="/assets/ig/ig-5.jpg" width="1080" height="1080" alt="Plan de travail en acier sombre, avec la phrase « 10 jours. 2 validations. 0 souci. »" loading="lazy"/><p class="kit-cap">Comment ça se passe, concrètement :
+
+Jour 1, on se voit chez vous, trente minutes. Jour 2, je photographie entre deux services. Jour 3, vous validez les textes. Jours 4 à 8, je construis. Jour 10, on publie ensemble.
+
+Vous validez deux fois. Le reste, c&#x27;est mon problème.
+
+Formules et tarifs : lien en bio.</p><p class="kit-tags">#RestaurantCasablanca #Casablanca #FoodCasa #RestaurantMaroc #MarketingRestaurant #FicheGoogle #PhotoCulinaire #CasablancaFood</p></article><article class="kit-post"><div class="kit-meta"><span class="kit-num">06</span><span class="kit-slot">Jour 3 · 19h</span><span class="kit-kind">Photo</span></div><h2 class="kit-t">Le plat signature</h2><img class="kit-img" src="/assets/ig/ig-6.jpg" width="1080" height="1080" alt="Tagine d&#x27;agneau au moment où le couvercle se lève, vapeur visible" loading="lazy"/><p class="kit-cap">Le plat signature, photographié comme il le mérite.
+
+Vue du dessus, lumière naturelle, rien dans le cadre qui ne serve le plat. Pas de flash, pas de nappe froissée, pas de salière qui traîne.
+
+Vous avez déjà le plat. Il manque juste la photo.</p><p class="kit-tags">#RestaurantCasablanca #Casablanca #FoodCasa #RestaurantMaroc #MarketingRestaurant #FicheGoogle #PhotoCulinaire #CasablancaFood</p></article><article class="kit-post"><div class="kit-meta"><span class="kit-num">07</span><span class="kit-slot">Jour 4 · 11h30</span><span class="kit-kind">Photo</span></div><h2 class="kit-t">L&#x27;objection</h2><img class="kit-img" src="/assets/ig/ig-7.jpg" width="1080" height="1080" alt="Main tenant un téléphone au-dessus d&#x27;une table de restaurant" loading="lazy"/><p class="kit-cap">« On a quelqu&#x27;un qui s&#x27;en occupe. »
+
+Neuf fois sur dix, ce quelqu&#x27;un est un neveu, une serveuse, ou vous à 23h après le service. Et le dernier post date de trois semaines.
+
+Ce n&#x27;est pas un reproche : vous avez un restaurant à faire tourner. C&#x27;est précisément pour ça que ce travail se délègue.</p><p class="kit-tags">#RestaurantCasablanca #Casablanca #FoodCasa #RestaurantMaroc #MarketingRestaurant #FicheGoogle #PhotoCulinaire #CasablancaFood</p></article><article class="kit-post"><div class="kit-meta"><span class="kit-num">08</span><span class="kit-slot">Jour 4 · 19h</span><span class="kit-kind">Photo</span></div><h2 class="kit-t">Le détail</h2><img class="kit-img" src="/assets/ig/ig-8.jpg" width="1080" height="1080" alt="Thé à la menthe versé en filet dans un verre décoré, vapeur visible" loading="lazy"/><p class="kit-cap">Le détail qui fait commander.
+
+La vapeur, le filet qui tombe, le verre qui se remplit. Personne ne photographie ça, et c&#x27;est pourtant ce qui arrête le pouce.
+
+Un mois de publications, c&#x27;est douze détails comme celui-là.</p><p class="kit-tags">#RestaurantCasablanca #Casablanca #FoodCasa #RestaurantMaroc #MarketingRestaurant #FicheGoogle #PhotoCulinaire #CasablancaFood</p></article><article class="kit-post"><div class="kit-meta"><span class="kit-num">09</span><span class="kit-slot">Jour 5 · 11h30</span><span class="kit-kind">Carte</span></div><h2 class="kit-t">L&#x27;invitation</h2><img class="kit-img" src="/assets/ig/ig-9.jpg" width="1080" height="1080" alt="Devanture de restaurant éclairée vue de la rue, avec la phrase « Le premier rendez-vous ne coûte rien »" loading="lazy"/><p class="kit-cap">Je passe chez vous. Je cherche votre restaurant sur mon téléphone, devant vous, et je vous montre ce qu&#x27;un client voit.
+
+Si vous n&#x27;avez besoin de rien, je vous le dirai. Si quelque chose cloche, vous le verrez par vous-même.
+
+Appelez le 07 84 16 10 21, ou écrivez-moi ici.</p><p class="kit-tags">#RestaurantCasablanca #Casablanca #FoodCasa #RestaurantMaroc #MarketingRestaurant #FicheGoogle #PhotoCulinaire #CasablancaFood</p></article><footer class="kit-foot">Studio Kanté · Casablanca — 07 84 16 10 21</footer></main><script>(function(a,f){let l;try{l=JSON.parse(sessionStorage.getItem(a)||"{}")}catch{return}const n=l?.[f||history.state?.__TSR_key];let c=!1;for(const t in n){const e=n[t],o=e?.scrollX,s=e?.scrollY;if(Number.isFinite(o)&&Number.isFinite(s)){if(t==="window")scrollTo(o,s),c=!0;else if(t)try{const r=document.querySelector(t);r&&(r.scrollLeft=o,r.scrollTop=s)}catch{}}}if(c)return;const i=location.hash.slice(1);if(i){const t=history.state?.__hashScrollIntoViewOptions??!0;if(t){const e=document.getElementById(i);e&&e.scrollIntoView(t)}return}scrollTo(0,0)})("tsr-scroll-restoration-v1_3");document.currentScript.remove()</script><!--/$--><script class="$tsr" id="$tsr-stream-barrier">(self.$R=self.$R||{})["tsr"]=[];self.$_TSR={h(){this.hydrated=!0,this.c()},e(){this.streamEnded=!0,this.c()},c(){this.hydrated&&this.streamEnded&&(delete self.$_TSR,delete self.$R.tsr)},p(e){this.initialized?e():this.buffer.push(e)},buffer:[]};$_TSR.router=($R=>$R[0]={manifest:$R[1]={routes:$R[2]={__root__:$R[3]={preloads:$R[4]=["/assets/index-C7BK43AZ.js"],scripts:$R[5]=[$R[6]={attrs:$R[7]={type:"module",async:!0,src:"/assets/index-C7BK43AZ.js"}}]},"/kit":$R[8]={preloads:$R[9]=["/assets/kit-PSJ_f_h9.js"]}}},matches:$R[10]=[$R[11]={i:"__root__ ",u:1791066902375,s:"success",ssr:!0},$R[12]={i:" kit kit",u:1791066902375,s:"success",ssr:!0}],lastMatchId:" kit kit"})($R["tsr"]);$_TSR.e();document.currentScript.remove()</script><script type="module" async="" src="/assets/index-C7BK43AZ.js"></script></body></html>
