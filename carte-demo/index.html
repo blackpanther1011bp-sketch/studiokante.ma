@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dar Sabra — Carte</title>
+<meta name="description" content="Carte numérique de démonstration réalisée par Studio Kanté. Consulter la carte, composer sa commande, l'envoyer sur WhatsApp.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#14110E">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bone:#F5F1E8; --bone-2:#EDE7DA; --card:#FFFDF8;
+  --ink:#14110E; --ink-2:#5C5547; --line:#DCD4C3;
+  --accent:#9F3D22; --accent-soft:#9f3d2214;
+  --green:#4C6B3F;
+  --display:"Bodoni Moda",Georgia,serif;
+  --sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --arab:"Cairo","Hanken Grotesk",sans-serif;
+  --gut:clamp(16px,4.5vw,32px);
+  --dock:0px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  margin:0;background:var(--bone);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  padding-bottom:calc(var(--dock) + env(safe-area-inset-bottom));
+}
+body[dir="rtl"]{font-family:var(--arab)}
+body[dir="rtl"] .disp{font-family:var(--arab)}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+.wrap{max-width:720px;margin:0 auto;padding-inline:var(--gut)}
+.disp{font-family:var(--display);font-weight:400;letter-spacing:-.01em}
+
+/* ---- bandeau démonstration ---- */
+.demo-bar{
+  background:var(--ink);color:#EFEAE0;font-size:12.5px;letter-spacing:.02em;
+  padding:9px var(--gut);display:flex;gap:10px;align-items:center;justify-content:center;
+  text-align:center;flex-wrap:wrap;
+}
+.demo-bar b{font-weight:600;color:#fff}
+.demo-bar a{color:#C9BFAB;text-decoration:underline;text-underline-offset:3px}
+
+/* ---- en-tête ---- */
+.top{
+  position:sticky;top:0;z-index:40;background:rgba(245,241,232,.94);
+  backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid var(--line);
+}
+.top-in{display:flex;align-items:center;gap:14px;min-height:58px}
+.brand{display:flex;flex-direction:column;line-height:1.1;margin-inline-end:auto;min-width:0}
+.brand .n{font-family:var(--display);font-size:21px}
+.brand .s{font-size:10.5px;letter-spacing:.1em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase;color:var(--ink-2)}
+body[dir="rtl"] .brand .s{letter-spacing:0;font-size:12px}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card);flex:none}
+.lang button{padding:6px 13px;font-size:13px;font-weight:600;color:var(--ink-2)}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bone)}
+
+/* ---- hero ---- */
+.hero{position:relative;background:var(--ink)}
+.hero img{width:100%;height:clamp(190px,42vw,300px);object-fit:cover;opacity:.74}
+.hero-txt{position:absolute;inset:auto 0 0 0;padding:var(--gut);color:#fff;
+  background:linear-gradient(to top,rgba(10,8,6,.82),rgba(10,8,6,0))}
+.hero-txt h1{font-family:var(--display);font-weight:400;margin:0;font-size:clamp(30px,8vw,46px);line-height:1.05}
+.hero-txt p{margin:7px 0 0;font-size:13.5px;letter-spacing:.1em;text-transform:uppercase;color:#D8CFBD}
+body[dir="rtl"] .hero-txt p{letter-spacing:0;text-transform:none;font-size:15px}
+
+/* ---- navigation des catégories ---- */
+.cats{position:sticky;top:var(--top-h,58px);z-index:30;background:var(--bone);border-bottom:1px solid var(--line)}
+.cats-in{display:flex;gap:8px;overflow-x:auto;padding:11px var(--gut);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.cats-in::-webkit-scrollbar{display:none}
+.cats a{
+  flex:none;padding:7px 15px;border:1px solid var(--line);border-radius:999px;
+  background:var(--card);font-size:13.5px;font-weight:600;text-decoration:none;color:var(--ink-2);
+  white-space:nowrap;transition:background .15s,color .15s,border-color .15s;
+}
+.cats a.on{background:var(--ink);border-color:var(--ink);color:var(--bone)}
+
+/* ---- sections ---- */
+section{padding-top:30px;scroll-margin-top:calc(var(--top-h,58px) + 54px)}
+.sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
+.sec-h h2{font-family:var(--display);font-weight:400;font-size:clamp(23px,5.5vw,30px);margin:0}
+.sec-h .rule{flex:1;height:1px;background:var(--line)}
+.sec-h .cnt{font-size:12px;color:var(--ink-2);letter-spacing:.08em}
+
+/* ---- plats ---- */
+.item{
+  display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line);
+}
+.item:last-child{border-bottom:0}
+.item .ph{flex:none;width:78px;height:78px;border-radius:10px;object-fit:cover;background:var(--bone-2)}
+.item .bd{flex:1;min-width:0}
+.item .nm{display:flex;gap:10px;align-items:baseline;justify-content:space-between}
+.item .nm h3{margin:0;font-size:16.5px;font-weight:600;line-height:1.3}
+.item .pr{flex:none;font-variant-numeric:tabular-nums;font-weight:600;font-size:15.5px;white-space:nowrap}
+.item .pr span{font-size:11.5px;font-weight:500;color:var(--ink-2);margin-inline-start:2px}
+.item .ds{margin:4px 0 0;font-size:14px;color:var(--ink-2);line-height:1.45}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.tag{font-size:11px;font-weight:600;letter-spacing:.04em;padding:3px 8px;border-radius:999px;background:var(--bone-2);color:var(--ink-2)}
+.tag.veg{background:#4c6b3f1a;color:var(--green)}
+.tag.hot{background:var(--accent-soft);color:var(--accent)}
+
+.add{
+  flex:none;width:34px;height:34px;border-radius:999px;border:1.5px solid var(--line);
+  background:var(--card);display:grid;place-items:center;align-self:center;
+  font-size:19px;line-height:1;color:var(--ink);transition:transform .12s,background .15s,border-color .15s;
+}
+.add:hover{border-color:var(--ink)}
+.add:active{transform:scale(.9)}
+.qty{flex:none;display:flex;align-items:center;gap:9px;align-self:center}
+.qty button{width:30px;height:30px;border-radius:999px;background:var(--ink);color:var(--bone);display:grid;place-items:center;font-size:17px;line-height:1}
+.qty button:active{transform:scale(.9)}
+.qty .v{min-width:16px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.hidden{display:none!important}
+
+/* ---- formule ---- */
+.deal{
+  background:var(--ink);color:#F2EDE3;border-radius:14px;padding:20px;margin-top:6px;
+  display:flex;gap:18px;align-items:center;flex-wrap:wrap;
+}
+.deal .l{flex:1;min-width:190px}
+.deal h3{font-family:var(--display);font-weight:400;font-size:24px;margin:0 0 5px}
+.deal p{margin:0;font-size:14px;color:#C2B9A7;line-height:1.5}
+.deal .p{font-family:var(--display);font-size:34px;white-space:nowrap}
+.deal .p span{font-family:var(--sans);font-size:13px;color:#C2B9A7;margin-inline-start:3px}
+
+/* ---- avis ---- */
+.avis{margin-top:38px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.avis h2{font-family:var(--display);font-weight:400;font-size:24px;margin:0 0 6px}
+.avis > p{margin:0 0 16px;font-size:14.5px;color:var(--ink-2)}
+.avis-btns{display:grid;gap:10px}
+@media(min-width:520px){.avis-btns{grid-template-columns:1fr 1fr}}
+.bt{
+  display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;
+  padding:13px 16px;border-radius:10px;font-weight:600;font-size:14.5px;text-decoration:none;
+  border:1.5px solid var(--ink);transition:opacity .15s;
+}
+.bt:hover{opacity:.85}
+.bt.fill{background:var(--ink);color:var(--bone)}
+.bt.ghost{background:transparent;color:var(--ink)}
+.note{margin:12px 0 0;font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.note strong{color:var(--ink)}
+
+/* ---- infos ---- */
+.infos{margin-top:34px;display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+@media(min-width:560px){.infos{grid-template-columns:1fr 1fr}}
+.inf{background:var(--card);padding:16px 18px}
+.inf .k{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
+body[dir="rtl"] .inf .k{letter-spacing:0;text-transform:none;font-size:12.5px}
+.inf .v{font-size:15px;font-weight:600}
+.inf a{text-decoration:none;border-bottom:1px solid var(--line)}
+
+/* ---- allergènes ---- */
+.legend{margin-top:26px;font-size:12.5px;color:var(--ink-2);line-height:1.6;border-top:1px solid var(--line);padding-top:16px}
+
+/* ---- signature ---- */
+.sig{margin-top:30px;padding:26px 0 40px;border-top:1px solid var(--line);text-align:center}
+.sig .mk{font-family:var(--display);font-size:19px}
+.sig p{margin:5px 0 0;font-size:13px;color:var(--ink-2)}
+.sig a{font-weight:600}
+
+/* ---- panier ---- */
+.dock{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;padding:12px var(--gut) calc(12px + env(safe-area-inset-bottom));
+  background:rgba(20,17,14,.97);backdrop-filter:blur(8px);
+  transform:translateY(130%);transition:transform .22s cubic-bezier(.3,.8,.4,1);
+}
+.dock.up{transform:translateY(0)}
+.dock-in{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:14px}
+.dock .sum{color:#C2B9A7;font-size:13px;line-height:1.3;flex:1;min-width:0}
+.dock .sum b{display:block;color:#fff;font-size:16px;font-weight:600}
+.dock .go{
+  flex:none;background:#25D366;color:#06301A;font-weight:700;font-size:15px;
+  padding:13px 20px;border-radius:10px;display:flex;align-items:center;gap:8px;text-decoration:none;
+}
+.dock .go:active{transform:scale(.97)}
+.dock .go svg{width:19px;height:19px;flex:none}
+
+/* ---- fenêtre de commande ---- */
+.veil{position:fixed;inset:0;z-index:70;background:rgba(20,17,14,.55);opacity:0;pointer-events:none;transition:opacity .2s}
+.veil.on{opacity:1;pointer-events:auto}
+.sheet{
+  position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--bone);
+  border-radius:18px 18px 0 0;padding:22px var(--gut) calc(22px + env(safe-area-inset-bottom));
+  transform:translateY(100%);transition:transform .26s cubic-bezier(.3,.8,.4,1);
+  max-height:88vh;overflow-y:auto;
+}
+.sheet.on{transform:translateY(0)}
+.sheet-in{max-width:720px;margin:0 auto}
+.sheet h2{font-family:var(--display);font-weight:400;font-size:25px;margin:0 0 14px}
+.lines{border-top:1px solid var(--line);margin-bottom:14px}
+.line{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.line .q{font-weight:700;min-width:26px;font-variant-numeric:tabular-nums}
+.line .n{flex:1;min-width:0}
+.line .p{font-variant-numeric:tabular-nums;font-weight:600}
+.tot{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0 18px;font-size:17px}
+.tot b{font-family:var(--display);font-size:27px}
+.fld{margin-bottom:14px}
+.fld label{display:block;font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-2);margin-bottom:6px}
+body[dir="rtl"] .fld label{letter-spacing:0;text-transform:none;font-size:13.5px}
+.seg{display:flex;gap:8px}
+.seg button{
+  flex:1;padding:11px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);
+  font-weight:600;font-size:14.5px;color:var(--ink-2);
+}
+.seg button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bone)}
+.fld input{
+  width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;
+  background:var(--card);font-size:16px;color:var(--ink);
+}
+.fld input:focus{outline:2px solid var(--ink);outline-offset:1px;border-color:var(--ink)}
+.sheet .go{
+  display:flex;align-items:center;justify-content:center;gap:9px;width:100%;
+  background:#25D366;color:#06301A;font-weight:700;font-size:16px;padding:15px;border-radius:11px;
+  text-decoration:none;margin-top:4px;
+}
+.sheet .go svg{width:20px;height:20px}
+.sheet .cancel{display:block;width:100%;text-align:center;padding:13px;color:var(--ink-2);font-size:14.5px;font-weight:600}
+.toast{
+  position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translate(-50%,16px);
+  z-index:90;background:var(--ink);color:#F2EDE3;padding:13px 18px;border-radius:11px;font-size:14px;
+  max-width:min(440px,calc(100vw - 32px));line-height:1.45;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<div class="demo-bar">
+  <span data-t="demo"><b>Démonstration</b> — restaurant fictif, carte réelle en état de marche.</span>
+  <a href="/" data-t="demoLink">Studio Kanté</a>
+</div>
+
+<header class="top">
+  <div class="wrap top-in">
+    <div class="brand">
+      <span class="n disp" data-t="name">Dar Sabra</span>
+      <span class="s" data-t="tagline">Casablanca · Cuisine de marché</span>
+    </div>
+    <div class="lang" role="group" aria-label="Langue">
+      <button type="button" id="bFr" aria-pressed="true">FR</button>
+      <button type="button" id="bAr" aria-pressed="false">عربي</button>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <img src="/assets/salle.webp" alt="" width="1200" height="800">
+  <div class="hero-txt wrap">
+    <h1 data-t="name">Dar Sabra</h1>
+    <p data-t="heroSub">Ouvert aujourd'hui · 12h – 23h</p>
+  </div>
+</div>
+
+<nav class="cats" aria-label="Catégories"><div class="cats-in wrap" id="cats"></div></nav>
+
+<main class="wrap" id="menu"></main>
+
+<div class="wrap">
+
+  <section class="avis" id="avis">
+    <h2 data-t="avisT">Votre avis compte</h2>
+    <p data-t="avisP">Deux minutes, et ça change beaucoup pour une maison comme la nôtre.</p>
+    <div class="avis-btns">
+      <a class="bt fill" href="#" id="gBtn" data-t="avisGoogle">Laisser un avis Google</a>
+      <a class="bt ghost" id="pBtn" href="#" data-t="avisPrive">Un souci ? Prévenir le responsable</a>
+    </div>
+    <p class="note" data-t="avisNote"><strong>Les deux boutons sont proposés à tout le monde, sans tri.</strong> Google interdit de ne solliciter que les clients satisfaits.</p>
+  </section>
+
+  <div class="infos">
+    <div class="inf"><div class="k" data-t="iHoraires">Horaires</div><div class="v" data-t="vHoraires">Tous les jours, 12h – 23h</div></div>
+    <div class="inf"><div class="k" data-t="iAdresse">Adresse</div><div class="v" data-t="vAdresse">12, rue des Oudayas, Anfa</div></div>
+    <div class="inf"><div class="k" data-t="iTel">Téléphone</div><div class="v"><a href="tel:+212784161021">07 84 16 10 21</a></div></div>
+    <div class="inf"><div class="k" data-t="iPaiement">Paiement</div><div class="v" data-t="vPaiement">Espèces et carte bancaire</div></div>
+  </div>
+
+  <p class="legend" data-t="legend">Nos plats sont préparés sur place à partir de produits frais. Pour toute allergie ou intolérance, prévenez-nous avant de commander : nous adaptons ce qui peut l'être. Prix en dirhams, service compris.</p>
+
+  <div class="sig">
+    <div class="mk">Studio Kanté</div>
+    <p data-t="sig">Carte numérique, site et photographie pour les restaurants de Casablanca.<br><a href="/">studiokante.ma</a></p>
+  </div>
+</div>
+
+<div class="dock" id="dock">
+  <div class="dock-in">
+    <div class="sum"><b id="dTot">0 DH</b><span id="dCnt">0 article</span></div>
+    <button class="go" type="button" id="dGo">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm5.8 14.17c-.25.69-1.45 1.32-2 1.4-.51.08-1.16.11-1.87-.12-.43-.14-.99-.32-1.7-.63-2.99-1.29-4.94-4.3-5.09-4.5-.15-.2-1.22-1.62-1.22-3.09 0-1.47.77-2.19 1.04-2.49.27-.3.59-.37.79-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.84 2.07.91 2.22.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.45.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.02 1.12.99 2.06 1.3 2.36 1.45.3.15.47.12.64-.07.17-.2.74-.87.94-1.16.2-.3.4-.25.67-.15.27.1 1.72.81 2.01.96.3.15.5.22.57.35.07.12.07.72-.18 1.42z"/></svg>
+      <span data-t="commander">Commander</span>
+    </button>
+  </div>
+</div>
+
+<div class="veil" id="veil"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shT">
+  <div class="sheet-in">
+    <h2 id="shT" data-t="votreCommande">Votre commande</h2>
+    <div class="lines" id="lines"></div>
+    <div class="tot"><span data-t="total">Total</span><b id="sTot">0 DH</b></div>
+
+    <div class="fld">
+      <label data-t="ouManger">Où mangez-vous ?</label>
+      <div class="seg" role="group">
+        <button type="button" id="mTable" aria-pressed="true" data-t="surPlace">Sur place</button>
+        <button type="button" id="mEmp" aria-pressed="false" data-t="aEmporter">À emporter</button>
+      </div>
+    </div>
+
+    <div class="fld" id="tblFld">
+      <label for="tbl" data-t="numTable">Numéro de table</label>
+      <input id="tbl" type="text" inputmode="numeric" autocomplete="off" placeholder="7">
+    </div>
+
+    <a class="go" id="send" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm5.8 14.17c-.25.69-1.45 1.32-2 1.4-.51.08-1.16.11-1.87-.12-.43-.14-.99-.32-1.7-.63-2.99-1.29-4.94-4.3-5.09-4.5-.15-.2-1.22-1.62-1.22-3.09 0-1.47.77-2.19 1.04-2.49.27-.3.59-.37.79-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.84 2.07.91 2.22.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.45.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.02 1.12.99 2.06 1.3 2.36 1.45.3.15.47.12.64-.07.17-.2.74-.87.94-1.16.2-.3.4-.25.67-.15.27.1 1.72.81 2.01.96.3.15.5.22.57.35.07.12.07.72-.18 1.42z"/></svg>
+      <span data-t="envoyerWa">Envoyer sur WhatsApp</span>
+    </a>
+    <button class="cancel" type="button" id="close" data-t="continuer">Continuer la carte</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+var WA = "212784161021";
+
+var UI = {
+  fr:{
+    demo:"<b>Démonstration</b> — restaurant fictif, carte réelle en état de marche.",
+    demoLink:"Studio Kanté",
+    name:"Dar Sabra", tagline:"Casablanca · Cuisine de marché",
+    heroSub:"Ouvert aujourd'hui · 12h – 23h",
+    avisT:"Votre avis compte",
+    avisP:"Deux minutes, et ça change beaucoup pour une maison comme la nôtre.",
+    avisGoogle:"Laisser un avis Google",
+    avisPrive:"Un souci ? Prévenir le responsable",
+    avisNote:"<strong>Les deux boutons sont proposés à tout le monde, sans tri.</strong> Google interdit de ne solliciter que les clients satisfaits.",
+    iHoraires:"Horaires", vHoraires:"Tous les jours, 12h – 23h",
+    iAdresse:"Adresse", vAdresse:"12, rue des Oudayas, Anfa",
+    iTel:"Téléphone", iPaiement:"Paiement", vPaiement:"Espèces et carte bancaire",
+    legend:"Nos plats sont préparés sur place à partir de produits frais. Pour toute allergie ou intolérance, prévenez-nous avant de commander : nous adaptons ce qui peut l'être. Prix en dirhams, service compris.",
+    sig:"Carte numérique, site et photographie pour les restaurants de Casablanca.<br><a href=\"/\">studiokante.ma</a>",
+    commander:"Commander", votreCommande:"Votre commande", total:"Total",
+    ouManger:"Où mangez-vous ?", surPlace:"Sur place", aEmporter:"À emporter",
+    numTable:"Numéro de table", envoyerWa:"Envoyer sur WhatsApp", continuer:"Continuer la carte",
+    article:"article", articles:"articles",
+    gNote:"Sur la carte d'un vrai restaurant, ce bouton ouvre directement sa fiche Google, à l'endroit où on écrit son avis.",
+    added:"Ajouté à votre commande."
+  },
+  ar:{
+    demo:"<b>عرض توضيحي</b> — مطعم خيالي، وقائمة تشتغل فعلاً.",
+    demoLink:"ستوديو كانتي",
+    name:"دار صبرة", tagline:"الدار البيضاء · مطبخ السوق",
+    heroSub:"مفتوح اليوم · من 12 إلى 23",
+    avisT:"رأيك يهمّنا",
+    avisP:"دقيقتان فقط، وتعني الكثير لدار مثل دارنا.",
+    avisGoogle:"اترك رأيك على غوغل",
+    avisPrive:"هل من مشكل؟ أخبر المسؤول",
+    avisNote:"<strong>الزرّان متاحان للجميع، دون انتقاء.</strong> غوغل يمنع مراسلة الزبناء الراضين وحدهم.",
+    iHoraires:"أوقات العمل", vHoraires:"كل يوم، من 12 إلى 23",
+    iAdresse:"العنوان", vAdresse:"12، زنقة الوداية، أنفا",
+    iTel:"الهاتف", iPaiement:"الأداء", vPaiement:"نقداً أو بالبطاقة البنكية",
+    legend:"أطباقنا تُحضَّر في عين المكان من مواد طازجة. إذا كان لديك أي حساسية، أخبرنا قبل الطلب وسنكيّف ما يمكن تكييفه. الأثمنة بالدرهم، الخدمة مشمولة.",
+    sig:"قوائم رقمية ومواقع وتصوير لمطاعم الدار البيضاء.<br><a href=\"/\">studiokante.ma</a>",
+    commander:"اطلب", votreCommande:"طلبك", total:"المجموع",
+    ouManger:"أين ستأكل؟", surPlace:"في المطعم", aEmporter:"للأخذ",
+    numTable:"رقم الطاولة", envoyerWa:"أرسل عبر واتساب", continuer:"تابع القائمة",
+    article:"طبق", articles:"أطباق",
+    gNote:"في قائمة مطعم حقيقي، يفتح هذا الزرّ بطاقته على غوغل مباشرة، في المكان الذي يُكتب فيه الرأي.",
+    added:"أُضيف إلى طلبك."
+  }
+};
+
+var DATA = [
+  { id:"formule", fr:"Formule du midi", ar:"صيغة الغداء", deal:true,
+    fr_t:"Entrée, plat et thé à la menthe", ar_t:"مقبّلات، طبق رئيسي وأتاي بالنعناع",
+    fr_d:"Servie du lundi au vendredi, de 12h à 15h. Le plat change chaque jour selon le marché.",
+    ar_d:"تُقدَّم من الاثنين إلى الجمعة، من 12 إلى 15. الطبق يتغيّر يومياً حسب السوق.",
+    price:95
+  },
+  { id:"entrees", fr:"Entrées", ar:"المقبّلات", items:[
+    { fr:"Harira", ar:"الحريرة", p:35,
+      fd:"Tomate, lentilles, pois chiches, coriandre. Comme à la maison, servie très chaude.",
+      ad:"طماطم، عدس، حمّص وقزبر. كما في البيت، تُقدَّم ساخنة جداً.", tags:["veg"] },
+    { fr:"Briouates au fromage", ar:"بريوات بالجبن", p:45,
+      fd:"Trois pièces croustillantes, fromage frais et menthe.",
+      ad:"ثلاث قطع مقرمشة، جبن طري ونعناع.", tags:["veg"] },
+    { fr:"Zaalouk et pain maison", ar:"زعلوك مع الخبز البلدي", p:40, img:"/assets/marche.webp",
+      fd:"Aubergines fondues à l'huile d'olive, ail et cumin.",
+      ad:"باذنجان مطبوخ بزيت الزيتون، ثوم وكمّون.", tags:["veg"] },
+    { fr:"Salade d'oranges à la cannelle", ar:"سلطة البرتقال بالقرفة", p:35,
+      fd:"Oranges de Berkane, fleur d'oranger, cannelle.",
+      ad:"برتقال بركان، ماء الزهر والقرفة.", tags:["veg"] }
+  ]},
+  { id:"plats", fr:"Plats", ar:"الأطباق الرئيسية", items:[
+    { fr:"Tajine d'agneau aux pruneaux", ar:"طاجين اللحم بالبرقوق", p:110, img:"/assets/ig/ig-6.jpg",
+      fd:"Épaule confite trois heures, pruneaux, amandes grillées, sésame.",
+      ad:"كتف مطهوّ ثلاث ساعات، برقوق، لوز محمّص وجنجلان." },
+    { fr:"Poulet mqualli au citron confit", ar:"دجاج مقلّي بالحامض المصيَّر", p:95, img:"/assets/cuisine.webp",
+      fd:"Poulet fermier, olives violettes, safran et gingembre.",
+      ad:"دجاج بلدي، زيتون، زعفران وسكنجبير." },
+    { fr:"Couscous du vendredi", ar:"كسكس الجمعة", p:120, img:"/assets/ig/ig-2.jpg",
+      fd:"Sept légumes, semoule roulée à la main, bouillon léger. Le vendredi uniquement.",
+      ad:"سبعة خضار، كسكس مفتول باليد ومرق خفيف. يوم الجمعة فقط.", tags:["veg"] },
+    { fr:"Dorade grillée à la chermoula", ar:"الدوراد المشوي بالشرمولة", p:140,
+      fd:"Pêche du jour de Casablanca, chermoula, citron, riz ou frites maison.",
+      ad:"صيد اليوم من الدار البيضاء، شرمولة، حامض، مع أرز أو بطاطس بيتية." },
+    { fr:"Kefta aux œufs", ar:"كفتة بالبيض", p:85,
+      fd:"Boulettes de bœuf au cumin, sauce tomate relevée, deux œufs.",
+      ad:"كرات لحم البقر بالكمّون، مرق طماطم حار وبيضتان.", tags:["hot"] }
+  ]},
+  { id:"desserts", fr:"Desserts", ar:"الحلويات", items:[
+    { fr:"Pastilla au lait", ar:"بسطيلة بالحليب", p:45,
+      fd:"Feuilles croustillantes, crème à la fleur d'oranger, amandes.",
+      ad:"أوراق مقرمشة، كريمة بماء الزهر ولوز.", tags:["veg"] },
+    { fr:"Orange à la cannelle", ar:"برتقال بالقرفة", p:30,
+      fd:"Le dessert le plus simple de la maison, et le plus demandé.",
+      ad:"أبسط حلوى في الدار، وأكثرها طلباً.", tags:["veg"] },
+    { fr:"Sellou", ar:"السلو", p:35,
+      fd:"Amandes, sésame, farine grillée, miel. Servi avec un verre de lait.",
+      ad:"لوز، جنجلان، دقيق محمّص وعسل. يُقدَّم مع كأس حليب.", tags:["veg"] }
+  ]},
+  { id:"boissons", fr:"Boissons", ar:"المشروبات", items:[
+    { fr:"Thé à la menthe", ar:"أتاي بالنعناع", p:20, img:"/assets/the-jour.jpg",
+      fd:"Préparé à la commande, servi à la théière.",
+      ad:"يُحضَّر عند الطلب، ويُقدَّم في البرّاد.", tags:["veg"] },
+    { fr:"Jus d'avocat", ar:"عصير الأفوكادو", p:30,
+      fd:"Avocat, lait, amandes, un trait de miel.",
+      ad:"أفوكادو، حليب، لوز وقليل من العسل.", tags:["veg"] },
+    { fr:"Café nous-nous", ar:"قهوة نص نص", p:15,
+      fd:"Moitié café, moitié lait, dans un verre.",
+      ad:"نصف قهوة ونصف حليب، في كأس.", tags:["veg"] },
+    { fr:"Eau minérale 75 cl", ar:"ماء معدني 75 سل", p:10,
+      fd:"Plate ou gazeuse.", ad:"عادي أو غازي.", tags:["veg"] }
+  ]}
+];
+
+var TAGS = { veg:{fr:"Végétarien",ar:"نباتي"}, hot:{fr:"Relevé",ar:"حار"} };
+
+var lang = "fr";
+var cart = {};
+var mode = "table";
+
+var $ = function(s){ return document.querySelector(s); };
+var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); };
+
+function build(){
+  var cats = $("#cats"), menu = $("#menu");
+  cats.innerHTML = ""; menu.innerHTML = "";
+  DATA.forEach(function(sec){
+    var a = document.createElement("a");
+    a.href = "#" + sec.id; a.textContent = sec[lang]; a.dataset.for = sec.id;
+    cats.appendChild(a);
+
+    var s = document.createElement("section");
+    s.id = sec.id;
+    var head = '<div class="sec-h"><h2 class="disp">' + esc(sec[lang]) + '</h2><span class="rule"></span>' +
+      (sec.items ? '<span class="cnt">' + sec.items.length + '</span>' : '') + '</div>';
+
+    if (sec.deal){
+      s.innerHTML = head +
+        '<div class="deal"><div class="l"><h3 class="disp">' + esc(sec[lang === "fr" ? "fr_t" : "ar_t"]) + '</h3>' +
+        '<p>' + esc(sec[lang === "fr" ? "fr_d" : "ar_d"]) + '</p></div>' +
+        '<div class="p disp">' + sec.price + '<span>DH</span></div></div>';
+      menu.appendChild(s); return;
+    }
+
+    var rows = sec.items.map(function(it, i){
+      var key = sec.id + "-" + i;
+      var n = cart[key] ? cart[key].n : 0;
+      var tags = (it.tags || []).map(function(t){
+        return '<span class="tag ' + t + '">' + esc(TAGS[t][lang]) + '</span>'; }).join("");
+      return '<div class="item" data-key="' + key + '">' +
+        (it.img ? '<img class="ph" src="' + it.img + '" alt="" loading="lazy" width="156" height="156">' : '') +
+        '<div class="bd"><div class="nm"><h3>' + esc(it[lang]) + '</h3>' +
+        '<span class="pr">' + it.p + '<span>DH</span></span></div>' +
+        '<p class="ds">' + esc(lang === "fr" ? it.fd : it.ad) + '</p>' +
+        (tags ? '<div class="tags">' + tags + '</div>' : '') + '</div>' +
+        '<button class="add' + (n ? ' hidden' : '') + '" type="button" aria-label="+">+</button>' +
+        '<div class="qty' + (n ? '' : ' hidden') + '">' +
+        '<button type="button" data-d="-1" aria-label="-">−</button>' +
+        '<span class="v">' + n + '</span>' +
+        '<button type="button" data-d="1" aria-label="+">+</button></div></div>';
+    }).join("");
+
+    s.innerHTML = head + rows;
+    menu.appendChild(s);
+  });
+  wire();
+  spy();
+}
+
+function wire(){
+  document.querySelectorAll(".item").forEach(function(row){
+    var key = row.dataset.key;
+    row.querySelector(".add").addEventListener("click", function(){ change(key, 1, row); toast(UI[lang].added); });
+    row.querySelectorAll(".qty button").forEach(function(b){
+      b.addEventListener("click", function(){ change(key, parseInt(b.dataset.d, 10), row); });
+    });
+  });
+}
+
+function find(key){
+  var p = key.split("-"), sec = DATA.filter(function(s){ return s.id === p[0]; })[0];
+  return sec.items[parseInt(p[1], 10)];
+}
+
+function change(key, d, row){
+  var it = find(key);
+  var n = (cart[key] ? cart[key].n : 0) + d;
+  if (n <= 0) { delete cart[key]; n = 0; } else { cart[key] = { n:n, p:it.p, key:key }; }
+  row.querySelector(".v").textContent = n;
+  row.querySelector(".add").classList.toggle("hidden", n > 0);
+  row.querySelector(".qty").classList.toggle("hidden", n === 0);
+  dock();
+}
+
+function totals(){
+  var n = 0, s = 0;
+  Object.keys(cart).forEach(function(k){ n += cart[k].n; s += cart[k].n * cart[k].p; });
+  return { n:n, s:s };
+}
+
+function dock(){
+  var t = totals(), d = $("#dock");
+  $("#dTot").textContent = t.s + " DH";
+  $("#dCnt").textContent = t.n + " " + (t.n > 1 ? UI[lang].articles : UI[lang].article);
+  d.classList.toggle("up", t.n > 0);
+  document.documentElement.style.setProperty("--dock", t.n > 0 ? "76px" : "0px");
+}
+
+var tTimer;
+function toast(msg){
+  var el = $("#toast");
+  el.textContent = msg; el.classList.add("on");
+  clearTimeout(tTimer); tTimer = setTimeout(function(){ el.classList.remove("on"); }, 2200);
+}
+
+function openSheet(){
+  var t = totals();
+  if (!t.n) return;
+  var lines = Object.keys(cart).map(function(k){
+    var it = find(k), c = cart[k];
+    return '<div class="line"><span class="q">' + c.n + '×</span><span class="n">' + esc(it[lang]) +
+      '</span><span class="p">' + (c.n * it.p) + ' DH</span></div>';
+  }).join("");
+  $("#lines").innerHTML = lines;
+  $("#sTot").textContent = t.s + " DH";
+  link();
+  $("#veil").classList.add("on"); $("#sheet").classList.add("on");
+  document.body.style.overflow = "hidden";
+}
+
+function closeSheet(){
+  $("#veil").classList.remove("on"); $("#sheet").classList.remove("on");
+  document.body.style.overflow = "";
+}
+
+function link(){
+  var t = totals();
+  var L = lang === "fr";
+  var head = L ? "Bonjour " + UI.fr.name + ", je voudrais commander :" : "السلام، بغيت نطلب من " + UI.ar.name + " :";
+  var body = Object.keys(cart).map(function(k){
+    var it = find(k), c = cart[k];
+    return "• " + c.n + " × " + it[lang] + " — " + (c.n * it.p) + " DH";
+  }).join("\n");
+  var tail = L ? "Total : " + t.s + " DH" : "المجموع : " + t.s + " درهم";
+  var where;
+  if (mode === "table"){
+    var no = ($("#tbl").value || "").trim();
+    where = L ? ("Sur place" + (no ? ", table " + no : "")) : ("في المطعم" + (no ? "، طاولة " + no : ""));
+  } else {
+    where = L ? "À emporter" : "للأخذ";
+  }
+  var msg = head + "\n\n" + body + "\n\n" + tail + "\n" + where;
+  $("#send").href = "https://wa.me/" + WA + "?text=" + encodeURIComponent(msg);
+}
+
+function spy(){
+  var secs = DATA.map(function(s){ return document.getElementById(s.id); }).filter(Boolean);
+  var links = Array.prototype.slice.call(document.querySelectorAll("#cats a"));
+  if (!("IntersectionObserver" in window)) { if (links[0]) links[0].classList.add("on"); return; }
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (!e.isIntersecting) return;
+      links.forEach(function(a){ a.classList.toggle("on", a.dataset.for === e.target.id); });
+    });
+  }, { rootMargin:"-30% 0px -60% 0px" });
+  secs.forEach(function(s){ io.observe(s); });
+  if (links[0]) links[0].classList.add("on");
+}
+
+function paint(){
+  var T = UI[lang];
+  document.querySelectorAll("[data-t]").forEach(function(el){
+    var v = T[el.dataset.t];
+    if (v == null) return;
+    if (/<[a-z]/i.test(v)) el.innerHTML = v; else el.textContent = v;
+  });
+  document.body.dir = lang === "ar" ? "rtl" : "ltr";
+  document.documentElement.lang = lang;
+  document.title = T.name + " — " + (lang === "fr" ? "Carte" : "القائمة");
+  $("#bFr").setAttribute("aria-pressed", String(lang === "fr"));
+  $("#bAr").setAttribute("aria-pressed", String(lang === "ar"));
+}
+
+function sizeTop(){
+  var h = document.querySelector(".top").offsetHeight;
+  document.documentElement.style.setProperty("--top-h", h + "px");
+}
+window.addEventListener("resize", sizeTop);
+window.addEventListener("orientationchange", sizeTop);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeTop);
+
+function setLang(l){ lang = l; paint(); build(); dock(); sizeTop(); }
+
+$("#bFr").addEventListener("click", function(){ setLang("fr"); });
+$("#bAr").addEventListener("click", function(){ setLang("ar"); });
+
+$("#dGo").addEventListener("click", openSheet);
+$("#close").addEventListener("click", closeSheet);
+$("#veil").addEventListener("click", closeSheet);
+document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeSheet(); });
+$("#tbl").addEventListener("input", link);
+$("#send").addEventListener("click", function(){ setTimeout(closeSheet, 400); });
+
+$("#mTable").addEventListener("click", function(){
+  mode = "table";
+  $("#mTable").setAttribute("aria-pressed", "true");
+  $("#mEmp").setAttribute("aria-pressed", "false");
+  $("#tblFld").classList.remove("hidden"); link();
+});
+$("#mEmp").addEventListener("click", function(){
+  mode = "emporter";
+  $("#mEmp").setAttribute("aria-pressed", "true");
+  $("#mTable").setAttribute("aria-pressed", "false");
+  $("#tblFld").classList.add("hidden"); link();
+});
+
+$("#gBtn").addEventListener("click", function(e){ e.preventDefault(); toast(UI[lang].gNote); });
+$("#pBtn").addEventListener("click", function(e){
+  e.preventDefault();
+  var m = lang === "fr"
+    ? "Bonjour, je sors de chez " + UI.fr.name + " et je voulais vous signaler quelque chose :"
+    : "السلام، كنت عندكم فـ " + UI.ar.name + " وبغيت نشير لكم لشي حاجة :";
+  window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent(m), "_blank", "noopener");
+});
+
+paint();
+build();
+sizeTop();
+})();
+</script>
+</body>
+</html>
