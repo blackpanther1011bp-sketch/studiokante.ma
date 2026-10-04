@@ -1,4 +1,4 @@
-import{j as e,c as t}from"./index-C7BK43AZ.js";const n="#RestaurantCasablanca #Casablanca #FoodCasa #RestaurantMaroc #MarketingRestaurant #FicheGoogle #PhotoCulinaire #CasablancaFood",o=[{n:1,slot:"Jour 1 · 11h30",kind:"Carte",t:"Le constat",alt:"Salle de restaurant vide au crépuscule, avec la phrase « Votre cuisine est meilleure que ce qu'on en voit »",c:`Un client vous cherche à midi. Il tape votre nom, il regarde trois secondes, il décide.
+import{j as e,c as t}from"./index-CeODWOzy.js";const n="#RestaurantCasablanca #Casablanca #FoodCasa #RestaurantMaroc #MarketingRestaurant #FicheGoogle #PhotoCulinaire #CasablancaFood",o=[{n:1,slot:"Jour 1 · 11h30",kind:"Carte",t:"Le constat",alt:"Salle de restaurant vide au crépuscule, avec la phrase « Votre cuisine est meilleure que ce qu'on en voit »",c:`Un client vous cherche à midi. Il tape votre nom, il regarde trois secondes, il décide.
 
 Ce qu'il voit à cet instant décide s'il pousse votre porte ou celle d'à côté. Et ce n'est presque jamais à la hauteur de ce que vous servez.
 
