@@ -1,0 +1,5 @@
+# studiokante.ma
+User-agent: *
+Allow: /
+
+Sitemap: https://studiokante.ma/sitemap.xml
