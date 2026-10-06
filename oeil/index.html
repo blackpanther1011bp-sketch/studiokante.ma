@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>L'œil — Studio Kanté</title>
+<meta name="description" content="Contrôle technique des photos : netteté, exposition, modelé de la lumière, définition. Tout se calcule sur votre téléphone.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#141a14">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bone:#f3f1e9; --bone-deep:#eae7db; --card:#fffdf8;
+  --ink:#141a14; --ink-soft:#55614f; --line:#d7d4c5;
+  --ok:#3f6b45; --ok-bg:#3f6b451a;
+  --warn:#9a6a1e; --warn-bg:#9a6a1e1a;
+  --bad:#9f3d22; --bad-bg:#9f3d221a;
+  --info:#1d3fc4; --info-bg:#1d3fc412;
+  --disp:"Fraunces",Georgia,serif;
+  --sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --gut:clamp(16px,4.5vw,40px);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bone);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.55;
+  font-variation-settings:"SOFT" 40,"WONK" 0;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+.wrap{max-width:760px;margin:0 auto;padding-inline:var(--gut)}
+h1,h2,h3{font-family:var(--disp);font-weight:600;letter-spacing:-.015em;margin:0}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+
+header{padding:clamp(26px,7vw,54px) 0 20px;border-bottom:1px solid var(--line)}
+.kick{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin:0 0 .8rem}
+h1{font-size:clamp(2rem,7vw,3.1rem);line-height:1.05}
+header p{margin:.9rem 0 0;color:var(--ink-soft);max-width:52ch}
+.prive{margin-top:1rem;display:inline-flex;align-items:center;gap:.5rem;font-size:.82rem;
+  background:var(--ok-bg);color:var(--ok);font-weight:600;padding:.4rem .8rem;border-radius:999px}
+
+.actions{display:grid;gap:.7rem;margin:1.6rem 0 0}
+@media(min-width:30rem){.actions{grid-template-columns:1fr 1fr}}
+.btn{display:flex;align-items:center;justify-content:center;gap:.6rem;
+  padding:1rem;border-radius:12px;font-weight:700;font-size:1rem;text-align:center}
+.btn-main{background:var(--ink);color:var(--bone)}
+.btn-ghost{background:var(--card);border:1.5px solid var(--line);color:var(--ink)}
+.btn:active{transform:scale(.985)}
+input[type=file]{display:none}
+
+.resume{display:none;margin:1.6rem 0 0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem}
+.resume.on{display:block}
+.resume .l{display:flex;gap:1.4rem;flex-wrap:wrap}
+.resume .n{font-family:var(--disp);font-size:1.7rem;line-height:1}
+.resume .t{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+.resume .g .n{color:var(--ok)} .resume .r .n{color:var(--warn)} .resume .j .n{color:var(--bad)}
+.resume .note{margin:.9rem 0 0;font-size:.86rem;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:.8rem}
+
+.prog{display:none;margin-top:1.2rem;font-size:.9rem;color:var(--ink-soft)}
+.prog.on{display:block}
+
+#liste{margin:1.8rem 0 0;display:grid;gap:1rem}
+.ph{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.ph-h{display:flex;gap:.9rem;padding:.9rem;align-items:flex-start}
+.ph-h img{flex:none;width:86px;height:86px;object-fit:cover;border-radius:9px;background:var(--bone-deep)}
+.ph-t{flex:1;min-width:0}
+.verdict{display:inline-flex;align-items:center;gap:.4rem;font-size:.74rem;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;padding:.3rem .65rem;border-radius:999px}
+.v-ok{background:var(--ok-bg);color:var(--ok)}
+.v-warn{background:var(--warn-bg);color:var(--warn)}
+.v-bad{background:var(--bad-bg);color:var(--bad)}
+.ph-nom{margin:.5rem 0 0;font-size:.84rem;color:var(--ink-soft);word-break:break-all;line-height:1.3}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem}
+.chip{font-size:.73rem;font-weight:600;padding:.25rem .55rem;border-radius:999px;background:var(--bone-deep);color:var(--ink-soft)}
+.chip.c-ok{background:var(--ok-bg);color:var(--ok)}
+.chip.c-warn{background:var(--warn-bg);color:var(--warn)}
+.chip.c-bad{background:var(--bad-bg);color:var(--bad)}
+.conseils{border-top:1px solid var(--line);padding:.85rem .9rem;display:grid;gap:.55rem}
+.cs{display:flex;gap:.6rem;font-size:.92rem;line-height:1.45}
+.cs b{flex:none;width:1.1rem;text-align:center;font-weight:700}
+.cs.ok b{color:var(--ok)} .cs.warn b{color:var(--warn)} .cs.bad b{color:var(--bad)} .cs.info b{color:var(--info)}
+.cs span{color:var(--ink-soft)}
+.cs span strong{color:var(--ink);font-weight:600}
+.cs.info{background:var(--info-bg);margin:-.1rem -.25rem;padding:.5rem .25rem;border-radius:8px}
+
+details{margin:2.2rem 0 0;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+summary{padding:1rem 1.1rem;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--disp);font-size:1.4rem;color:var(--ink-soft)}
+details[open] summary::after{content:"–"}
+.dd{padding:0 1.1rem 1.2rem;border-top:1px solid var(--line)}
+.dd h3{font-size:1rem;margin:1.1rem 0 .5rem;font-family:var(--sans);font-weight:700}
+.dd p{margin:.5rem 0 0;font-size:.92rem;color:var(--ink-soft)}
+table{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:.9rem}
+td{padding:.42rem 0;border-bottom:1px solid var(--line)}
+td:last-child{text-align:right;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+
+footer{padding:2.4rem 0 3rem;margin-top:2rem;border-top:1px solid var(--line);text-align:center}
+footer .mk{font-family:var(--disp);font-size:1.2rem}
+footer p{margin:.4rem 0 0;font-size:.84rem;color:var(--ink-soft)}
+footer a{color:inherit}
+.vide{margin:1.8rem 0 0;padding:1.6rem;border:1px dashed var(--line);border-radius:14px;text-align:center;color:var(--ink-soft);font-size:.93rem}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <p class="kick">Studio Kanté</p>
+    <h1>L'œil</h1>
+    <p>Dépose tes photos : chacune est mesurée sur la netteté, l'exposition, le modelé de la lumière et la définition. Tu obtiens un verdict et la correction à faire, en clair.</p>
+    <span class="prive">🔒 Tout se calcule sur ton téléphone. Rien n'est envoyé.</span>
+
+    <div class="actions">
+      <label class="btn btn-main" for="f1">Choisir des photos</label>
+      <input id="f1" type="file" accept="image/*" multiple>
+      <label class="btn btn-ghost" for="f2">Photographier maintenant</label>
+      <input id="f2" type="file" accept="image/*" capture="environment">
+    </div>
+
+    <div class="prog" id="prog"></div>
+  </header>
+
+  <div class="resume" id="resume">
+    <div class="l">
+      <div class="g"><div class="n" id="nOk">0</div><div class="t">à garder</div></div>
+      <div class="r"><div class="n" id="nWarn">0</div><div class="t">à retoucher</div></div>
+      <div class="j"><div class="n" id="nBad">0</div><div class="t">à jeter</div></div>
+    </div>
+    <p class="note" id="resumeNote"></p>
+  </div>
+
+  <div id="liste"></div>
+
+  <div class="vide" id="vide">Les photos apparaîtront ici, classées de la meilleure à la plus faible.</div>
+
+  <details>
+    <summary>Mes réglages Lightroom Mobile</summary>
+    <div class="dd">
+      <p>Point de départ pour de la cuisine marocaine photographiée en lumière de fenêtre. Règle une photo avec ces valeurs, puis <strong>enregistre-la comme préréglage</strong> : tu l'appliques ensuite à toute la série en un geste.</p>
+
+      <h3>Lumière</h3>
+      <table>
+        <tr><td>Exposition</td><td>selon le contrôle</td></tr>
+        <tr><td>Contraste</td><td>+8</td></tr>
+        <tr><td>Hautes lumières</td><td>−25</td></tr>
+        <tr><td>Ombres</td><td>+30</td></tr>
+        <tr><td>Blancs</td><td>+8</td></tr>
+        <tr><td>Noirs</td><td>−8</td></tr>
+      </table>
+
+      <h3>Couleur</h3>
+      <table>
+        <tr><td>Température</td><td>à la pipette</td></tr>
+        <tr><td>Teinte</td><td>+2</td></tr>
+        <tr><td>Vibrance</td><td>+12</td></tr>
+        <tr><td>Saturation</td><td>+3</td></tr>
+      </table>
+
+      <h3>Détail</h3>
+      <table>
+        <tr><td>Texture</td><td>+12</td></tr>
+        <tr><td>Clarté</td><td>+6</td></tr>
+        <tr><td>Netteté</td><td>35</td></tr>
+        <tr><td>Rayon</td><td>1,0</td></tr>
+        <tr><td>Réduction du bruit</td><td>15</td></tr>
+      </table>
+
+      <p><strong>Ne touche pas au reste.</strong> Pas de filtre, pas de vignettage, pas de virage. Ce qui fait pro, c'est que les vingt-cinq photos aient exactement le même traitement — pas qu'elles soient spectaculaires.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>La feuille blanche : régler la couleur en deux secondes</summary>
+    <div class="dd">
+      <p>Aucune machine ne sait juger la couleur d'une photo de cuisine de façon fiable. Un tajine doré et un plafonnier jaune produisent la même mesure — l'un est le plat, l'autre est un défaut, et rien ne permet de les distinguer automatiquement. Je préfère te le dire plutôt que te donner un mauvais conseil.</p>
+      <p>Les professionnels contournent le problème, et c'est d'une simplicité désarmante.</p>
+
+      <h3>Sur place</h3>
+      <p>À chaque fois que tu changes de table ou que la lumière bouge, <strong>pose une feuille de papier blanc dans le cadre et prends une photo</strong>. Une seule. Puis tu retires la feuille et tu photographies normalement.</p>
+
+      <h3>En retouche</h3>
+      <p>Tu ouvres cette photo-là dans Lightroom, tu prends la <strong>pipette de balance des blancs</strong>, tu cliques sur la feuille. La couleur devient exacte. Tu notes la température et la teinte obtenues, et tu les appliques à toutes les photos de la même série.</p>
+      <p>Trente secondes au total, et ta couleur est juste — pas approximative, juste. C'est la seule méthode fiable, et elle ne coûte qu'une feuille de papier.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Ce que mesure cette page, et ce qu'elle ne mesure pas</summary>
+    <div class="dd">
+      <h3>Ce qu'elle sait juger</h3>
+      <p><strong>La netteté</strong> — mesurée sur un carré découpé au cœur de l'image, à sa définition d'origine, pour que le flou ne soit pas effacé par la réduction. Le résultat est rapporté au contraste de l'image, pour qu'une photo douce ne soit pas confondue avec une photo bougée.</p>
+      <p><strong>L'exposition</strong> — jugée sur la répartition des tons, pas sur la luminosité moyenne. Une photo de cuisine est souvent sombre volontairement ; ce qui compte, c'est qu'il reste des hautes lumières et que rien ne soit brûlé.</p>
+      <p><strong>Le modelé</strong> — l'écart de lumière entre les zones de l'image. Une lumière plate donne un plat sans relief.</p>
+      <p><strong>La définition et le format</strong> — pour Instagram, le carré et le vertical.</p>
+
+      <h3>Ce qu'elle ne juge pas</h3>
+      <p><strong>La couleur.</strong> Je l'ai essayé, mesuré, et les résultats n'étaient pas fiables : une photo de thé à la menthe parfaitement correcte sortait aussi « chaude » qu'une photo prise sous plafonnier. La page t'indique la tendance à titre d'information, sans jamais en faire un verdict. Pour la couleur, utilise la feuille blanche.</p>
+      <p><strong>Et surtout, elle ne sait pas si la photo donne faim.</strong> Si le dressage est beau. Si la vapeur monte au bon moment. Si c'est le bon plat à mettre en avant.</p>
+      <p>Cette page te dit si la photo est techniquement propre. <strong>Le reste, c'est ton œil</strong> — et c'est pour ça qu'on te paie.</p>
+    </div>
+  </details>
+
+  <footer>
+    <div class="mk">Studio Kanté</div>
+    <p>Outil interne · <a href="/">studiokante.ma</a></p>
+  </footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var $ = function(s){ return document.querySelector(s); };
+var liste = $("#liste"), vide = $("#vide"), prog = $("#prog"), resume = $("#resume");
+var fiches = [];
+
+/* --------------------------------------------------------------
+   Mesures.
+   Vue d'ensemble : image réduite à 520 px — exposition, modelé.
+   Netteté : carré de 480 px découpé au centre, à la définition
+   d'origine, sinon la réduction efface le flou qu'on cherche.
+   Seuils calibrés sur de vraies photos et sur des versions
+   volontairement dégradées de celles-ci.
+   -------------------------------------------------------------- */
+
+var VUE = 520, CARRE = 480;
+
+function dessine(img, sw, sh, dw, dh, sx, sy){
+  var c = document.createElement("canvas");
+  c.width = dw; c.height = dh;
+  var ctx = c.getContext("2d", { willReadFrequently: true });
+  if (sx === undefined) ctx.drawImage(img, 0, 0, dw, dh);
+  else ctx.drawImage(img, sx, sy, sw, sh, 0, 0, dw, dh);
+  return ctx.getImageData(0, 0, dw, dh).data;
+}
+
+function luminance(d, n){
+  var L = new Float32Array(n), i, p;
+  for (i = 0; i < n; i++){
+    p = i * 4;
+    L[i] = 0.2126*d[p] + 0.7152*d[p+1] + 0.0722*d[p+2];
+  }
+  return L;
+}
+
+function laplacien(L, w, h){
+  var s = 0, s2 = 0, c = 0, x, y, o, v;
+  for (y = 1; y < h-1; y++){
+    for (x = 1; x < w-1; x++){
+      o = y*w + x;
+      v = -4*L[o] + L[o-1] + L[o+1] + L[o-w] + L[o+w];
+      s += v; s2 += v*v; c++;
+    }
+  }
+  var m = s / c;
+  return (s2 / c) - m*m;
+}
+
+function mesurer(img){
+  var W = img.width, H = img.height;
+
+  /* --- vue d'ensemble --- */
+  var k = Math.min(1, VUE / Math.max(W, H));
+  var aw = Math.max(16, Math.round(W * k)), ah = Math.max(16, Math.round(H * k));
+  var d = dessine(img, 0, 0, aw, ah);
+  var n = aw * ah;
+  var L = luminance(d, n);
+
+  var hist = new Uint32Array(256), i, somme = 0;
+  for (i = 0; i < n; i++){
+    var b = L[i] | 0; if (b > 255) b = 255; if (b < 0) b = 0;
+    hist[b]++; somme += L[i];
+  }
+  var moyenne = somme / n;
+  var va = 0;
+  for (i = 0; i < n; i++){ var e = L[i] - moyenne; va += e*e; }
+  var ecart = Math.sqrt(va / n);
+
+  function centile(pc){
+    var cible = n * pc / 100, acc = 0;
+    for (var j = 0; j < 256; j++){ acc += hist[j]; if (acc >= cible) return j; }
+    return 255;
+  }
+  var p1 = centile(1), p50 = centile(50), p99 = centile(99);
+
+  var brule = 0, bouche = 0;
+  for (i = 251; i < 256; i++) brule += hist[i];
+  for (i = 0; i < 6; i++) bouche += hist[i];
+  brule = 100 * brule / n; bouche = 100 * bouche / n;
+
+  // modelé : écart entre les quatre quadrants
+  var q = [0,0,0,0], qn = [0,0,0,0], x, y;
+  for (y = 0; y < ah; y++){
+    for (x = 0; x < aw; x++){
+      var idx = (y < ah/2 ? 0 : 2) + (x < aw/2 ? 0 : 1);
+      q[idx] += L[y*aw + x]; qn[idx]++;
+    }
+  }
+  for (i = 0; i < 4; i++) q[i] = q[i] / qn[i];
+  var quad = Math.max.apply(null, q) - Math.min.apply(null, q);
+
+  // tendance de couleur, à titre d'information seulement
+  var nR = 0, nB = 0, nN = 0;
+  for (i = 0; i < n; i++){
+    var p = i*4, r = d[p], g = d[p+1], bb = d[p+2];
+    var mx = Math.max(r,g,bb), mn = Math.min(r,g,bb);
+    if (L[i] > 55 && L[i] < 215 && mx - mn < 60){ nR += r; nB += bb; nN++; }
+  }
+  var tendance = nN > n * 0.01 ? (nR - nB) / nN : null;
+
+  /* --- netteté, au cœur de l'image, sans réduction --- */
+  var cc = Math.min(CARRE, W, H);
+  var sx = Math.floor((W - cc) / 2), sy = Math.floor((H - cc) / 2);
+  var dc = dessine(img, cc, cc, cc, cc, sx, sy);
+  var Lc = luminance(dc, cc * cc);
+  var mc = 0;
+  for (i = 0; i < cc*cc; i++) mc += Lc[i];
+  mc /= (cc*cc);
+  var vc = 0;
+  for (i = 0; i < cc*cc; i++){ var ec = Lc[i] - mc; vc += ec*ec; }
+  var ecartC = Math.sqrt(vc / (cc*cc));
+  var lapVar = laplacien(Lc, cc, cc);
+  var netNorm = lapVar / (ecartC*ecartC + 1);
+
+  return {
+    largeur:W, hauteur:H,
+    p1:p1, p50:p50, p99:p99, moyenne:moyenne, ecart:ecart,
+    brule:brule, bouche:bouche, quad:quad,
+    lapVar:lapVar, netNorm:netNorm,
+    tendance:tendance
+  };
+}
+
+/* --------------------------------------------------------------
+   Interprétation. Un défaut n'est signalé que lorsque les mesures
+   le séparent franchement d'une bonne photo — sinon on se tait.
+   -------------------------------------------------------------- */
+
+function juger(m){
+  var cs = [], chips = [], score = 100, pire = 0;
+  function abaisse(niveau, perte){ score -= perte; if (niveau > pire) pire = niveau; }
+
+  /* --- netteté : les deux mesures doivent être basses --- */
+  if (m.lapVar < 35 && m.netNorm < 0.020){
+    chips.push(["Floue","c-bad"]);
+    cs.push(["bad","✕","<strong>Floue.</strong> Il n'y a pas assez de détail pour la sauver, même en retouche. Refais-la : appuie longuement sur l'écran pour bloquer la mise au point sur le plat, et cale tes coudes sur la table."]);
+    abaisse(2, 55);
+  } else if (m.lapVar < 60 && m.netNorm < 0.040){
+    chips.push(["Netteté juste","c-warn"]);
+    cs.push(["warn","!","<strong>Un peu molle.</strong> Ouvre-la en grand avant de la garder. Si la salle est sombre, pose le téléphone sur un objet stable plutôt que de le tenir à bout de bras."]);
+    abaisse(1, 16);
+  } else {
+    chips.push(["Nette","c-ok"]);
+  }
+
+  /* --- exposition : jugée sur la répartition des tons --- */
+  var ev = Math.log(225 / Math.max(m.p99, 1)) / Math.LN2;
+  var evTxt = (ev > 0 ? "+" : "") + ev.toFixed(1);
+
+  if (m.p99 < 150){
+    chips.push(["Sous-exposée","c-bad"]);
+    cs.push(["bad","✕","<strong>Trop sombre.</strong> L'image n'a plus de hautes lumières : son point le plus clair plafonne à " + m.p99 + " sur 255. Remonte l'exposition de <strong>" + evTxt + "</strong>, mais le mieux reste de refaire la photo plus près de la fenêtre — en remontant, tu feras surtout monter le bruit."]);
+    abaisse(2, 35);
+  } else if (m.p99 < 185){
+    chips.push(["Un peu sombre","c-warn"]);
+    cs.push(["warn","!","<strong>Un peu sombre.</strong> Remonte l'exposition de <strong>" + evTxt + "</strong> et les ombres de +30."]);
+    abaisse(1, 11);
+  } else {
+    chips.push(["Exposition juste","c-ok"]);
+  }
+
+  if (m.brule > 3){
+    chips.push(["Hautes lumières brûlées","c-bad"]);
+    cs.push(["bad","✕","<strong>" + m.brule.toFixed(1) + " % de l'image est blanc pur.</strong> Dans ces zones il ne reste aucune information, et la retouche ne les récupérera pas. C'est souvent un reflet de sauce ou une nappe en plein soleil : tends un rideau, ou décale l'assiette."]);
+    abaisse(2, 25);
+  } else if (m.brule > 1){
+    cs.push(["warn","!","Quelques reflets brûlés (" + m.brule.toFixed(1) + " %). Baisse les hautes lumières de −30 en retouche."]);
+    abaisse(1, 6);
+  }
+
+  if (m.p1 > 40){
+    chips.push(["Image voilée","c-warn"]);
+    cs.push(["warn","!","<strong>L'image manque de noirs</strong> — son point le plus sombre est déjà à " + m.p1 + " sur 255. Elle paraît délavée. Baisse les noirs de −15 et monte le contraste de +12. C'est souvent un reflet parasite sur l'objectif : essuie-le, et évite d'avoir la fenêtre en face."]);
+    abaisse(1, 12);
+  }
+
+  if (m.bouche > 15){
+    cs.push(["warn","!","Beaucoup de noir total (" + m.bouche.toFixed(1) + " %) : les ombres sont bouchées. Remonte-les de +35, et place ton carton blanc du côté opposé à la fenêtre."]);
+    abaisse(1, 8);
+  }
+
+  /* --- modelé --- */
+  if (m.ecart < 32 && m.quad < 16){
+    chips.push(["Lumière plate","c-warn"]);
+    cs.push(["warn","!","<strong>La lumière est plate</strong> : aucun relief, le plat paraît en deux dimensions. Déplace-toi pour que la fenêtre arrive <strong>sur le côté</strong> du plat, pas dans ton dos. C'est la correction qui change le plus une photo de cuisine."]);
+    abaisse(1, 18);
+  } else if (m.ecart > 45 && m.quad > 30){
+    chips.push(["Beau modelé","c-ok"]);
+  }
+
+  /* --- définition et format --- */
+  var petit = Math.min(m.largeur, m.hauteur);
+  if (petit < 1080){
+    chips.push([m.largeur + "×" + m.hauteur,"c-warn"]);
+    cs.push(["warn","!","<strong>Définition faible</strong> (" + m.largeur + "×" + m.hauteur + "). Instagram demande au moins 1080 pixels sur le petit côté. Vérifie que ton téléphone n'enregistre pas en qualité réduite."]);
+    abaisse(1, 10);
+  }
+  var ratio = m.largeur / m.hauteur;
+  if (ratio > 1.15){
+    chips.push(["Format paysage",""]);
+    cs.push(["info","i","<strong>Photo en paysage.</strong> Ce n'est pas un défaut, mais Instagram et la carte numérique affichent en carré ou en 4:5 vertical : recadre avant de publier. La prochaine fois, cadre vertical dès la prise de vue, tu garderas tous les pixels."]);
+  }
+
+  if (!cs.length){
+    cs.push(["ok","✓","Rien à signaler. Applique ton préréglage et livre-la telle quelle."]);
+  }
+
+  /* --- couleur : information, jamais verdict, jamais de point en moins --- */
+  if (m.tendance !== null && Math.abs(m.tendance) > 14){
+    var sens = m.tendance > 0 ? "chaude" : "froide";
+    var quoi = m.tendance > 0
+      ? "Si la scène est éclairée au plafonnier, refroidis la température. Si c'est le plat qui est doré — tajine, pain, thé — ne touche à rien."
+      : "Si la photo est à l'ombre ou sous un ciel couvert, réchauffe-la. Si le sujet est réellement clair et froid, laisse.";
+    cs.push(["info","i","<strong>Tendance " + sens + "</strong> (" + Math.round(m.tendance) + "). " + quoi + " Je ne tranche pas : aucune mesure ne distingue un plat doré d'une mauvaise lumière. Pour en avoir le cœur net, photographie une feuille blanche au début de chaque série."]);
+  }
+
+  return { score: Math.max(0, score), niveau: pire, chips: chips, conseils: cs };
+}
+
+/* ---------- affichage ---------- */
+
+function carte(f){
+  var el = document.createElement("div");
+  el.className = "ph";
+  var v = f.j.niveau === 0 ? ["v-ok","À garder"] : f.j.niveau === 1 ? ["v-warn","À retoucher"] : ["v-bad","À jeter"];
+
+  var chips = f.j.chips.map(function(c){
+    return '<span class="chip ' + c[1] + '">' + c[0] + '</span>';
+  }).join("");
+
+  var cs = f.j.conseils.map(function(c){
+    return '<div class="cs ' + c[0] + '"><b>' + c[1] + '</b><span>' + c[2] + '</span></div>';
+  }).join("");
+
+  el.innerHTML =
+    '<div class="ph-h">' +
+      '<img src="' + f.url + '" alt="">' +
+      '<div class="ph-t">' +
+        '<span class="verdict ' + v[0] + '">' + v[1] + '</span>' +
+        '<p class="ph-nom"></p>' +
+        '<div class="chips">' + chips + '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="conseils">' + cs + '</div>';
+  el.querySelector(".ph-nom").textContent = f.nom;
+  return el;
+}
+
+function redessiner(){
+  fiches.sort(function(a,b){ return b.j.score - a.j.score; });
+  liste.innerHTML = "";
+  fiches.forEach(function(f){ liste.appendChild(carte(f)); });
+
+  var ok = 0, wa = 0, ba = 0;
+  fiches.forEach(function(f){
+    if (f.j.niveau === 0) ok++; else if (f.j.niveau === 1) wa++; else ba++;
+  });
+  $("#nOk").textContent = ok; $("#nWarn").textContent = wa; $("#nBad").textContent = ba;
+  resume.classList.toggle("on", fiches.length > 0);
+  vide.style.display = fiches.length ? "none" : "";
+
+  var note;
+  if (!fiches.length) note = "";
+  else if (ok >= 8) note = "Tu as de quoi livrer. Garde les " + ok + " premières, applique ton préréglage, et passe au plat suivant.";
+  else if (ok + wa >= 8) note = "Les « à retoucher » sont récupérables : suis les corrections indiquées sur chacune. Ne livre jamais une « à jeter ».";
+  else note = "Trop peu d'images exploitables. Refais la série en suivant les corrections ci-dessous — c'est presque toujours la lumière.";
+  $("#resumeNote").textContent = note;
+}
+
+async function traiter(files){
+  var arr = Array.prototype.slice.call(files).filter(function(f){ return /^image\//.test(f.type); });
+  if (!arr.length) return;
+  prog.classList.add("on");
+
+  for (var i = 0; i < arr.length; i++){
+    prog.textContent = "Analyse " + (i+1) + " sur " + arr.length + "…";
+    try {
+      var img = await charger(arr[i]);
+      var m = mesurer(img);
+      fiches.push({ nom: arr[i].name || "photo", url: vignette(img), m: m, j: juger(m) });
+      if (img.close) img.close();
+    } catch(e){ /* un fichier illisible n'arrête pas le lot */ }
+    redessiner();
+    await new Promise(function(r){ setTimeout(r, 0); });
+  }
+  prog.classList.remove("on");
+  prog.textContent = "";
+}
+
+function charger(file){
+  if (window.createImageBitmap){
+    return createImageBitmap(file, { imageOrientation: "from-image" })
+      .catch(function(){ return createImageBitmap(file); })
+      .catch(function(){ return parSecours(file); });
+  }
+  return parSecours(file);
+}
+
+function parSecours(file){
+  return new Promise(function(res, rej){
+    var u = URL.createObjectURL(file);
+    var im = new Image();
+    im.onload = function(){ res(im); };
+    im.onerror = function(){ URL.revokeObjectURL(u); rej(new Error("illisible")); };
+    im.src = u;
+  });
+}
+
+function vignette(img){
+  var c = document.createElement("canvas"), t = 172;
+  var k = Math.max(t / img.width, t / img.height);
+  c.width = t; c.height = t;
+  var ctx = c.getContext("2d");
+  var dw = img.width * k, dh = img.height * k;
+  ctx.drawImage(img, (t - dw)/2, (t - dh)/2, dw, dh);
+  return c.toDataURL("image/jpeg", 0.72);
+}
+
+$("#f1").addEventListener("change", function(e){ traiter(e.target.files); e.target.value = ""; });
+$("#f2").addEventListener("change", function(e){ traiter(e.target.files); e.target.value = ""; });
+
+["dragover","drop"].forEach(function(t){
+  document.addEventListener(t, function(e){ e.preventDefault(); });
+});
+document.addEventListener("drop", function(e){
+  if (e.dataTransfer && e.dataTransfer.files) traiter(e.dataTransfer.files);
+});
+})();
+</script>
+</body>
+</html>
