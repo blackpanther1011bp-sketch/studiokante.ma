@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rapport mensuel — Studio Kanté</title>
+<meta name="description" content="Fabrique le rapport mensuel d'un client à partir des chiffres de sa fiche Google. Une page, prête à imprimer ou à envoyer.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#141a14">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bone:#f3f1e9; --bone-deep:#eae7db; --card:#fffdf8;
+  --ink:#141a14; --ink-soft:#55614f; --line:#d7d4c5;
+  --ok:#3f6b45; --ok-bg:#3f6b451a;
+  --warn:#9a6a1e;
+  --bad:#9f3d22; --bad-bg:#9f3d221a;
+  --info:#1d3fc4; --info-bg:#1d3fc412;
+  --disp:"Fraunces",Georgia,serif;
+  --sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --gut:clamp(16px,4.5vw,40px);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bone);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.55;
+  font-variation-settings:"SOFT" 40,"WONK" 0;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:860px;margin:0 auto;padding-inline:var(--gut)}
+h1,h2,h3{font-family:var(--disp);font-weight:600;letter-spacing:-.015em;margin:0}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+
+header{padding:clamp(26px,7vw,54px) 0 20px;border-bottom:1px solid var(--line)}
+.kick{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin:0 0 .8rem}
+h1{font-size:clamp(2rem,7vw,3.1rem);line-height:1.05}
+header p{margin:.9rem 0 0;color:var(--ink-soft);max-width:56ch}
+
+/* ---------- saisie ---------- */
+.bloc{margin:2rem 0 0}
+.bloc>h2{font-size:1.25rem;margin-bottom:.2rem}
+.bloc>.sous{color:var(--ink-soft);font-size:.9rem;margin:.25rem 0 1rem}
+
+.champs{display:grid;gap:.85rem}
+@media(min-width:34rem){.champs.deux{grid-template-columns:1fr 1fr}}
+label{display:block;font-size:.78rem;font-weight:700;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 .35rem}
+input,textarea,select{width:100%;font:inherit;color:var(--ink);background:var(--card);
+  border:1.5px solid var(--line);border-radius:10px;padding:.7rem .85rem}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--info);outline-offset:1px;border-color:transparent}
+textarea{min-height:5.5rem;resize:vertical;line-height:1.5}
+.aide{font-size:.8rem;color:var(--ink-soft);margin:.35rem 0 0}
+
+table.saisie{width:100%;border-collapse:collapse;margin-top:.4rem}
+table.saisie th{font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-soft);text-align:right;padding:0 0 .5rem .6rem;white-space:nowrap}
+table.saisie th:first-child{text-align:left;padding-left:0}
+table.saisie td{padding:.3rem 0 .3rem .6rem;border-top:1px solid var(--line)}
+table.saisie td:first-child{padding-left:0;font-size:.95rem}
+table.saisie input{padding:.5rem .6rem;text-align:right;min-width:5.5rem}
+
+.actions{display:grid;gap:.7rem;margin:1.7rem 0 0}
+@media(min-width:34rem){.actions{grid-template-columns:1fr 1fr}}
+.btn{display:flex;align-items:center;justify-content:center;gap:.6rem;
+  padding:1rem;border-radius:12px;font-weight:700;font-size:1rem;text-align:center}
+.btn-main{background:var(--ink);color:var(--bone)}
+.btn-ghost{background:var(--card);border:1.5px solid var(--line);color:var(--ink)}
+.btn:active{transform:scale(.985)}
+
+.memo{margin:1rem 0 0;font-size:.85rem;color:var(--ink-soft);
+  background:var(--info-bg);border-radius:10px;padding:.8rem .95rem}
+.memo strong{color:var(--ink)}
+
+/* ---------- la page du rapport ---------- */
+.feuille{background:#fff;color:var(--ink);margin:2.2rem 0 3rem;
+  border:1px solid var(--line);border-radius:14px;padding:clamp(22px,5vw,46px);
+  box-shadow:0 1px 0 rgba(0,0,0,.03)}
+.f-tete{display:flex;justify-content:space-between;align-items:flex-start;gap:1.2rem;
+  border-bottom:2px solid var(--ink);padding-bottom:1rem}
+.f-tete .marque{font-family:var(--disp);font-size:1rem;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+.f-kick{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin:0}
+#fNom{font-size:clamp(1.6rem,5vw,2.3rem);line-height:1.1;margin:.45rem 0 0}
+#fMois{color:var(--ink-soft);margin:.3rem 0 0;font-size:.95rem}
+
+.chiffres{display:grid;gap:10px;margin:1.6rem 0 0}
+@media(min-width:30rem){.chiffres{grid-template-columns:1fr 1fr}}
+@media(min-width:52rem){.chiffres{grid-template-columns:1fr 1fr 1fr}}
+.c{background:#fff;border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem}
+.c .v{font-family:var(--disp);font-size:2.1rem;line-height:1.05;display:flex;align-items:baseline;gap:.5rem}
+.c .lab{font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);
+  font-weight:700;margin:.35rem 0 0}
+.ev{font-family:var(--sans);font-size:.82rem;font-weight:700;padding:.15rem .5rem;border-radius:999px;white-space:nowrap}
+.ev.up{background:var(--ok-bg);color:var(--ok)}
+.ev.down{background:var(--bad-bg);color:var(--bad)}
+.ev.flat{background:var(--bone-deep);color:var(--ink-soft)}
+
+.f-sec{margin:1.7rem 0 0}
+.f-sec h3{font-size:1.05rem}
+.f-sec p{margin:.45rem 0 0;white-space:pre-wrap}
+.f-pied{margin:1.9rem 0 0;border-top:1px solid var(--line);padding-top:.9rem;
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  font-size:.78rem;color:var(--ink-soft)}
+.vide-note{color:var(--ink-soft);font-style:italic}
+
+footer{margin:2.5rem 0 3rem;border-top:1px solid var(--line);padding-top:1.2rem;color:var(--ink-soft);font-size:.88rem}
+footer .mk{font-family:var(--disp);font-size:1.05rem;color:var(--ink)}
+footer p{margin:.3rem 0 0}
+footer a{color:inherit}
+
+/* ---------- impression ---------- */
+@media print{
+  @page{size:A4 portrait;margin:14mm}
+  body{background:#fff;font-size:11.5pt}
+  header,.bloc,.actions,.memo,.horsimpression{display:none !important}
+  .wrap{max-width:none;padding:0}
+  .feuille{margin:0;border:0;border-radius:0;padding:0;box-shadow:none}
+  .chiffres{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .c{break-inside:avoid}
+  .c .v{font-size:1.9rem}
+  .f-sec{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="horsimpression">
+  <p class="kick">Studio Kanté · outil interne</p>
+  <h1>Le rapport du mois</h1>
+  <p>Relève les chiffres sur la fiche Google du restaurant, tape-les ici, et la page du rapport se fabrique en dessous. Tu l'imprimes en PDF ou tu la photographies pour l'envoyer sur WhatsApp.</p>
+</header>
+
+<!-- ============ SAISIE ============ -->
+<section class="bloc horsimpression">
+  <h2>Le client et le mois</h2>
+  <div class="champs deux">
+    <div>
+      <label for="nom">Nom du restaurant</label>
+      <input id="nom" type="text" placeholder="Dar Sabra" autocomplete="off">
+    </div>
+    <div>
+      <label for="mois">Mois couvert</label>
+      <input id="mois" type="text" placeholder="septembre 2026" autocomplete="off">
+    </div>
+  </div>
+  <p class="aide">Le nom sert aussi de dossier : les chiffres du mois dernier sont retrouvés tout seuls si tu écris le nom à l'identique.</p>
+</section>
+
+<section class="bloc horsimpression">
+  <h2>Les chiffres</h2>
+  <p class="sous">Fiche Google du restaurant → <strong>Performances</strong> → choisis le mois. Laisse vide ce que tu n'as pas : une ligne vide ne s'affiche pas sur le rapport.</p>
+
+  <table class="saisie">
+    <thead><tr><th>Indicateur</th><th>Ce mois</th><th>Mois précédent</th></tr></thead>
+    <tbody id="lignes"></tbody>
+  </table>
+  <p class="aide">La colonne « mois précédent » sert à calculer l'évolution. Sans elle, le chiffre s'affiche seul, sans flèche.</p>
+</section>
+
+<section class="bloc horsimpression">
+  <h2>Ce que tu écris</h2>
+  <p class="sous">Deux paragraphes courts. C'est ce qui transforme une liste de chiffres en travail.</p>
+  <div class="champs">
+    <div>
+      <label for="fait">Ce que j'ai fait ce mois-ci</label>
+      <textarea id="fait" placeholder="Douze photos nouvelles sur la fiche. Horaires du week-end corrigés. Réponse aux quatre avis reçus. Carte mise à jour deux fois."></textarea>
+    </div>
+    <div>
+      <label for="propose">Ce que je propose pour le mois prochain</label>
+      <textarea id="propose" placeholder="Une page spéciale pour le menu de Ramadan, à mettre en ligne mi-février. Et on relance les avis : le QR sur l'addition en a amené six ce mois-ci."></textarea>
+    </div>
+  </div>
+</section>
+
+<div class="actions horsimpression">
+  <button class="btn btn-main" id="imprimer">Imprimer / enregistrer en PDF</button>
+  <button class="btn btn-ghost" id="vider">Vider et recommencer</button>
+</div>
+<div class="memo horsimpression" id="memo"></div>
+
+<!-- ============ LE RAPPORT ============ -->
+<div class="feuille" id="feuille">
+  <div class="f-tete">
+    <div>
+      <p class="f-kick">Rapport mensuel</p>
+      <h2 id="fNom">—</h2>
+      <p id="fMois">—</p>
+    </div>
+    <div class="marque">Studio Kanté</div>
+  </div>
+
+  <div class="chiffres" id="fChiffres"></div>
+
+  <div class="f-sec" id="secFait">
+    <h3>Ce qui a été fait</h3>
+    <p id="fFait"></p>
+  </div>
+
+  <div class="f-sec" id="secPropose">
+    <h3>Ce que je propose</h3>
+    <p id="fPropose"></p>
+  </div>
+
+  <div class="f-pied">
+    <span id="fSource">Chiffres relevés sur la fiche Google Business Profile du restaurant.</span>
+    <span>studiokante.ma · 07 84 16 10 21</span>
+  </div>
+</div>
+
+  <footer class="horsimpression">
+    <div class="mk">Studio Kanté</div>
+    <p>Outil interne · <a href="/">studiokante.ma</a> · <a href="/oeil/">L'œil</a></p>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+var $ = function(s){ return document.querySelector(s); };
+
+/* Les indicateurs. `dec` = valeur à décimale (la note), `suffixe` = unité affichée. */
+var INDIC = [
+  { id:"vues",      nom:"Vues de la fiche",      lab:"Vues de la fiche" },
+  { id:"appels",    nom:"Appels reçus",          lab:"Appels reçus" },
+  { id:"itin",      nom:"Itinéraires demandés",  lab:"Itinéraires" },
+  { id:"site",      nom:"Clics vers le site",    lab:"Clics vers le site" },
+  { id:"avis",      nom:"Nouveaux avis",         lab:"Nouveaux avis" },
+  { id:"note",      nom:"Note moyenne (sur 5)",  lab:"Note moyenne", dec:true, suffixe:"/5" },
+  { id:"scans",     nom:"Scans de la carte",     lab:"Scans de la carte" },
+  { id:"whatsapp",  nom:"Messages WhatsApp",     lab:"Messages WhatsApp" }
+];
+
+/* ---------- construction du tableau de saisie ---------- */
+var tb = $("#lignes");
+INDIC.forEach(function(k){
+  var tr = document.createElement("tr");
+  var td0 = document.createElement("td"); td0.textContent = k.nom;
+  var td1 = document.createElement("td");
+  var td2 = document.createElement("td");
+  [["a", td1], ["b", td2]].forEach(function(p){
+    var i = document.createElement("input");
+    i.type = "number"; i.min = "0"; i.id = k.id + "_" + p[0];
+    i.setAttribute("inputmode", k.dec ? "decimal" : "numeric");
+    if (k.dec){ i.step = "0.1"; i.max = "5"; } else { i.step = "1"; }
+    i.setAttribute("aria-label", k.nom + (p[0] === "a" ? " — ce mois" : " — mois précédent"));
+    p[1].appendChild(i);
+  });
+  tr.appendChild(td0); tr.appendChild(td1); tr.appendChild(td2);
+  tb.appendChild(tr);
+});
+
+var TEXTES = ["nom","mois","fait","propose"];
+function tousLesChamps(){
+  var l = TEXTES.map(function(id){ return $("#" + id); });
+  INDIC.forEach(function(k){ l.push($("#" + k.id + "_a"), $("#" + k.id + "_b")); });
+  return l;
+}
+
+/* ---------- mémoire locale, par client ---------- */
+var CLE = "sk-rapports-v1";
+function lire(){
+  try { return JSON.parse(localStorage.getItem(CLE) || "{}"); } catch(e){ return {}; }
+}
+function ecrire(o){
+  try { localStorage.setItem(CLE, JSON.stringify(o)); return true; } catch(e){ return false; }
+}
+function clef(){
+  var n = $("#nom").value.trim().toLowerCase();
+  return n ? n : null;
+}
+
+function enregistrer(){
+  var k = clef(); if (!k) return;
+  var o = lire();
+  var d = { mois: $("#mois").value, fait: $("#fait").value, propose: $("#propose").value, ch:{} };
+  INDIC.forEach(function(i){ d.ch[i.id] = $("#" + i.id + "_a").value; });
+  o[k] = d;
+  var ok = ecrire(o);
+  $("#memo").innerHTML = ok
+    ? "Les chiffres de <strong>" + ($("#nom").value.trim() || "ce client") + "</strong> sont gardés sur cet appareil. Le mois prochain, tape le même nom : ils remonteront tout seuls dans la colonne « mois précédent »."
+    : "Cet appareil n'autorise pas la mémoire du navigateur : rien n'est gardé entre deux visites. Le rapport fonctionne quand même, tu retaperas les chiffres.";
+}
+
+/* Quand le nom change, on propose le mois précédent enregistré. */
+function rappeler(){
+  var k = clef(); if (!k) return;
+  var d = lire()[k]; if (!d) return;
+  var vide = INDIC.every(function(i){ return !$("#" + i.id + "_b").value; });
+  if (!vide) return;
+  INDIC.forEach(function(i){
+    var v = d.ch && d.ch[i.id];
+    if (v) $("#" + i.id + "_b").value = v;
+  });
+  $("#memo").innerHTML = "J'ai repris les chiffres du rapport précédent de <strong>" +
+    ($("#nom").value.trim()) + "</strong> dans la colonne « mois précédent »" +
+    (d.mois ? " (" + d.mois + ")" : "") + ". Corrige-les si besoin.";
+  dessiner();
+}
+
+/* ---------- évolution ---------- */
+function ecart(a, b, dec){
+  if (b === null || a === null) return null;
+  if (dec){
+    var d = a - b;
+    if (Math.abs(d) < 0.05) return { t:"=", c:"flat" };
+    return { t:(d > 0 ? "+" : "−") + Math.abs(d).toFixed(1).replace(".", ","), c:(d > 0 ? "up" : "down") };
+  }
+  if (b === 0){
+    if (a === 0) return { t:"=", c:"flat" };
+    return { t:"nouveau", c:"up" };
+  }
+  var p = Math.round((a - b) / b * 100);
+  if (p === 0) return { t:"=", c:"flat" };
+  return { t:(p > 0 ? "+" : "−") + Math.abs(p) + " %", c:(p > 0 ? "up" : "down") };
+}
+
+function nombre(el){
+  var v = el.value.trim();
+  if (v === "") return null;
+  var n = Number(v.replace(",", "."));
+  return isFinite(n) ? n : null;
+}
+
+function format(n, dec){
+  if (dec) return n.toFixed(1).replace(".", ",");
+  return n.toLocaleString("fr-FR");
+}
+
+/* ---------- dessin du rapport ---------- */
+function dessiner(){
+  $("#fNom").textContent  = $("#nom").value.trim()  || "Nom du restaurant";
+  $("#fMois").textContent = $("#mois").value.trim() || "Mois à renseigner";
+
+  var g = $("#fChiffres");
+  g.innerHTML = "";
+  var n = 0;
+  INDIC.forEach(function(k){
+    var a = nombre($("#" + k.id + "_a"));
+    if (a === null) return;
+    var b = nombre($("#" + k.id + "_b"));
+    var e = ecart(a, b, k.dec);
+    var d = document.createElement("div");
+    d.className = "c";
+    var v = document.createElement("div"); v.className = "v";
+    v.appendChild(document.createTextNode(format(a, k.dec) + (k.suffixe || "")));
+    if (e){
+      var s = document.createElement("span");
+      s.className = "ev " + e.c; s.textContent = e.t;
+      v.appendChild(s);
+    }
+    var l = document.createElement("p"); l.className = "lab"; l.textContent = k.lab;
+    d.appendChild(v); d.appendChild(l);
+    g.appendChild(d);
+    n++;
+  });
+
+  if (!n){
+    var vide = document.createElement("div");
+    vide.className = "c vide-note";
+    vide.textContent = "Aucun chiffre saisi pour l'instant.";
+    g.appendChild(vide);
+  }
+
+  var f = $("#fait").value.trim(), p = $("#propose").value.trim();
+  $("#fFait").textContent = f;
+  $("#fPropose").textContent = p;
+  $("#secFait").style.display    = f ? "" : "none";
+  $("#secPropose").style.display = p ? "" : "none";
+}
+
+/* ---------- branchements ---------- */
+tousLesChamps().forEach(function(el){
+  el.addEventListener("input", dessiner);
+});
+$("#nom").addEventListener("change", rappeler);
+$("#nom").addEventListener("blur", rappeler);
+
+$("#imprimer").addEventListener("click", function(){
+  dessiner();
+  enregistrer();
+  window.print();
+});
+
+$("#vider").addEventListener("click", function(){
+  tousLesChamps().forEach(function(el){ el.value = ""; });
+  $("#memo").textContent = "";
+  dessiner();
+  $("#nom").focus();
+});
+
+/* mois par défaut : le mois qui vient de se terminer */
+(function(){
+  var d = new Date();
+  d.setDate(1); d.setMonth(d.getMonth() - 1);
+  var m = d.toLocaleDateString("fr-FR", { month:"long", year:"numeric" });
+  $("#mois").placeholder = m;
+})();
+
+dessiner();
+})();
+</script>
+</body>
+</html>
