@@ -229,6 +229,52 @@ body[dir="rtl"] .fld label{letter-spacing:0;text-transform:none;font-size:13.5px
   max-width:min(440px,calc(100vw - 32px));line-height:1.45;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;
 }
 .toast.on{opacity:1;transform:translate(-50%,0)}
+/* ---------- l'assistant guidé ---------- */
+.aide-fab{
+  position:fixed;z-index:62;inset-inline-end:var(--gut);bottom:calc(18px + env(safe-area-inset-bottom));
+  width:54px;height:54px;border-radius:50%;background:var(--ink);color:var(--bone);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(20,17,14,.28);
+  transition:bottom .26s cubic-bezier(.2,.7,.3,1),transform .12s}
+.aide-fab:active{transform:scale(.94)}
+.aide-fab svg{width:25px;height:25px}
+.dock.up ~ .aide-fab{bottom:calc(88px + env(safe-area-inset-bottom))}
+.aide-fab[hidden]{display:none}
+
+.aide-veil{position:fixed;inset:0;z-index:84;background:rgba(20,17,14,.55);opacity:0;pointer-events:none;transition:opacity .2s}
+.aide-veil.on{opacity:1;pointer-events:auto}
+
+.aide{
+  position:fixed;left:0;right:0;bottom:0;z-index:86;background:var(--bone);
+  border-radius:18px 18px 0 0;padding:16px var(--gut) calc(14px + env(safe-area-inset-bottom));
+  transform:translateY(102%);transition:transform .28s cubic-bezier(.2,.7,.3,1);
+  max-height:84vh;display:flex;flex-direction:column}
+.aide.on{transform:translateY(0)}
+.aide-in{max-width:720px;margin:0 auto;width:100%;display:flex;flex-direction:column;min-height:0}
+.aide-h{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex:none}
+.aide-h h2{font-family:var(--display);font-weight:400;font-size:23px;margin:0}
+.aide-h p{margin:3px 0 0;color:var(--ink-2);font-size:13.5px}
+.aide-x{flex:none;width:34px;height:34px;border-radius:50%;background:var(--card);
+  border:1px solid var(--line);color:var(--ink-2);font-size:19px;line-height:1}
+
+.fil{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;margin:14px 0 0;padding-inline-end:2px}
+.bul{max-width:88%;padding:11px 14px;border-radius:14px;font-size:14.5px;line-height:1.5;margin:0 0 9px}
+.bul.q{background:var(--ink);color:#F2EDE3;margin-inline-start:auto;border-end-end-radius:5px}
+.bul.r{background:var(--card);border:1px solid var(--line);border-end-start-radius:5px}
+.bul.r b{font-weight:600}
+.bul.r ul{margin:7px 0 0;padding-inline-start:18px}
+.bul.r li{margin:3px 0}
+.bul-act{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.bul-act a{display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--bone);
+  padding:8px 13px;border-radius:9px;font-size:13.5px;font-weight:600;text-decoration:none}
+.bul-act a.sec{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+
+.aide-q{flex:none;display:flex;gap:8px;overflow-x:auto;padding:12px 0 2px;margin-top:4px;
+  border-top:1px solid var(--line);scrollbar-width:none}
+.aide-q::-webkit-scrollbar{display:none}
+.aide-q button{flex:none;background:var(--card);border:1px solid var(--line);color:var(--ink);
+  padding:9px 14px;border-radius:999px;font-size:13.5px;font-weight:600;white-space:nowrap}
+.aide-q button:active{background:var(--bone-2,#EFE9DD)}
+.aide-pied{flex:none;margin:9px 0 0;font-size:11.5px;color:var(--ink-2);line-height:1.45}
 </style>
 </head>
 <body>
@@ -297,6 +343,29 @@ body[dir="rtl"] .fld label{letter-spacing:0;text-transform:none;font-size:13.5px
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm5.8 14.17c-.25.69-1.45 1.32-2 1.4-.51.08-1.16.11-1.87-.12-.43-.14-.99-.32-1.7-.63-2.99-1.29-4.94-4.3-5.09-4.5-.15-.2-1.22-1.62-1.22-3.09 0-1.47.77-2.19 1.04-2.49.27-.3.59-.37.79-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.84 2.07.91 2.22.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.45.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.02 1.12.99 2.06 1.3 2.36 1.45.3.15.47.12.64-.07.17-.2.74-.87.94-1.16.2-.3.4-.25.67-.15.27.1 1.72.81 2.01.96.3.15.5.22.57.35.07.12.07.72-.18 1.42z"/></svg>
       <span data-t="commander">Commander</span>
     </button>
+  </div>
+</div>
+
+<button class="aide-fab" id="aideFab" type="button" aria-label="Questions fréquentes">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5a8.4 8.4 0 0 1 8.4-8.4 8.4 8.4 0 0 1 9 8.4z"/>
+    <path d="M9.6 9.3a2.4 2.4 0 0 1 4.7.8c0 1.6-2.4 2.4-2.4 2.4"/><path d="M12 15.6h.01"/>
+  </svg>
+</button>
+
+<div class="aide-veil" id="aideVeil"></div>
+<div class="aide" id="aide" role="dialog" aria-modal="true" aria-labelledby="aideT">
+  <div class="aide-in">
+    <div class="aide-h">
+      <div>
+        <h2 class="disp" id="aideT">—</h2>
+        <p id="aideS">—</p>
+      </div>
+      <button class="aide-x" id="aideX" type="button" aria-label="Fermer">&times;</button>
+    </div>
+    <div class="fil" id="fil" aria-live="polite"></div>
+    <div class="aide-q" id="aideQ"></div>
+    <p class="aide-pied" id="aidePied">—</p>
   </div>
 </div>
 
@@ -658,6 +727,193 @@ $("#pBtn").addEventListener("click", function(e){
     : "السلام، كنت عندكم فـ " + UI.ar.name + " وبغيت نشير لكم لشي حاجة :";
   window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent(m), "_blank", "noopener");
 });
+
+/* ==================================================================
+   L'assistant guidé.
+   Aucune réponse n'est générée : chaque phrase est écrite d'avance,
+   dans les deux langues. Les seules parties calculées sont l'heure
+   d'ouverture et la liste des plats sans viande, tirée de la carte
+   elle-même — donc toujours à jour, jamais inventée.
+   ================================================================== */
+
+var AIDE_T = {
+  fr:{
+    titre:"Une question ?",
+    sous:"Les réponses les plus demandées, écrites par le restaurant.",
+    accueil:"Bonjour. Choisissez une question ci-dessous — et si vous ne trouvez pas, le dernier bouton vous met en relation avec quelqu'un.",
+    pied:"Toutes les réponses ont été écrites par le restaurant. Rien n'est généré automatiquement.",
+    wa:"Écrire sur WhatsApp", tel:"Appeler", maps:"Itinéraire", carte:"Voir la carte"
+  },
+  ar:{
+    titre:"عندك سؤال؟",
+    sous:"أكثر الأسئلة تكراراً، بأجوبة من المطعم نفسه.",
+    accueil:"مرحباً. اختر سؤالاً من الأسفل — وإن لم تجد ما تبحث عنه، الزرّ الأخير يصلك بشخص من المطعم.",
+    pied:"كل الأجوبة كتبها المطعم. لا شيء مُولَّد تلقائياً.",
+    wa:"راسلنا على واتساب", tel:"اتصل", maps:"الاتجاهات", carte:"شوف القائمة"
+  }
+};
+
+/* Horaires de la maison, en heures pleines. */
+var OUVRE = 12, FERME = 23;
+
+function heureTexte(h){ return lang === "fr" ? h + "h" : String(h); }
+
+function repOuvert(){
+  var h = new Date().getHours();
+  var ouvert = h >= OUVRE && h < FERME;
+  if (lang === "fr"){
+    return ouvert
+      ? "<b>Oui, c'est ouvert.</b> Nous servons jusqu'à " + heureTexte(FERME) + ". La dernière commande part vers " + heureTexte(FERME - 1) + "30."
+      : "<b>C'est fermé pour le moment.</b> Nous ouvrons à " + heureTexte(OUVRE) + " et servons jusqu'à " + heureTexte(FERME) + ", tous les jours.";
+  }
+  return ouvert
+    ? "<b>نعم، المطعم مفتوح.</b> نقدّم الأطباق إلى غاية الساعة " + FERME + ". آخر طلب يكون على حوالي " + (FERME - 1) + ":30."
+    : "<b>المطعم مغلق حالياً.</b> نفتح على الساعة " + OUVRE + " ونخدم إلى غاية " + FERME + "، كل يوم.";
+}
+
+function repSansViande(){
+  /* On ne compte que ce qui se mange : les boissons n'ont rien à faire
+     dans une réponse sur les plats sans viande. */
+  var SANS = ["boissons"];
+  var noms = [];
+  DATA.forEach(function(sec){
+    if (SANS.indexOf(sec.id) !== -1) return;
+    (sec.items || []).forEach(function(it){
+      if (it.tags && it.tags.indexOf("veg") !== -1) noms.push(esc(it[lang]) + " — " + it.p + " DH");
+    });
+  });
+  if (!noms.length){
+    return lang === "fr"
+      ? "Demandez-nous : le chef adapte volontiers un plat selon ce qu'il a au marché."
+      : "اسألنا: الطباخ يكيّف الطبق حسب ما توفّر في السوق.";
+  }
+  var liste = "<ul><li>" + noms.join("</li><li>") + "</li></ul>";
+  var n = noms.length;
+
+  if (lang === "fr"){
+    var tete = n === 1
+      ? "<b>Oui, un plat de la carte est sans viande ni poisson :</b>"
+      : "<b>Oui, " + n + " plats de la carte sont sans viande ni poisson :</b>";
+    return tete + liste + "Cette liste vient de la carte elle-même : elle suit les changements du jour.";
+  }
+
+  /* Accord du nom avec le nombre, en arabe :
+     1 → طبق واحد, 2 → طبقان, 3–10 → أطباق (pluriel), 11 et plus → طبقاً (singulier). */
+  var compte;
+  if (n === 1)       compte = "طبق واحد";
+  else if (n === 2)  compte = "طبقان";
+  else if (n <= 10)  compte = n + " أطباق";
+  else               compte = n + " طبقاً";
+
+  return "<b>نعم، " + compte + " في القائمة بدون لحم ولا سمك:</b>" + liste +
+    "هذه اللائحة مأخوذة من القائمة مباشرة، وتتغيّر معها.";
+}
+
+var AIDE = [
+  { q:{ fr:"Vous êtes ouverts ?",        ar:"واش مفتوحين؟" },            r:repOuvert },
+  { q:{ fr:"Réserver une table",          ar:"حجز طاولة" },
+    r:{ fr:"Les réservations se font directement avec nous, par message ou par téléphone. Dites-nous le jour, l'heure et le nombre de personnes.",
+        ar:"الحجز يتم معنا مباشرة، عبر رسالة أو بالهاتف. أخبرنا باليوم والساعة وعدد الأشخاص." },
+    act:["wa","tel"] },
+  { q:{ fr:"Vous livrez ?",               ar:"واش كتوصلو؟" },
+    r:{ fr:"Nous ne livrons pas nous-mêmes. En revanche, vous pouvez <b>commander à emporter</b> depuis cette carte : votre commande nous arrive sur WhatsApp, et nous vous disons dans combien de temps c'est prêt.",
+        ar:"لا نقوم بالتوصيل بأنفسنا. لكن يمكنك <b>الطلب للأخذ</b> من هذه القائمة: يصلنا طلبك على واتساب، ونخبرك بالوقت الذي سيكون فيه جاهزاً." },
+    act:["carte"] },
+  { q:{ fr:"Des plats sans viande ?",     ar:"أطباق بلا لحم؟" },         r:repSansViande },
+  { q:{ fr:"J'ai une allergie",           ar:"عندي حساسية" },
+    r:{ fr:"Dites-nous laquelle <b>avant de commander</b>, et nous vous dirons ce qui est possible. Tout est préparé dans la même cuisine : nous ne pouvons pas garantir l'absence totale de traces, et nous préférons vous le dire franchement plutôt que de vous rassurer à tort.",
+        ar:"أخبرنا بها <b>قبل الطلب</b>، وسنقول لك ما هو ممكن. كل شيء يُحضَّر في نفس المطبخ: لا يمكننا ضمان الغياب التام للأثر، ونفضّل أن نصارحك بدل أن نطمئنك خطأً." },
+    act:["wa","tel"] },
+  { q:{ fr:"Où êtes-vous ?",              ar:"فين كاينين؟" },
+    r:{ fr:"12, rue des Oudayas, Anfa — Casablanca. On se gare sans trop de mal dans la rue derrière, surtout en semaine.",
+        ar:"12، زنقة الوداية، أنفا — الدار البيضاء. يمكن الركن بسهولة في الزنقة الخلفية، خاصة في أيام الأسبوع." },
+    act:["maps"] },
+  { q:{ fr:"Comment payer ?",             ar:"كيفاش نخلّص؟" },
+    r:{ fr:"Espèces ou carte bancaire, sur place. Le service est compris dans les prix affichés.",
+        ar:"نقداً أو بالبطاقة البنكية، في عين المكان. الخدمة مشمولة في الأثمنة المعروضة." } },
+  { q:{ fr:"Parler à quelqu'un",          ar:"بغيت نهضر مع شي واحد" },
+    r:{ fr:"Avec plaisir. Écrivez-nous, quelqu'un de la maison vous répond — pas un robot.",
+        ar:"بكل سرور. راسلنا وسيجيبك شخص من المطعم، لا آلة." },
+    act:["wa","tel"] }
+];
+
+function aideLien(code){
+  var T = AIDE_T[lang];
+  if (code === "wa"){
+    var m = lang === "fr"
+      ? "Bonjour " + UI.fr.name + ", j'ai une question :"
+      : "السلام " + UI.ar.name + "، عندي سؤال:";
+    return '<a href="https://wa.me/' + WA + '?text=' + encodeURIComponent(m) + '" target="_blank" rel="noopener">' + T.wa + '</a>';
+  }
+  if (code === "tel")  return '<a class="sec" href="tel:+' + WA + '">' + T.tel + '</a>';
+  if (code === "maps") return '<a class="sec" href="https://www.google.com/maps/search/?api=1&query=' +
+                               encodeURIComponent(UI[lang].vAdresse + ", Casablanca") + '" target="_blank" rel="noopener">' + T.maps + '</a>';
+  if (code === "carte")return '<a class="sec" href="#menu" data-ferme="1">' + T.carte + '</a>';
+  return "";
+}
+
+function aideBulle(cls, html){
+  var b = document.createElement("div");
+  b.className = "bul " + cls;
+  b.innerHTML = html;
+  $("#fil").appendChild(b);
+  $("#fil").scrollTop = $("#fil").scrollHeight;
+  return b;
+}
+
+function aideRepond(i){
+  var a = AIDE[i];
+  aideBulle("q", esc(a.q[lang]));
+  var txt = typeof a.r === "function" ? a.r() : a.r[lang];
+  if (a.act && a.act.length){
+    txt += '<div class="bul-act">' + a.act.map(aideLien).join("") + '</div>';
+  }
+  var b = aideBulle("r", txt);
+  b.querySelectorAll('[data-ferme]').forEach(function(el){
+    el.addEventListener("click", aideFerme);
+  });
+}
+
+function aidePaint(){
+  var T = AIDE_T[lang];
+  $("#aideT").textContent = T.titre;
+  $("#aideS").textContent = T.sous;
+  $("#aidePied").textContent = T.pied;
+  $("#aideFab").setAttribute("aria-label", T.titre);
+
+  var q = $("#aideQ");
+  q.innerHTML = "";
+  AIDE.forEach(function(a, i){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.textContent = a.q[lang];
+    b.addEventListener("click", function(){ aideRepond(i); });
+    q.appendChild(b);
+  });
+
+  $("#fil").innerHTML = "";
+  aideBulle("r", T.accueil);
+}
+
+function aideOuvre(){
+  $("#aideVeil").classList.add("on");
+  $("#aide").classList.add("on");
+  document.body.style.overflow = "hidden";
+}
+function aideFerme(){
+  $("#aideVeil").classList.remove("on");
+  $("#aide").classList.remove("on");
+  document.body.style.overflow = "";
+}
+
+$("#aideFab").addEventListener("click", aideOuvre);
+$("#aideX").addEventListener("click", aideFerme);
+$("#aideVeil").addEventListener("click", aideFerme);
+document.addEventListener("keydown", function(e){ if (e.key === "Escape") aideFerme(); });
+
+/* la langue change : on repeint l'assistant avec le reste */
+var peindreAvant = paint;
+paint = function(){ peindreAvant(); aidePaint(); };
 
 paint();
 build();
