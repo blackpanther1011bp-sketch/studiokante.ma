@@ -108,16 +108,30 @@
     '.ska-act a{display:inline-flex;align-items:center;gap:6px;background:var(--sk-ink,#141a14);color:var(--sk-bone,#f3f1e9);',
     'padding:8px 13px;border-radius:9px;font-size:13.5px;font-weight:600;text-decoration:none}',
     '.ska-act a.sec{background:transparent;border:1.5px solid var(--sk-line,#d7d4c5);color:var(--sk-ink,#141a14)}',
-    '.ska-q{flex:none;display:flex;gap:8px;overflow-x:auto;padding:12px 0 2px;margin-top:4px;',
-    'border-top:1px solid var(--sk-line,#d7d4c5);scrollbar-width:none}',
+    '.ska-qz{flex:none;position:relative;margin-top:4px;border-top:1px solid var(--sk-line,#d7d4c5)}',
+    '.ska-qz::after{content:"";position:absolute;top:0;bottom:0;right:-1px;width:38px;pointer-events:none;',
+    'opacity:0;transition:opacity .18s;background:linear-gradient(to right,rgba(243,241,233,0),var(--sk-bone,#f3f1e9) 72%)}',
+    '.ska-qz.plus::after{opacity:1}',
+    '.ska-q{display:flex;gap:8px;overflow-x:auto;padding:12px 0 2px;scrollbar-width:none}',
     '.ska-q::-webkit-scrollbar{display:none}',
     '.ska-q button{flex:none;cursor:pointer;background:#fffdf8;border:1px solid var(--sk-line,#d7d4c5);',
     'color:var(--sk-ink,#141a14);padding:9px 14px;border-radius:999px;font-size:13.5px;font-weight:600;white-space:nowrap;font-family:inherit}',
     '.ska-pied{flex:none;margin:9px 0 0;font-size:11.5px;color:var(--sk-ink-soft,#55614f);line-height:1.45}',
-    '@media(min-width:48rem){.ska{left:auto;right:24px;bottom:24px;width:420px;border-radius:18px;max-height:min(640px,82vh);',
+    '@media(min-width:48rem){.ska-q{flex-wrap:wrap;overflow-x:visible;overflow-y:auto;max-height:46%;',
+    'scrollbar-width:thin;scrollbar-color:var(--sk-line,#d7d4c5) transparent}',
+    '.ska-q::-webkit-scrollbar{display:block;width:7px}',
+    '.ska-q::-webkit-scrollbar-thumb{background:var(--sk-line,#d7d4c5);border-radius:99px}',
+    '.ska-q button{font-size:13px;padding:7px 12px}',
+    '.ska-qz::after{display:none}',
+    '.ska{left:auto;right:24px;bottom:24px;width:460px;border-radius:18px;max-height:min(640px,82vh);',
+    'padding-left:22px;padding-right:22px;',
     'box-shadow:0 18px 50px rgba(20,26,20,.22)}',
     '.ska-fab{right:24px;bottom:24px}',
-    '.ska-veil{display:none}}'
+    '.ska-veil{display:none}}',
+    /* à la souris, quelle que soit la largeur : les questions reviennent à la ligne,
+       car une bande qui défile horizontalement ne se manipule pas sans doigt. */
+    '@media(pointer:fine){.ska-q{flex-wrap:wrap;overflow-x:visible;overflow-y:auto;max-height:40vh;',
+    'scrollbar-width:thin}.ska-qz::after{display:none}}'
   ].join("");
 
   function el(t, c, h) {
@@ -214,6 +228,15 @@ developpe() +
       fermer();
     });
 
+    var zone = pan.querySelector(".ska-qz");
+    function jauge(){
+      var reste = barre.scrollWidth - barre.clientWidth - barre.scrollLeft;
+      zone.classList.toggle("plus", reste > 6);
+    }
+    barre.addEventListener("scroll", jauge);
+    window.addEventListener("resize", jauge);
+    setTimeout(jauge, 50);
+
     bulle("r", "Bonjour. Voici ce qu'on me demande le plus souvent — choisissez une question en bas. " +
                "Et si vous ne trouvez pas, le dernier bouton me joint directement.");
   }
@@ -227,7 +250,7 @@ developpe() +
              '<button class="ska-x" type="button" aria-label="Fermer">&times;</button>' +
            '</div>' +
            '<div class="ska-fil"></div>' +
-           '<div class="ska-q"></div>' +
+           '<div class="ska-qz"><div class="ska-q"></div></div>' +
            '<p class="ska-pied">Réponses écrites à l\'avance. Rien n\'est généré automatiquement : ' +
            'pour tout le reste, vous tombez sur moi.</p>';
   }
