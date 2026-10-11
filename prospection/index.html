@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La tournée — Studio Kanté</title>
+<meta name="description" content="Les restaurants à démarcher, le message préparé pour chacun, et ce qui a déjà été fait.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#141a14">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bone:#f3f1e9; --bone-deep:#eae7db; --card:#fffdf8;
+  --ink:#141a14; --ink-soft:#55614f; --line:#d7d4c5;
+  --ok:#3f6b45; --ok-bg:#3f6b451a;
+  --warn:#9a6a1e; --warn-bg:#9a6a1e1a;
+  --info:#1d3fc4; --info-bg:#1d3fc412;
+  --disp:"Fraunces",Georgia,serif;
+  --sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --gut:clamp(16px,4.5vw,40px);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bone);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.55;font-variation-settings:"SOFT" 40,"WONK" 0;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:780px;margin:0 auto;padding-inline:var(--gut)}
+h1,h2,h3{font-family:var(--disp);font-weight:600;letter-spacing:-.015em;margin:0}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+a{color:inherit}
+
+header{padding:clamp(26px,7vw,54px) 0 18px;border-bottom:1px solid var(--line)}
+.kick{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin:0 0 .8rem}
+h1{font-size:clamp(2rem,7vw,3.1rem);line-height:1.05}
+header p{margin:.9rem 0 0;color:var(--ink-soft);max-width:56ch}
+
+.avert{margin:1.3rem 0 0;background:var(--warn-bg);border-radius:12px;padding:1rem 1.1rem;font-size:.93rem;color:var(--ink-soft)}
+.avert b{color:var(--ink)}
+
+.compteur{position:sticky;top:0;z-index:20;background:var(--bone);
+  border-bottom:1px solid var(--line);padding:.85rem 0;margin-bottom:.4rem}
+.compteur-in{display:flex;align-items:baseline;gap:1.2rem;flex-wrap:wrap}
+.compteur .n{font-family:var(--disp);font-size:1.6rem;line-height:1}
+.compteur .t{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+.compteur .f .n{color:var(--ok)} .compteur .e .n{color:var(--ink-soft)}
+.raz{margin-left:auto;font-size:.82rem;color:var(--ink-soft);text-decoration:underline}
+
+.sect{margin:2.2rem 0 0}
+.sect h2{font-size:1.3rem}
+.sect .sous{color:var(--ink-soft);font-size:.92rem;margin:.3rem 0 1.1rem;max-width:58ch}
+
+.f{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.05rem 1.1rem;margin:0 0 .9rem}
+.f.fait{opacity:.5}
+.f.ecarte{opacity:.42}
+.f-h{display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem}
+.f-nom{font-family:var(--disp);font-size:1.18rem;line-height:1.2;margin:0}
+.f-meta{font-size:.84rem;color:var(--ink-soft);margin:.3rem 0 0}
+.f-meta .pt{opacity:.5;padding:0 .3rem}
+.etiq{flex:none;font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  padding:.28rem .6rem;border-radius:999px;background:var(--info-bg);color:var(--info);white-space:nowrap}
+.etiq.g{background:var(--ok-bg);color:var(--ok)}
+.f-angle{font-size:.86rem;color:var(--ink-soft);margin:.5rem 0 0;font-style:italic}
+
+details.m{margin:.85rem 0 0}
+details.m summary{cursor:pointer;font-size:.88rem;font-weight:600;color:var(--info);list-style:none}
+details.m summary::-webkit-details-marker{display:none}
+details.m summary::before{content:"▸ ";font-size:.8em}
+details.m[open] summary::before{content:"▾ "}
+.m-txt{white-space:pre-wrap;font-size:.92rem;line-height:1.55;color:var(--ink-soft);
+  background:var(--bone);border-radius:10px;padding:.8rem .9rem;margin:.6rem 0 0}
+
+.f-act{display:flex;flex-wrap:wrap;gap:.5rem;margin:.9rem 0 0}
+.f-act a,.f-act button{display:inline-flex;align-items:center;gap:.45rem;font-size:.86rem;font-weight:600;
+  padding:.6rem .85rem;border-radius:9px;text-decoration:none;border:1.5px solid var(--line);background:var(--bone)}
+.f-act .wa{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+.f-act .ok{background:var(--ok-bg);color:var(--ok);border-color:transparent}
+.f-act a:active,.f-act button:active{transform:scale(.985)}
+
+footer{margin:2.8rem 0 3rem;border-top:1px solid var(--line);padding-top:1.2rem;color:var(--ink-soft);font-size:.86rem}
+footer .mk{font-family:var(--disp);font-size:1.05rem;color:var(--ink)}
+footer p{margin:.3rem 0 0}
+.src{margin:.9rem 0 0;font-size:.8rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kick">Studio Kanté · outil interne</p>
+  <h1>La tournée</h1>
+  <p>Trente-deux restaurants de Casablanca, le message préparé pour chacun, et ce que tu as déjà fait. Ouvre cette page sur ton téléphone pendant que tu démarches.</p>
+  <div class="avert">
+    <b>Vérifie avant d'envoyer.</b> Appuie d'abord sur <i>Voir sur Google</i> : si le restaurant a déjà un site ou une carte en ligne, écarte-le. Je n'ai pas pu le vérifier d'ici, et un message qui dit le contraire de ce que le gérant voit sur son écran ne reçoit jamais de réponse.
+  </div>
+</header>
+
+<div class="compteur">
+  <div class="compteur-in">
+    <div><span class="n" id="nReste">—</span> <span class="t">à faire</span></div>
+    <div class="f"><span class="n" id="nFait">0</span> <span class="t">contactés</span></div>
+    <div class="e"><span class="n" id="nEcarte">0</span> <span class="t">écartés</span></div>
+    <button class="raz" id="raz" type="button">Tout remettre à zéro</button>
+  </div>
+</div>
+
+<section class="sect">
+  <h2>Les six préparés</h2>
+  <p class="sous">Message écrit sur mesure, à partir de ce qui est vérifié sur leur fiche Google : la note, le nombre d'avis, les horaires. Commence par ceux-là.</p>
+  <div id="listeA"></div>
+</section>
+
+<section class="sect">
+  <h2>La suite de la tournée</h2>
+  <p class="sous">Même message, adapté à leur note. Relis-le avant d'envoyer : si tu sais quelque chose du restaurant, une phrase personnelle vaut mieux que la mienne.</p>
+  <div id="listeB"></div>
+</section>
+
+<footer>
+  <div class="mk">Studio Kanté</div>
+  <p>Outil interne · <a href="/">studiokante.ma</a> · <a href="/oeil/">L'œil</a> · <a href="/rapport/">Le rapport</a> · <a href="/avis/">Le QR avis</a></p>
+  <p class="src">Coordonnées, notes et horaires : données Google Maps, relevées le 11 octobre 2026. Elles vieillissent — vérifie sur place.</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+var $ = function(s){ return document.querySelector(s); };
+var CLE = "sk-tournee-v1";
+var etats = {};
+try { etats = JSON.parse(localStorage.getItem(CLE) || "{}"); } catch(e){ etats = {}; }
+function garder(){ try { localStorage.setItem(CLE, JSON.stringify(etats)); } catch(e){} }
+
+var DATA = [];
+
+function esc(s){
+  return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){
+    return ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" })[c];
+  });
+}
+
+/* L'horaire du jour, s'il est connu : c'est ce qui dit s'il faut y aller maintenant. */
+var JOURS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+function fr24(s){
+  if (!s) return "";
+  if (/closed/i.test(s)) return "Fermé";
+  if (/24\s*hours/i.test(s)) return "24h/24";
+  function lire(t){
+    var r = t.trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
+    return r ? { h:+r[1], m:+r[2], mer: r[3] ? r[3].toUpperCase() : null } : null;
+  }
+  function fmt(x){
+    var h = x.h;
+    if (x.mer === "PM" && h < 12) h += 12;
+    if (x.mer === "AM" && h === 12) h = 0;
+    return h + "h" + (x.m ? ("0" + x.m).slice(-2) : "");
+  }
+  return s.split(",").map(function(part){
+    var m = part.split(/[\u2013\u2014-]/);
+    if (m.length < 2) return part.trim();
+    var a = lire(m[0]), b = lire(m[1]);
+    if (!a || !b) return part.trim();
+    if (a.mer === null && b.mer !== null) a.mer = (a.h === 12 ? "PM" : b.mer);
+    if (b.mer === null && a.mer !== null) b.mer = a.mer;
+    return fmt(a) + " – " + fmt(b);
+  }).join(", ");
+}
+
+function horaireDuJour(h){
+  if (!h || !h.length) return "";
+  var j = JOURS[new Date().getDay()];
+  for (var i = 0; i < h.length; i++){
+    if (h[i].indexOf(j + ":") === 0){
+      return fr24(h[i].slice(j.length + 2).replace(/\u2009/g, " ").trim());
+    }
+  }
+  return "";
+}
+
+function lien(x){
+  return "https://www.google.com/maps/search/?api=1&query=" +
+         encodeURIComponent(x.nom + " " + x.adresse) +
+         "&query_place_id=" + encodeURIComponent(x.place_id);
+}
+
+function fiche(x){
+  var e = etats[x.place_id] || "";
+  var d = document.createElement("div");
+  d.className = "f" + (e === "fait" ? " fait" : e === "ecarte" ? " ecarte" : "");
+
+  var bits = [];
+  if (x.note) bits.push(String(x.note).replace(".", ",") + " · " + x.avis + " avis");
+  if (x.quartier) bits.push(x.quartier);
+  var hj = horaireDuJour(x.horaires);
+  if (hj) bits.push(hj);
+  if (x.telAff) bits.push(x.telAff);
+
+  d.innerHTML =
+    '<div class="f-h">' +
+      '<div><p class="f-nom">' + esc(x.nom) + '</p>' +
+      '<p class="f-meta">' + bits.map(esc).join('<span class="pt">·</span>') + '</p></div>' +
+      (x.prepare ? '<span class="etiq">Préparé</span>' : '') +
+    '</div>' +
+    (x.angle ? '<p class="f-angle">' + esc(x.angle) + '</p>' : '') +
+    '<details class="m"><summary>Lire le message</summary><div class="m-txt">' + esc(x.msg) + '</div></details>' +
+    '<div class="f-act">' +
+      '<a class="g" href="' + esc(lien(x)) + '" target="_blank" rel="noopener">Voir sur Google</a>' +
+      (x.tel ? '<a class="wa" href="https://wa.me/' + x.tel + '?text=' + encodeURIComponent(x.msg) + '" target="_blank" rel="noopener">WhatsApp</a>' : '') +
+      (x.tel ? '<a href="tel:+' + x.tel + '">Appeler</a>' : '<span class="f-meta">Pas de numéro</span>') +
+      '<button type="button" data-a="fait">' + (e === "fait" ? "✓ Contacté" : "Marquer contacté") + '</button>' +
+      '<button type="button" data-a="ecarte">' + (e === "ecarte" ? "✓ Écarté" : "Écarter") + '</button>' +
+    '</div>';
+
+  d.querySelectorAll("[data-a]").forEach(function(b){
+    b.addEventListener("click", function(){
+      var a = b.dataset.a;
+      etats[x.place_id] = (etats[x.place_id] === a) ? "" : a;
+      garder();
+      dessiner();
+    });
+  });
+  return d;
+}
+
+function dessiner(){
+  var A = $("#listeA"), B = $("#listeB");
+  A.innerHTML = ""; B.innerHTML = "";
+  var f = 0, ec = 0;
+  DATA.forEach(function(x){
+    var e = etats[x.place_id] || "";
+    if (e === "fait") f++; else if (e === "ecarte") ec++;
+    (x.prepare ? A : B).appendChild(fiche(x));
+  });
+  $("#nFait").textContent = f;
+  $("#nEcarte").textContent = ec;
+  $("#nReste").textContent = DATA.length - f - ec;
+}
+
+$("#raz").addEventListener("click", function(){
+  if (!confirm("Tout remettre à zéro ? Les restaurants déjà contactés redeviendront à faire.")) return;
+  etats = {}; garder(); dessiner();
+});
+
+fetch("/prospection/donnees.json")
+  .then(function(r){ return r.json(); })
+  .then(function(j){ DATA = j; dessiner(); })
+  .catch(function(){
+    $("#listeA").innerHTML = '<div class="f"><p class="f-meta">La liste n\'a pas pu être chargée. Vérifie ta connexion et recharge la page.</p></div>';
+  });
+})();
+</script>
+</body>
+</html>
