@@ -275,7 +275,7 @@ function rang(x){
   var r = 0;
   if (!x.constat) r += 4000000;
   if (!x.prepare) r += 8000000;
-  if (x.msg && /imprim/i.test(x.msg)) r -= 1500000;
+  if (x.reimpression) r -= 1500000;   // un coût qui sort déjà de la caisse
   return r - (x.avis || 0);
 }
 

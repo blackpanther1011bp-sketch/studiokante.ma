@@ -24,8 +24,9 @@
   ],
   "prepare": true,
   "angle": "fermé le dimanche",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n251 personnes vous ont noté 4,6.\n\nJ'ai regardé votre carte sur le téléphone. Elle est là — mais pour commander trois plats, il faut envoyer trois fois : il n'y a pas de panier. C'est là qu'on perd des commandes, et souvent les plus grosses. Et le dimanche, on ne voit pas non plus que vous êtes fermé.\n\nEn salle, c'est l'autre bout du même problème : la carte est imprimée. Une hausse du prix de la viande, un plat qu'on retire, un menu de saison — et il faut tout refaire imprimer. En attendant, les prix affichés ne sont plus les bons, et c'est le serveur qui s'excuse à chaque table.\n\nSur la carte que je livre, un prix se change en deux minutes depuis votre téléphone et c'est à jour sur toutes les tables à l'instant. Le client coche ses plats, ajuste les quantités, et une seule commande part sur votre WhatsApp avec le numéro de table. En français et en arabe.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21",
-  "constat": "Vérifié : carte en ligne sans panier — un message par plat. Et la carte en salle est imprimée : chaque changement = réimpression."
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nJ'ai consulté votre carte en ligne. Elle existe, mais elle ne permet pas de réunir plusieurs plats en une seule commande : le client doit envoyer un message par plat. Votre fermeture du dimanche n'y apparaît pas non plus.\n\nEn salle, la carte est imprimée. Chaque modification de prix ou de plat suppose donc une nouvelle impression, et d'ici là l'affichage ne correspond plus à la réalité.\n\nLa carte numérique que je réalise répond aux deux points : un prix se corrige en deux minutes depuis votre téléphone et s'applique aussitôt à toutes les tables ; le client sélectionne ses plats, ajuste les quantités, et une commande unique arrive sur votre WhatsApp avec le numéro de table. En français et en arabe.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma",
+  "constat": "Vérifié : carte en ligne sans panier — un message par plat. Et la carte en salle est imprimée : chaque changement = réimpression.",
+  "reimpression": true
  },
  {
   "nom": "Foodly bourgogne",
@@ -51,7 +52,7 @@
   ],
   "prepare": true,
   "angle": "4,9 sur 736 avis",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n4,9 sur 736 avis. Très peu de maisons à Casablanca tiennent ce niveau-là.\n\nJ'ai regardé votre carte en ligne. Elle existe — c'est déjà plus que la plupart. Mais pour commander trois plats, il faut envoyer trois fois : il n'y a pas de panier. C'est là qu'on perd des commandes, et souvent les plus grosses.\n\nSur la carte que je livre, le client coche ses plats, ajuste les quantités, et une seule commande part sur votre WhatsApp avec le numéro de table. En français et en arabe.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21",
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\n4,9 de moyenne sur 736 avis : vos clients sont manifestement satisfaits.\n\nJ'ai consulté votre carte en ligne. Elle ne permet pas de réunir plusieurs plats en une seule commande : le client doit envoyer un message par plat, ce qui décourage les commandes les plus importantes.\n\nLa carte numérique que je réalise laisse le client sélectionner ses plats et ajuster les quantités ; une commande unique arrive ensuite sur votre WhatsApp avec le numéro de table, en français et en arabe. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma",
   "constat": "Vérifié : carte en ligne existante, mais sans panier — un message par plat."
  },
  {
@@ -79,7 +80,7 @@
   ],
   "prepare": true,
   "angle": "ouvre à 7h du lundi au samedi",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\nVous ouvrez à 7h du lundi au samedi, et vous êtes à 4,9. Les gens qui cherchent où prendre un café à Bourgogne le matin devraient tomber sur vous en premier — et voir vos pâtisseries avant d'arriver.\n\nJe fais ça : photos, fiche Google, et une carte numérique que le client ouvre depuis sa table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nVous ouvrez à 7h du lundi au samedi : vos clients du matin sont souvent pressés. Une carte ouverte par QR code leur évite d'attendre pour commander.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Monsieur Moutarde",
@@ -106,8 +107,9 @@
   ],
   "prepare": true,
   "angle": "ouvert jusqu'à 1h",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\nVous servez jusqu'à 1h du matin — c'est rare à Casablanca, et c'est exactement ce que cherche quelqu'un à 23h sur son téléphone.\n\nJ'ai regardé votre carte. Les photos sont là, mais aucune ne dit ce qu'il y a dans l'assiette : ni les ingrédients, ni ce qui accompagne. Le client qui hésite entre deux plats n'a rien pour trancher, et celui qui a une allergie ne commande pas. Il n'y a pas de panier non plus : trois plats, trois messages.\n\nEt la carte en salle est imprimée. Un prix qui bouge, un plat qu'on retire — il faut tout refaire imprimer, et en attendant ce qui est affiché n'est plus vrai.\n\nSur la carte que je livre, chaque plat a sa photo et deux lignes qui disent ce que c'est, en français et en arabe. Un prix se change en deux minutes depuis votre téléphone. Le client coche, ajuste les quantités, et une seule commande part sur votre WhatsApp.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21",
-  "constat": "Vérifié : photos des plats sans aucune description, pas de panier, et carte imprimée à réimprimer à chaque changement."
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nVous servez jusqu'à 1h du matin, ce qui est rare à Casablanca : c'est précisément ce que recherche un client à 23h sur son téléphone.\n\nJ'ai consulté votre carte. Les photos sont présentes, mais aucune description n'indique la composition des plats — ni les ingrédients, ni l'accompagnement. Un client hésitant n'a pas de quoi décider, et un client allergique s'abstient. Il n'est pas possible non plus de réunir plusieurs plats en une seule commande. En salle, la carte imprimée doit être refaite à chaque changement.\n\nLa carte numérique que je réalise associe à chaque plat sa photo et deux lignes de description, en français et en arabe. Les prix se corrigent depuis votre téléphone, et la commande arrive complète sur votre WhatsApp.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma",
+  "constat": "Vérifié : photos des plats sans aucune description, pas de panier, et carte imprimée à réimprimer à chaque changement.",
+  "reimpression": true
  },
  {
   "nom": "Mazair",
@@ -134,8 +136,9 @@
   ],
   "prepare": true,
   "angle": "bord de mer · fermé le lundi",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n4,7 sur 117 avis, face à l'océan.\n\nVotre carte est imprimée. Ça veut dire qu'une hausse du prix du poisson, un plat qu'on retire, un menu de saison — et il faut tout refaire imprimer. En attendant, les prix affichés ne sont plus les bons, et c'est le serveur qui s'excuse à chaque table.\n\nSur la carte que je livre, un prix se change en deux minutes depuis votre téléphone, et c'est à jour sur toutes les tables à l'instant. Le client coche ses plats, ajuste les quantités, et une seule commande part sur votre WhatsApp. En français et en arabe.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21",
-  "constat": "Vérifié : carte imprimée uniquement, pas de panier. Chaque changement = réimpression."
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nVotre carte est imprimée. Une variation du prix du poisson, un plat retiré ou un menu de saison imposent donc une réimpression — et, en attendant, les prix affichés ne sont plus les bons.\n\nLa carte numérique que je réalise se met à jour en deux minutes depuis votre téléphone, et s'applique aussitôt à toutes les tables. Le client sélectionne ses plats, ajuste les quantités, et une commande unique arrive sur votre WhatsApp avec le numéro de table. En français et en arabe.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma",
+  "constat": "Vérifié : carte imprimée uniquement, pas de panier. Chaque changement = réimpression.",
+  "reimpression": true
  },
  {
   "nom": "Le regalium",
@@ -162,8 +165,9 @@
   ],
   "prepare": true,
   "angle": "menu en ligne sans photos",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n194 personnes ont pris le temps de vous laisser un avis. C'est une maison qu'on connaît dans le quartier.\n\nJ'ai regardé votre carte en ligne. Elle est là, mais il n'y a pas une seule photo de plat : le client lit des noms et doit imaginer l'assiette. C'est le moment où il hésite, et c'est souvent là qu'il choisit le moins cher — ou qu'il va voir ailleurs. Il n'y a pas de panier non plus : pour commander trois plats, il faut envoyer trois messages.\n\nEt la carte en salle est imprimée. Un prix qui monte, un plat qu'on retire — il faut tout refaire imprimer, et en attendant ce qui est affiché n'est plus vrai.\n\nSur la carte que je livre, chaque plat a sa photo et deux lignes qui disent ce que c'est, en français et en arabe. Un prix se change en deux minutes depuis votre téléphone. Le client coche ses plats, ajuste les quantités, et une seule commande part sur votre WhatsApp avec le numéro de table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21",
-  "constat": "Vérifié : carte en ligne sans aucune photo de plat et sans panier. Carte en salle imprimée : chaque changement oblige à réimprimer."
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nJ'ai consulté votre carte en ligne. Les plats y sont nommés, mais aucune photo ne les accompagne : le client choisit sans voir l'assiette. Il n'est pas possible non plus de réunir plusieurs plats en une seule commande.\n\nEn salle, la carte est imprimée : chaque changement de prix impose une réimpression.\n\nLa carte numérique que je réalise présente chaque plat avec sa photo et deux lignes de description, en français et en arabe. Les prix se modifient depuis votre téléphone, et la commande arrive complète sur votre WhatsApp avec le numéro de table.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma",
+  "constat": "Vérifié : carte en ligne sans aucune photo de plat et sans panier. Carte en salle imprimée : chaque changement oblige à réimprimer.",
+  "reimpression": true
  },
  {
   "nom": "Kamoun",
@@ -190,7 +194,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n476 personnes vous ont noté 4,5 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\n476 avis vous ont déjà été laissés. Une carte numérique agit sur deux points concrets : la clarté de la carte à table, et la possibilité de la corriger sans rien réimprimer.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Saveurs Du Palais",
@@ -217,7 +221,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n571 personnes vous ont noté 3,9 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\n571 avis vous ont déjà été laissés. Une carte numérique agit sur deux points concrets : la clarté de la carte à table, et la possibilité de la corriger sans rien réimprimer.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Restaurant Dar El Kaid",
@@ -244,7 +248,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n1188 personnes vous ont noté 4,4 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nAvec 1 188 avis, votre maison est déjà connue à Casablanca. L'enjeu n'est donc pas la visibilité, mais ce qui se passe à table : une carte lisible sur téléphone, tenue à jour, et une commande qui arrive complète.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Restaurant Chez Radia",
@@ -271,7 +275,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n61 personnes vous ont noté 4,4 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\n61 avis vous ont déjà été laissés. Une carte numérique agit sur deux points concrets : la clarté de la carte à table, et la possibilité de la corriger sans rien réimprimer.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Le Cuistot Traditionnel",
@@ -298,7 +302,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n2137 personnes vous ont noté 4,4 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nAvec 2 137 avis, votre maison est déjà connue à Casablanca. L'enjeu n'est donc pas la visibilité, mais ce qui se passe à table : une carte lisible sur téléphone, tenue à jour, et une commande qui arrive complète.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Al-Mounia",
@@ -325,7 +329,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n1638 personnes vous ont noté 4,1 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nAvec 1 638 avis, votre maison est déjà connue à Casablanca. L'enjeu n'est donc pas la visibilité, mais ce qui se passe à table : une carte lisible sur téléphone, tenue à jour, et une commande qui arrive complète.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Restaurant Moulay Food",
@@ -344,7 +348,7 @@
   "horaires": [],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n63 personnes vous ont noté 4,9 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\n4,9 de moyenne sur 63 avis : vos clients sont satisfaits. Une carte numérique prolonge cette impression dès l'instant où ils s'installent.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Loliva",
@@ -370,7 +374,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n1032 personnes vous ont noté 4,7 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nAvec 1 032 avis, votre maison est déjà connue à Casablanca. L'enjeu n'est donc pas la visibilité, mais ce qui se passe à table : une carte lisible sur téléphone, tenue à jour, et une commande qui arrive complète.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Bliss Rooftop",
@@ -396,7 +400,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n1652 personnes vous ont noté 4,5 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nAvec 1 652 avis, votre maison est déjà connue à Casablanca. L'enjeu n'est donc pas la visibilité, mais ce qui se passe à table : une carte lisible sur téléphone, tenue à jour, et une commande qui arrive complète.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "La Cantine de Gauthier",
@@ -423,7 +427,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n388 personnes vous ont noté 4,5 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\n388 avis vous ont déjà été laissés. Une carte numérique agit sur deux points concrets : la clarté de la carte à table, et la possibilité de la corriger sans rien réimprimer.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Braise Social Kitchen & Wine Bar",
@@ -450,7 +454,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n250 personnes vous ont noté 4,7 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\n4,7 de moyenne sur 250 avis : vos clients sont satisfaits. Une carte numérique prolonge cette impression dès l'instant où ils s'installent.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Bugsy Restaurant Lounge",
@@ -476,7 +480,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n111 personnes vous ont noté 4,7 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\n4,7 de moyenne sur 111 avis : vos clients sont satisfaits. Une carte numérique prolonge cette impression dès l'instant où ils s'installent.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Casa Jose Gauthier",
@@ -503,7 +507,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n1111 personnes vous ont noté 4,1 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nAvec 1 111 avis, votre maison est déjà connue à Casablanca. L'enjeu n'est donc pas la visibilité, mais ce qui se passe à table : une carte lisible sur téléphone, tenue à jour, et une commande qui arrive complète.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Holy Brunch",
@@ -530,7 +534,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n1745 personnes vous ont noté 4,6 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nAvec 1 745 avis, votre maison est déjà connue à Casablanca. L'enjeu n'est donc pas la visibilité, mais ce qui se passe à table : une carte lisible sur téléphone, tenue à jour, et une commande qui arrive complète.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Little Mamma Bourgogne",
@@ -557,7 +561,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n3674 personnes vous ont noté 4,3 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nAvec 3 674 avis, votre maison est déjà connue à Casablanca. L'enjeu n'est donc pas la visibilité, mais ce qui se passe à table : une carte lisible sur téléphone, tenue à jour, et une commande qui arrive complète.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Pomo Dolce",
@@ -584,7 +588,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n1408 personnes vous ont noté 4,6 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nAvec 1 408 avis, votre maison est déjà connue à Casablanca. L'enjeu n'est donc pas la visibilité, mais ce qui se passe à table : une carte lisible sur téléphone, tenue à jour, et une commande qui arrive complète.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "BAMBOO Bourgogne",
@@ -611,7 +615,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n3121 personnes vous ont noté 4,7 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nAvec 3 121 avis, votre maison est déjà connue à Casablanca. L'enjeu n'est donc pas la visibilité, mais ce qui se passe à table : une carte lisible sur téléphone, tenue à jour, et une commande qui arrive complète.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Espace Hassan - Bourgogne ( Bd Tantan )",
@@ -638,7 +642,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n302 personnes vous ont noté 3,9 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\n302 avis vous ont déjà été laissés. Une carte numérique agit sur deux points concrets : la clarté de la carte à table, et la possibilité de la corriger sans rien réimprimer.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "O'BREAK",
@@ -664,7 +668,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n127 personnes vous ont noté 4,6 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\n4,6 de moyenne sur 127 avis : vos clients sont satisfaits. Une carte numérique prolonge cette impression dès l'instant où ils s'installent.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Relais de Paris",
@@ -690,7 +694,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n956 personnes vous ont noté 4,2 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nAvec 956 avis, votre maison est déjà connue à Casablanca. L'enjeu n'est donc pas la visibilité, mais ce qui se passe à table : une carte lisible sur téléphone, tenue à jour, et une commande qui arrive complète.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Kyub Restaurant",
@@ -717,7 +721,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n25 personnes vous ont noté 4,8 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\n4,8 de moyenne sur 25 avis : vos clients sont satisfaits. Une carte numérique prolonge cette impression dès l'instant où ils s'installent.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "West.91",
@@ -743,7 +747,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n3626 personnes vous ont noté 4,3 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nAvec 3 626 avis, votre maison est déjà connue à Casablanca. L'enjeu n'est donc pas la visibilité, mais ce qui se passe à table : une carte lisible sur téléphone, tenue à jour, et une commande qui arrive complète.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Anatolia Premium Steakhouse",
@@ -770,7 +774,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n874 personnes vous ont noté 4,3 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nAvec 874 avis, votre maison est déjà connue à Casablanca. L'enjeu n'est donc pas la visibilité, mais ce qui se passe à table : une carte lisible sur téléphone, tenue à jour, et une commande qui arrive complète.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Villa Boga",
@@ -796,7 +800,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n497 personnes vous ont noté 4,0 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\n497 avis vous ont déjà été laissés. Une carte numérique agit sur deux points concrets : la clarté de la carte à table, et la possibilité de la corriger sans rien réimprimer.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Le Basmane",
@@ -823,7 +827,7 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n1081 personnes vous ont noté 4,2 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nAvec 1 081 avis, votre maison est déjà connue à Casablanca. L'enjeu n'est donc pas la visibilité, mais ce qui se passe à table : une carte lisible sur téléphone, tenue à jour, et une commande qui arrive complète.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  },
  {
   "nom": "Le Cabestan",
@@ -850,6 +854,6 @@
   ],
   "prepare": false,
   "angle": "",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n7031 personnes vous ont noté 4,2 — c'est une maison qu'on recommande.\n\nJe m'occupe de ce qu'un client voit avant de pousser la porte : la fiche Google, les photos de vos plats, et une carte qui s'ouvre par QR code depuis la table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21"
+  "msg": "Bonjour,\n\nBangaly Kanté, de Studio Kanté, à Casablanca. J'accompagne les restaurants sur leur carte numérique et leur présence en ligne.\n\nAvec 7 031 avis, votre maison est déjà connue à Casablanca. L'enjeu n'est donc pas la visibilité, mais ce qui se passe à table : une carte lisible sur téléphone, tenue à jour, et une commande qui arrive complète.\n\nJ'accompagne les restaurants sur ce que le client voit avant d'entrer et sur ce qu'il a en main à table : les photos des plats, la fiche Google, et une carte numérique ouverte par QR code — en français et en arabe. Le client y sélectionne ses plats, et la commande arrive sur votre WhatsApp avec le numéro de table. Les prix se modifient depuis votre téléphone, sans réimpression.\n\nUn exemple complet, à ouvrir sur votre téléphone : studiokante.ma/carte-demo\n\nSi le sujet vous intéresse, je peux passer vous le présenter en vingt minutes, à l'heure qui vous arrange et sans engagement de votre part.\n\nCordialement,\nBangaly Kanté\nStudio Kanté — cartes numériques et présence en ligne\n07 84 16 10 21 · studiokante.ma"
  }
 ]
