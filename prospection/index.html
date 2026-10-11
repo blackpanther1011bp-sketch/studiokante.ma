@@ -62,6 +62,14 @@ header p{margin:.9rem 0 0;color:var(--ink-soft);max-width:56ch}
   padding:.28rem .6rem;border-radius:999px;background:var(--info-bg);color:var(--info);white-space:nowrap}
 .etiq.g{background:var(--ok-bg);color:var(--ok)}
 .f-angle{font-size:.86rem;color:var(--ink-soft);margin:.5rem 0 0;font-style:italic}
+.f-quand{font-size:.85rem;color:#8a5a00;background:#fff6e5;border:1px solid #f0d9a8;border-radius:8px;padding:.45rem .7rem;margin:.6rem 0 0;font-weight:600}
+.f-quand.ok{color:#15603a;background:#e8f6ee;border-color:#b8e0c8}
+.f-rang{display:inline-flex;align-items:center;justify-content:center;min-width:1.6rem;height:1.6rem;border-radius:50%;background:#1a1a1a;color:#fff;font-size:.8rem;font-weight:700;margin-right:.5rem;flex:0 0 auto}
+.f.fait .f-rang,.f.ecarte .f-rang{background:#bbb}
+.horloge{margin:1.1rem 0 0;padding:.85rem 1rem;border-radius:12px;border:1px solid #f0d9a8;background:#fff6e5;color:#8a5a00;font-size:.92rem;line-height:1.5}
+.horloge.ok{background:#e8f6ee;border-color:#b8e0c8;color:#15603a}
+.horloge b{font-weight:700}
+.horloge .maint{display:block;font-size:1.02rem;margin-bottom:.15rem}
 .f-constat{font-size:.85rem;color:var(--ok);background:var(--ok-bg);border-radius:8px;padding:.5rem .7rem;margin:.6rem 0 0;font-weight:600}
 
 details.m{margin:.85rem 0 0}
@@ -107,14 +115,15 @@ footer p{margin:.3rem 0 0}
 </div>
 
 <section class="sect">
-  <h2>Les six préparés</h2>
-  <p class="sous">Message écrit sur mesure, à partir de ce qui est vérifié sur leur fiche Google : la note, le nombre d'avis, les horaires. Commence par ceux-là.</p>
+  <h2>Dans quel ordre, et à quelle heure</h2>
+  <p class="sous">Les numéros donnent l'ordre : d'abord ceux où tu as vu quelque chose de tes yeux, puis les plus gros en nombre d'avis. L'heure compte autant que le message — un WhatsApp en plein service n'est jamais lu.</p>
+  <div class="horloge" id="horloge">—</div>
   <div id="listeA"></div>
 </section>
 
 <section class="sect">
   <h2>La suite de la tournée</h2>
-  <p class="sous">Même message, adapté à leur note. Relis-le avant d'envoyer : si tu sais quelque chose du restaurant, une phrase personnelle vaut mieux que la mienne.</p>
+  <p class="sous">Pas encore visités : le message est générique. Même règle d'horaire. Même message, adapté à leur note. Relis-le avant d'envoyer : si tu sais quelque chose du restaurant, une phrase personnelle vaut mieux que la mienne.</p>
   <div id="listeB"></div>
 </section>
 
@@ -181,6 +190,121 @@ function horaireDuJour(h){
   return "";
 }
 
+var JOURS_FR = ["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+
+// Deux creux dans la journée d'un restaurant : avant le service du midi,
+// et l'après-midi entre les deux services. C'est là qu'un patron lit son téléphone.
+function fenetre(x){
+  var jAuj = new Date().getDay();
+  var h = x.horaires || [];
+
+  function dispo(j){
+    if (!h.length) return true;
+    var nom = JOURS[j];
+    for (var i = 0; i < h.length; i++){
+      if (h[i].indexOf(nom + ":") === 0) return h[i].toLowerCase().indexOf("closed") < 0;
+    }
+    return true;
+  }
+  function brut(j){
+    var nom = JOURS[j];
+    for (var i = 0; i < h.length; i++){
+      if (h[i].indexOf(nom + ":") === 0) return h[i];
+    }
+    return "";
+  }
+
+  // on lit l'heure d'ouverture et de fermeture pour choisir le creux
+  function bornes(txt){
+    var m = txt.match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)?/gi);
+    if (!m || m.length < 2) return null;
+    function h24(p){
+      var q = p.match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)?/i);
+      if (!q) return null;
+      var hh = parseInt(q[1], 10) + (q[2] ? parseInt(q[2], 10) / 60 : 0);
+      var mer = (q[3] || "").toUpperCase();
+      if (mer === "PM" && hh < 12) hh += 12;
+      if (mer === "AM" && hh >= 12) hh -= 12;      // 12:00 AM = minuit
+      return hh;
+    }
+    var o = h24(m[0]), f = h24(m[m.length - 1]);
+    if (o === null || f === null) return null;
+    if (f <= o) f += 24;                            // ferme après minuit
+    return { o: o, f: f };
+  }
+
+  var t = brut(jAuj) || brut((jAuj + 1) % 7);
+  var bo = bornes(t);
+  // ferme à 1h du matin ou plus tard => le patron se lève tard
+  var tard = !!bo && bo.f >= 25;
+  // ouvre à 10h30 ou avant => le créneau du matin marche
+  var tot  = !!bo && bo.o <= 10.5;
+
+  var MATIN = { t: "10h – 11h30", d: 10, f: 11.5 };
+  var APREM = { t: "15h – 17h30", d: 15, f: 17.5 };
+  var SOIR  = { t: "16h – 18h",   d: 16, f: 18 };
+
+  // une maison qui ferme à 1h du matin : le patron se lève tard, le matin ne sert à rien
+  var cren = tard ? [SOIR] : (tot ? [MATIN, APREM] : [APREM]);
+
+  var n = new Date();
+  var maint = n.getHours() + n.getMinutes() / 60;
+
+  if (dispo(jAuj)){
+    for (var i = 0; i < cren.length; i++){
+      if (maint < cren[i].f){
+        return { txt: "aujourd'hui " + cren[i].t, ouvert: maint >= cren[i].d };
+      }
+    }
+  }
+  for (var k = 1; k <= 7; k++){
+    var j = (jAuj + k) % 7;
+    if (dispo(j)){
+      return { txt: (k === 1 ? "demain " : JOURS_FR[j] + " ") + cren[0].t,
+               ouvert: false,
+               note: (k > 1 ? "fermé d'ici là" : (dispo(jAuj) ? "" : "fermé aujourd'hui")) };
+    }
+  }
+  return { txt: cren[0].t, ouvert: false };
+}
+
+function rang(x){
+  // 1. ceux où Kanté a vu quelque chose de ses yeux
+  // 2. parmi eux, ceux dont l'argument chiffre de l'argent qui sort (réimpression)
+  // 3. puis le poids de la maison, en nombre d'avis
+  var r = 0;
+  if (!x.constat) r += 4000000;
+  if (!x.prepare) r += 8000000;
+  if (x.msg && /imprim/i.test(x.msg)) r -= 1500000;
+  return r - (x.avis || 0);
+}
+
+function horloge(){
+  var n = new Date();
+  var m = n.getHours() + n.getMinutes() / 60;
+  var e = $("#horloge");
+  if (!e) return;
+  var txt, ok = false;
+  if (m < 10){
+    txt = "<span class=\"maint\">Trop tôt.</span>Le premier bon créneau, c'est <b>10h – 11h30</b> : la mise en place, avant le service.";
+  } else if (m < 11.5){
+    txt = "<span class=\"maint\">C'est le moment.</span>Créneau du matin jusqu'à <b>11h30</b>. Après, le service du midi commence et plus personne ne lit.";
+    ok = true;
+  } else if (m < 15){
+    txt = "<span class=\"maint\">Service du midi.</span>N'envoie rien maintenant : ça tombe au pire moment. Reprends à <b>15h</b>.";
+  } else if (m < 17.5){
+    txt = "<span class=\"maint\">C'est le meilleur moment de la journée.</span>Entre les deux services, jusqu'à <b>17h30</b>. C'est maintenant qu'un patron a cinq minutes.";
+    ok = true;
+  } else if (m < 18.5){
+    txt = "<span class=\"maint\">Fin de créneau.</span>Encore jouable pour les maisons qui ouvrent tard, plus pour les autres. Après 19h, attends demain 10h.";
+    ok = true;
+  } else {
+    txt = "<span class=\"maint\">Service du soir.</span>Rien ce soir. Demain <b>10h – 11h30</b>, ou <b>15h – 17h30</b> si tu préfères.";
+  }
+  e.className = "horloge" + (ok ? " ok" : "");
+  e.innerHTML = txt + " Un message envoyé au bon moment reçoit une réponse le jour même ; au mauvais, il descend dans la liste et personne n'y revient.";
+}
+
 function lien(x){
   return "https://www.google.com/maps/search/?api=1&query=" +
          encodeURIComponent(x.nom + " " + x.adresse) +
@@ -199,14 +323,20 @@ function fiche(x){
   if (hj) bits.push(hj);
   if (x.telAff) bits.push(x.telAff);
 
+  var q = fenetre(x);
+  var num = (typeof x._n === "number") ? '<span class="f-rang">' + x._n + '</span>' : '';
+
   d.innerHTML =
     '<div class="f-h">' +
-      '<div><p class="f-nom">' + esc(x.nom) + '</p>' +
+      '<div><p class="f-nom">' + num + esc(x.nom) + '</p>' +
       '<p class="f-meta">' + bits.map(esc).join('<span class="pt">·</span>') + '</p></div>' +
       (x.prepare ? '<span class="etiq">Préparé</span>' : '') +
     '</div>' +
     (x.angle ? '<p class="f-angle">' + esc(x.angle) + '</p>' : '') +
     (x.constat ? '<p class="f-constat">' + esc(x.constat) + '</p>' : '') +
+    '<p class="f-quand' + (q.ouvert ? ' ok' : '') + '">' +
+      (q.ouvert ? "À écrire maintenant — " : "À écrire : ") + esc(q.txt) +
+      (q.note ? ' (' + esc(q.note) + ')' : '') + '</p>' +
     '<details class="m"><summary>Lire le message</summary><div class="m-txt">' + esc(x.msg) + '</div></details>' +
     '<div class="f-act">' +
       '<a class="g" href="' + esc(lien(x)) + '" target="_blank" rel="noopener">Voir sur Google</a>' +
@@ -231,11 +361,20 @@ function dessiner(){
   var A = $("#listeA"), B = $("#listeB");
   A.innerHTML = ""; B.innerHTML = "";
   var f = 0, ec = 0;
-  DATA.forEach(function(x){
+
+  var tri = DATA.slice().sort(function(a, b){ return rang(a) - rang(b); });
+  var n = 0;
+  tri.forEach(function(x){
+    var e = etats[x.place_id] || "";
+    x._n = (e ? null : ++n);
+  });
+
+  tri.forEach(function(x){
     var e = etats[x.place_id] || "";
     if (e === "fait") f++; else if (e === "ecarte") ec++;
     (x.prepare ? A : B).appendChild(fiche(x));
   });
+  horloge();
   $("#nFait").textContent = f;
   $("#nEcarte").textContent = ec;
   $("#nReste").textContent = DATA.length - f - ec;
