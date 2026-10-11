@@ -161,9 +161,9 @@
    "Sunday: 10:30 AM – 12:00 AM"
   ],
   "prepare": true,
-  "angle": "194 avis, maison connue du quartier",
-  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n194 personnes ont pris le temps de vous laisser un avis. C'est une maison qu'on connaît dans le quartier.\n\nVotre carte est imprimée. Ça veut dire qu'une hausse du prix d'un produit, un plat qu'on retire, un menu de saison — et il faut tout refaire imprimer. En attendant, les prix affichés ne sont plus les bons, et c'est le serveur qui s'excuse à chaque table. Vous êtes ouvert tous les jours jusqu'à minuit : ça fait beaucoup de tables.\n\nSur la carte que je livre, un prix se change en deux minutes depuis votre téléphone, et c'est à jour sur toutes les tables à l'instant. Le client ouvre la carte au QR code, coche ses plats, ajuste les quantités, et une seule commande part sur votre WhatsApp avec le numéro de table. En français et en arabe.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21",
-  "constat": "Vérifié : carte imprimée — chaque changement de prix ou de plat oblige à réimprimer."
+  "angle": "menu en ligne sans photos",
+  "msg": "Bonjour, je suis Kanté, de Studio Kanté à Casablanca.\n\n194 personnes ont pris le temps de vous laisser un avis. C'est une maison qu'on connaît dans le quartier.\n\nJ'ai regardé votre carte en ligne. Elle est là, mais il n'y a pas une seule photo de plat : le client lit des noms et doit imaginer l'assiette. C'est le moment où il hésite, et c'est souvent là qu'il choisit le moins cher — ou qu'il va voir ailleurs. Il n'y a pas de panier non plus : pour commander trois plats, il faut envoyer trois messages.\n\nEt la carte en salle est imprimée. Un prix qui monte, un plat qu'on retire — il faut tout refaire imprimer, et en attendant ce qui est affiché n'est plus vrai.\n\nSur la carte que je livre, chaque plat a sa photo et deux lignes qui disent ce que c'est, en français et en arabe. Un prix se change en deux minutes depuis votre téléphone. Le client coche ses plats, ajuste les quantités, et une seule commande part sur votre WhatsApp avec le numéro de table.\n\nUn exemple en vrai : studiokante.ma/carte-demo\n\nJe peux passer vingt minutes chez vous cette semaine, sans engagement.\nKanté — 07 84 16 10 21",
+  "constat": "Vérifié : carte en ligne sans aucune photo de plat et sans panier. Carte en salle imprimée : chaque changement oblige à réimprimer."
  },
  {
   "nom": "Kamoun",
