@@ -62,6 +62,7 @@ header p{margin:.9rem 0 0;color:var(--ink-soft);max-width:56ch}
   padding:.28rem .6rem;border-radius:999px;background:var(--info-bg);color:var(--info);white-space:nowrap}
 .etiq.g{background:var(--ok-bg);color:var(--ok)}
 .f-angle{font-size:.86rem;color:var(--ink-soft);margin:.5rem 0 0;font-style:italic}
+.f-constat{font-size:.85rem;color:var(--ok);background:var(--ok-bg);border-radius:8px;padding:.5rem .7rem;margin:.6rem 0 0;font-weight:600}
 
 details.m{margin:.85rem 0 0}
 details.m summary{cursor:pointer;font-size:.88rem;font-weight:600;color:var(--info);list-style:none}
@@ -205,6 +206,7 @@ function fiche(x){
       (x.prepare ? '<span class="etiq">Préparé</span>' : '') +
     '</div>' +
     (x.angle ? '<p class="f-angle">' + esc(x.angle) + '</p>' : '') +
+    (x.constat ? '<p class="f-constat">' + esc(x.constat) + '</p>' : '') +
     '<details class="m"><summary>Lire le message</summary><div class="m-txt">' + esc(x.msg) + '</div></details>' +
     '<div class="f-act">' +
       '<a class="g" href="' + esc(lien(x)) + '" target="_blank" rel="noopener">Voir sur Google</a>' +
