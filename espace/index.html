@@ -135,10 +135,12 @@ if (!C.url || !C.cle){
     '« anon public », que l\'on trouve dans Project Settings → API.</p>' +
     '<p>Le mode d\'emploi complet est dans <span class="mono">base/ACTIVATION.md</span>.</p>' +
     '<p style="margin-top:1.2rem"><a href="/">Retour à studiokante.ma</a></p></div>';
-  throw new Error("base non configurée");
 }
 
-var sb = createClient(C.url, C.cle);
+/* Si la base n'est pas branchée, les fonctions ci-dessous restent définies
+   mais ne sont jamais appelées : la page affiche le mode d'emploi et s'arrête
+   là, sans laisser d'erreur derrière elle. */
+var sb = (C.url && C.cle) ? createClient(C.url, C.cle) : null;
 
 /* ---------------------------------------------------------- connexion */
 function ecranConnexion(msg){
@@ -357,13 +359,15 @@ app.addEventListener("change", async function(e){
 }, true);
 
 /* --------------------------------------------------------------- départ */
-var sess = await sb.auth.getSession();
-if (sess.data.session) charger(); else ecranConnexion();
+if (sb){
+  var sess = await sb.auth.getSession();
+  if (sess.data.session) charger(); else ecranConnexion();
 
-sb.auth.onAuthStateChange(function(ev){
-  if (ev === "SIGNED_IN") charger();
-  if (ev === "SIGNED_OUT") ecranConnexion();
-});
+  sb.auth.onAuthStateChange(function(ev){
+    if (ev === "SIGNED_IN") charger();
+    if (ev === "SIGNED_OUT") ecranConnexion();
+  });
+}
 </script>
 </body>
 </html>
