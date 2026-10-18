@@ -55,7 +55,7 @@
       q: "Je veux voir un exemple",
       r: "Voici une carte numérique complète, telle qu'un client la voit depuis sa table : en français et en arabe, avec la commande qui part sur WhatsApp. " +
          "Le restaurant est fictif, la carte fonctionne vraiment.",
-      act: ["exemple", "demo"]
+      act: ["exemple", "cartepage", "demo"]
     },
     {
       q: "Parler à Kanté",
@@ -74,7 +74,8 @@
     travail: { t: "Voir le travail", h: "#travail", sec: true },
     deroule: { t: "Voir le déroulé", h: "#deroule", sec: true },
     demo:    { t: "Voir la démonstration", h: "#demo", sec: true },
-    exemple: { t: "Ouvrir la carte", h: "/carte-demo/", ext: true }
+    exemple: { t: "Ouvrir la carte", h: "/carte-demo/", ext: true },
+    cartepage:{ t: "Tout sur la carte numérique", h: "/carte-numerique-restaurant-casablanca/", ext: true }
   };
 
   var CSS = [

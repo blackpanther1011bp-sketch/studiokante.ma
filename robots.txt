@@ -1,5 +1,9 @@
 # studiokante.ma
 User-agent: *
 Allow: /
+# /kit/ : bloqué au crawl (page de travail, aucune valeur publique)
+Disallow: /kit/
+# /prospection/ : volontairement crawlable pour que la balise noindex
+# de la page soit lue et que Google la retire définitivement de l'index.
 
 Sitemap: https://studiokante.ma/sitemap.xml
