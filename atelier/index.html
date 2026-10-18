@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>L'atelier — Studio Kanté</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;600;700&family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bone:#f3f1e9; --bone-deep:#eae7db; --card:#fffdf8;
+  --ink:#141a14; --ink-soft:#55614f; --line:#d7d4c5;
+  --ok:#3f6b45; --ok-bg:#3f6b451a;
+  --warn:#9a6a1e; --warn-bg:#9a6a1e1a;
+  --bad:#9f3d22; --bad-bg:#9f3d221a;
+  --info:#1d3fc4;
+  --disp:"Fraunces",Georgia,serif;
+  --sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --ar:"Cairo","Segoe UI",sans-serif;
+  --gut:clamp(14px,3.5vw,32px);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bone);color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  padding-bottom:5.5rem}
+.wrap{max-width:900px;margin:0 auto;padding-inline:var(--gut)}
+h1,h2,h3{font-family:var(--disp);font-weight:600;letter-spacing:-.015em;margin:0}
+a{color:var(--info)}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+
+header{padding:1.6rem 0 1.1rem;border-bottom:1px solid var(--line)}
+.kick{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin:0 0 .6rem}
+h1{font-size:clamp(1.6rem,5vw,2.2rem);line-height:1.08}
+header p{margin:.6rem 0 0;color:var(--ink-soft);max-width:60ch;font-size:.95rem}
+
+.bloc{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:1rem 1.1rem;margin:1.1rem 0}
+.bloc > h2{font-size:1.1rem;margin-bottom:.15rem}
+.bloc > .aide{font-size:.85rem;color:var(--ink-soft);margin:0 0 .9rem}
+
+.grille{display:grid;gap:.7rem;grid-template-columns:1fr}
+@media(min-width:40rem){.grille.deux{grid-template-columns:1fr 1fr}
+  .grille.trois{grid-template-columns:1fr 1fr 1fr}}
+
+label{display:block}
+label > span{display:block;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-soft);font-weight:700;margin-bottom:.25rem}
+input,textarea,select{width:100%;font:inherit;padding:.55rem .65rem;border-radius:9px;
+  border:1px solid var(--line);background:var(--bone);color:var(--ink)}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--ink);outline-offset:-1px}
+textarea{min-height:3.6rem;resize:vertical}
+[dir=rtl],.ar{font-family:var(--ar);direction:rtl;text-align:right}
+
+.sec{border:1px solid var(--line);border-radius:13px;margin:.85rem 0;background:var(--bone-deep)}
+.sec-h{display:flex;align-items:center;gap:.5rem;padding:.7rem .8rem;flex-wrap:wrap}
+.sec-h .tt{font-family:var(--disp);font-size:1.02rem;font-weight:600;flex:1 1 9rem;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sec-b{padding:0 .8rem .8rem}
+.puce{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--ok-bg);color:var(--ok);border-radius:99px;padding:.18rem .5rem}
+.ic{width:1.9rem;height:1.9rem;border-radius:8px;border:1px solid var(--line);
+  background:var(--card);display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;line-height:1;flex:0 0 auto}
+.ic:hover{background:var(--bone)}
+.ic.sup:hover{background:var(--bad-bg);color:var(--bad);border-color:#d9b2a5}
+
+.plat{background:var(--card);border:1px solid var(--line);border-radius:11px;
+  padding:.75rem .8rem;margin:.6rem 0}
+.plat-h{display:flex;align-items:center;gap:.45rem;margin-bottom:.6rem}
+.plat-h .n{font-size:.72rem;font-weight:700;color:var(--ink-soft);flex:1}
+.etiq{display:flex;gap:.9rem;flex-wrap:wrap;margin-top:.55rem;font-size:.88rem}
+.etiq label{display:flex;align-items:center;gap:.35rem}
+.etiq input{width:auto}
+
+.add{display:inline-flex;align-items:center;gap:.4rem;border:1px dashed var(--line);
+  border-radius:10px;padding:.5rem .85rem;font-size:.9rem;font-weight:600;
+  color:var(--ink-soft);background:var(--card)}
+.add:hover{border-style:solid;color:var(--ink)}
+
+.barre{position:fixed;left:0;right:0;bottom:0;background:var(--card);
+  border-top:1px solid var(--line);padding:.7rem var(--gut);z-index:30;
+  box-shadow:0 -8px 24px #141a1410}
+.barre-in{max-width:900px;margin:0 auto;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.barre .etat{flex:1 1 7rem;font-size:.82rem;color:var(--ink-soft);min-width:0}
+.bt{padding:.6rem 1rem;border-radius:9px;font-weight:700;font-size:.9rem;
+  background:var(--bone-deep);border:1px solid var(--line)}
+.bt.p{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+.bt:disabled{opacity:.45;cursor:not-allowed}
+
+.rapport{margin:.9rem 0 0;font-size:.9rem}
+.rapport ul{margin:.4rem 0 0;padding-left:1.1rem}
+.rapport li{margin:.2rem 0}
+.rapport .t{font-weight:700}
+.bad{color:var(--bad)}.warn{color:var(--warn)}.good{color:var(--ok)}
+.boite{border-radius:11px;padding:.75rem .9rem;margin:.7rem 0}
+.boite.bad{background:var(--bad-bg);border:1px solid #d9b2a5;color:var(--ink)}
+.boite.warn{background:var(--warn-bg);border:1px solid #e0cba1;color:var(--ink)}
+.boite.good{background:var(--ok-bg);border:1px solid #b8d3bf;color:var(--ink)}
+
+footer{padding:1.6rem 0 1rem;font-size:.85rem;color:var(--ink-soft);border-top:1px solid var(--line);margin-top:1.4rem}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em}
+@media(prefers-color-scheme:dark){
+ :root:not([data-theme=light]){--bone:#14170f;--bone-deep:#1b1f16;--card:#1c2018;
+  --ink:#f1efe4;--ink-soft:#a7b09c;--line:#2f352a;--info:#8fb0ff}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kick">Studio Kanté · outil interne</p>
+  <h1>L'atelier</h1>
+  <p>On saisit la carte d'un restaurant ici, on vérifie, on dépose le fichier dans <span class="mono">/cartes/</span>. Le moteur fait le reste. Rien ne part en ligne depuis cette page.</p>
+</header>
+
+<div class="bloc">
+  <h2>La maison</h2>
+  <p class="aide">Le nom court sert d'adresse : <span class="mono">studiokante.ma/carte/?r=<b id="apSlug">slug</b></span></p>
+  <div class="grille deux">
+    <label><span>Nom court (adresse)</span><input id="f-slug" placeholder="mazair" autocapitalize="off" spellcheck="false"></label>
+    <label><span>WhatsApp du restaurant</span><input id="f-wa" placeholder="212767393109" inputmode="numeric"></label>
+    <label><span>Nom — français</span><input data-p="nom.fr" placeholder="Mazair"></label>
+    <label><span>Nom — arabe</span><input data-p="nom.ar" class="ar" placeholder="مزير"></label>
+    <label><span>Sous-titre — français</span><input data-p="tagline.fr" placeholder="Casablanca · Poisson du jour"></label>
+    <label><span>Sous-titre — arabe</span><input data-p="tagline.ar" class="ar" placeholder="الدار البيضاء · سمك اليوم"></label>
+  </div>
+  <div class="grille trois" style="margin-top:.7rem">
+    <label><span>Ouvre à (heure)</span><input data-p="ouvre" type="number" min="0" max="23" placeholder="9"></label>
+    <label><span>Ferme à (heure)</span><input data-p="ferme" type="number" min="1" max="30" placeholder="22"></label>
+    <label><span>Bandeau « démonstration »</span>
+      <select id="f-demo"><option value="non">Non — c'est un vrai client</option><option value="oui">Oui — c'est une démo</option></select></label>
+  </div>
+</div>
+
+<div class="bloc">
+  <h2>Ce que l'assistant répond</h2>
+  <p class="aide">Deux réponses que le restaurant doit écrire lui-même. Les autres sont déjà prêtes, et celles sur les horaires et les plats sans viande se calculent toutes seules.</p>
+  <div class="grille deux">
+    <label><span>Où êtes-vous — français</span><textarea data-p="aide.adresse.fr" placeholder="12, boulevard de l'Océan Atlantique, Casablanca. On se gare dans la rue derrière."></textarea></label>
+    <label><span>Où êtes-vous — arabe</span><textarea data-p="aide.adresse.ar" class="ar"></textarea></label>
+    <label><span>Comment payer — français</span><textarea data-p="aide.payer.fr" placeholder="Espèces ou carte bancaire, sur place. Le service est compris."></textarea></label>
+    <label><span>Comment payer — arabe</span><textarea data-p="aide.payer.ar" class="ar"></textarea></label>
+  </div>
+</div>
+
+<div class="bloc">
+  <h2>La carte</h2>
+  <p class="aide">Une section par partie de la carte : entrées, plats, desserts, boissons. Une « formule » est une section à part : un seul prix, pas de liste.</p>
+  <div id="sections"></div>
+  <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem">
+    <button class="add" type="button" id="addSec">＋ Ajouter une section</button>
+    <button class="add" type="button" id="addFor">＋ Ajouter une formule</button>
+  </div>
+</div>
+
+<div class="bloc">
+  <h2>Reprendre une carte existante</h2>
+  <p class="aide">Collez ici le contenu d'un fichier de <span class="mono">/cartes/</span> pour le modifier, puis « Charger ».</p>
+  <textarea id="imp" placeholder='{ "slug": "...", "sections": [ ... ] }' style="min-height:5rem" class="mono"></textarea>
+  <div style="margin-top:.6rem"><button class="bt" type="button" id="btImp">Charger ce fichier</button></div>
+</div>
+
+<div id="rap"></div>
+
+<footer>
+  <p><a href="/">studiokante.ma</a> · <a href="/prospection/">La tournée</a> · <a href="/oeil/">L'œil</a> · <a href="/rapport/">Le rapport</a> · <a href="/avis/">Le QR avis</a></p>
+  <p>Le travail est gardé dans ce navigateur. Il ne part nulle part tant que vous ne déposez pas le fichier.</p>
+</footer>
+
+</div>
+
+<div class="barre">
+  <div class="barre-in">
+    <span class="etat" id="etat">—</span>
+    <button class="bt" type="button" id="btVerif">Vérifier</button>
+    <button class="bt" type="button" id="btApercu">Aperçu</button>
+    <button class="bt p" type="button" id="btTel">Télécharger la fiche</button>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var $ = function(s){ return document.querySelector(s); };
+var CLE = "sk-atelier-v1";
+
+/* ------------------------------------------------ la fiche en cours */
+function vide(){
+  return { slug:"", demo:false,
+    nom:{fr:"",ar:""}, tagline:{fr:"",ar:""}, heroSub:{fr:"",ar:""},
+    wa:"", ouvre:12, ferme:23,
+    aide:{ adresse:{fr:"",ar:""}, payer:{fr:"",ar:""} },
+    sections:[] };
+}
+var F = vide();
+try {
+  var g = localStorage.getItem(CLE);
+  if (g) F = JSON.parse(g);
+} catch(e){}
+
+function garder(){
+  try { localStorage.setItem(CLE, JSON.stringify(F)); } catch(e){}
+}
+
+/* ------------------------------------------------ outils */
+function esc(s){
+  return String(s == null ? "" : s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+function slugifie(s){
+  return String(s || "").toLowerCase()
+    .normalize("NFD").replace(/[̀-ͯ]/g,"")
+    .replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,48);
+}
+function lis(o, chemin){
+  var p = chemin.split("."), v = o;
+  for (var i=0;i<p.length;i++){ if (v == null) return ""; v = v[p[i]]; }
+  return v == null ? "" : v;
+}
+function ecris(o, chemin, val){
+  var p = chemin.split("."), c = o;
+  for (var i=0;i<p.length-1;i++){
+    if (c[p[i]] == null || typeof c[p[i]] !== "object") c[p[i]] = {};
+    c = c[p[i]];
+  }
+  c[p[p.length-1]] = val;
+}
+
+/* ------------------------------------------------ rendu des sections */
+function rendreSections(){
+  var h = "";
+  F.sections.forEach(function(s, i){
+    var formule = !!s.deal;
+    h += '<div class="sec" data-i="' + i + '">' +
+      '<div class="sec-h">' +
+        '<span class="tt">' + (esc(s.fr) || (formule ? "Formule sans nom" : "Section sans nom")) + '</span>' +
+        (formule ? '<span class="puce">Formule</span>'
+                 : '<span class="puce" style="background:var(--bone);color:var(--ink-soft)">' + (s.items||[]).length + ' plat' + (((s.items||[]).length>1)?'s':'') + '</span>') +
+        '<button class="ic" type="button" data-a="haut" title="Monter">↑</button>' +
+        '<button class="ic" type="button" data-a="bas" title="Descendre">↓</button>' +
+        '<button class="ic sup" type="button" data-a="supSec" title="Supprimer la section">✕</button>' +
+      '</div><div class="sec-b">' +
+        '<div class="grille deux">' +
+          champ("Titre — français", "sections."+i+".fr", s.fr, "Plats") +
+          champ("Titre — arabe", "sections."+i+".ar", s.ar, "الأطباق", true) +
+        '</div>';
+
+    if (formule){
+      h += '<div class="grille deux" style="margin-top:.7rem">' +
+        champ("Ce que comprend la formule — français", "sections."+i+".fr_t", s.fr_t, "Entrée, plat et thé") +
+        champ("Ce que comprend la formule — arabe", "sections."+i+".ar_t", s.ar_t, "", true) +
+        zone("Précisions — français", "sections."+i+".fr_d", s.fr_d, "Servie du lundi au vendredi, de 12h à 15h.") +
+        zone("Précisions — arabe", "sections."+i+".ar_d", s.ar_d, "", true) +
+      '</div>' +
+      '<div class="grille deux" style="margin-top:.7rem">' +
+        champ("Prix (DH)", "sections."+i+".price", s.price, "95") +
+      '</div>';
+    } else {
+      (s.items || []).forEach(function(it, j){
+        var b = "sections."+i+".items."+j+".";
+        h += '<div class="plat" data-j="' + j + '">' +
+          '<div class="plat-h"><span class="n">Plat ' + (j+1) + '</span>' +
+            '<button class="ic" type="button" data-a="pHaut" title="Monter">↑</button>' +
+            '<button class="ic" type="button" data-a="pBas" title="Descendre">↓</button>' +
+            '<button class="ic sup" type="button" data-a="supPlat" title="Supprimer le plat">✕</button></div>' +
+          '<div class="grille trois">' +
+            champ("Nom — français", b+"fr", it.fr, "Dorade grillée") +
+            champ("Nom — arabe", b+"ar", it.ar, "الدوراد المشوي", true) +
+            champ("Prix (DH)", b+"p", it.p, "140") +
+          '</div>' +
+          '<div class="grille deux" style="margin-top:.6rem">' +
+            zone("Ce qu'il y a dedans — français", b+"fd", it.fd, "Pêche du jour, chermoula, citron, riz ou frites maison.") +
+            zone("Ce qu'il y a dedans — arabe", b+"ad", it.ad, "", true) +
+          '</div>' +
+          '<div class="grille deux" style="margin-top:.6rem">' +
+            champ("Photo (chemin)", b+"img", it.img, "/assets/plats/mazair/dorade.jpg") +
+            '<div style="display:flex;align-items:flex-end"><button class="add" type="button" data-a="devine" style="width:100%">Deviner le chemin</button></div>' +
+          '</div>' +
+          '<div class="etiq">' +
+            '<label><input type="checkbox" data-t="veg"' + (tag(it,"veg")?" checked":"") + '> Sans viande</label>' +
+            '<label><input type="checkbox" data-t="hot"' + (tag(it,"hot")?" checked":"") + '> Relevé</label>' +
+          '</div>' +
+        '</div>';
+      });
+      h += '<button class="add" type="button" data-a="addPlat" style="margin-top:.5rem">＋ Ajouter un plat</button>';
+    }
+    h += '</div></div>';
+  });
+  $("#sections").innerHTML = h || '<p class="aide" style="margin:0">Aucune section pour le moment.</p>';
+}
+
+function tag(it, t){ return it.tags && it.tags.indexOf(t) !== -1; }
+
+function champ(lib, p, v, ph, ar){
+  return '<label><span>' + esc(lib) + '</span><input data-p="' + p + '"' +
+    (ar ? ' class="ar"' : '') + ' placeholder="' + esc(ph||"") + '" value="' + esc(v) + '"></label>';
+}
+function zone(lib, p, v, ph, ar){
+  return '<label><span>' + esc(lib) + '</span><textarea data-p="' + p + '"' +
+    (ar ? ' class="ar"' : '') + ' placeholder="' + esc(ph||"") + '">' + esc(v) + '</textarea></label>';
+}
+
+/* ------------------------------------------------ peindre la fiche entière */
+function peindre(){
+  $("#f-slug").value = F.slug || "";
+  $("#f-wa").value = F.wa || "";
+  $("#f-demo").value = F.demo ? "oui" : "non";
+  $("#apSlug").textContent = F.slug || "slug";
+  document.querySelectorAll("[data-p]").forEach(function(el){
+    if (el.closest("#sections")) return;        /* géré par rendreSections */
+    el.value = lis(F, el.dataset.p);
+  });
+  rendreSections();
+  compte();
+}
+
+function compte(){
+  var np = 0, ns = F.sections.length;
+  F.sections.forEach(function(s){ np += s.deal ? 1 : (s.items||[]).length; });
+  $("#etat").textContent = ns + " section" + (ns>1?"s":"") + " · " + np + " plat" + (np>1?"s":"");
+}
+
+/* ------------------------------------------------ saisie */
+document.addEventListener("input", function(e){
+  var el = e.target;
+  if (!el.dataset || !el.dataset.p) return;
+  var v = el.value;
+  if (/\.(p|price|ouvre|ferme)$/.test(el.dataset.p) || el.dataset.p === "ouvre" || el.dataset.p === "ferme"){
+    v = v === "" ? "" : Number(v);
+  }
+  ecris(F, el.dataset.p, v);
+  /* le titre de section se met à jour sans tout repeindre */
+  var m = el.dataset.p.match(/^sections\.(\d+)\.fr$/);
+  if (m){
+    var tt = el.closest(".sec").querySelector(".tt");
+    if (tt) tt.textContent = v || "Section sans nom";
+  }
+  garder();
+});
+
+$("#f-slug").addEventListener("input", function(){
+  F.slug = slugifie(this.value);
+  $("#apSlug").textContent = F.slug || "slug";
+  garder();
+});
+$("#f-slug").addEventListener("blur", function(){ this.value = F.slug || ""; });
+$("#f-wa").addEventListener("input", function(){
+  F.wa = this.value.replace(/[^0-9]/g, "").slice(0, 15);
+  garder();
+});
+$("#f-wa").addEventListener("blur", function(){ this.value = F.wa || ""; });
+$("#f-demo").addEventListener("change", function(){ F.demo = this.value === "oui"; garder(); });
+
+document.addEventListener("change", function(e){
+  var el = e.target;
+  if (!el.dataset || !el.dataset.t) return;
+  var sec = el.closest(".sec"), plat = el.closest(".plat");
+  if (!sec || !plat) return;
+  var it = F.sections[+sec.dataset.i].items[+plat.dataset.j];
+  it.tags = it.tags || [];
+  var k = it.tags.indexOf(el.dataset.t);
+  if (el.checked && k === -1) it.tags.push(el.dataset.t);
+  if (!el.checked && k !== -1) it.tags.splice(k, 1);
+  if (!it.tags.length) delete it.tags;
+  garder();
+});
+
+/* ------------------------------------------------ structure */
+function idUnique(base){
+  var id = base || "section", n = 2;
+  var pris = F.sections.map(function(s){ return s.id; });
+  while (pris.indexOf(id) !== -1) id = base + "-" + (n++);
+  return id;
+}
+
+$("#addSec").addEventListener("click", function(){
+  F.sections.push({ id: idUnique("section"), fr:"", ar:"", items:[] });
+  garder(); rendreSections(); compte();
+});
+$("#addFor").addEventListener("click", function(){
+  F.sections.unshift({ id: idUnique("formule"), fr:"", ar:"", deal:true,
+    fr_t:"", ar_t:"", fr_d:"", ar_d:"", price:"" });
+  garder(); rendreSections(); compte();
+});
+
+document.addEventListener("click", function(e){
+  var b = e.target.closest("[data-a]");
+  if (!b) return;
+  var sec = b.closest(".sec");
+  if (!sec) return;
+  var i = +sec.dataset.i, a = b.dataset.a;
+  var plat = b.closest(".plat"), j = plat ? +plat.dataset.j : -1;
+
+  if (a === "supSec"){
+    var quoi = F.sections[i].fr || "cette section";
+    if (!confirm("Supprimer « " + quoi + " » et tout ce qu'elle contient ?")) return;
+    F.sections.splice(i, 1);
+  }
+  else if (a === "haut" && i > 0) F.sections.splice(i-1, 0, F.sections.splice(i,1)[0]);
+  else if (a === "bas" && i < F.sections.length-1) F.sections.splice(i+1, 0, F.sections.splice(i,1)[0]);
+  else if (a === "addPlat"){
+    F.sections[i].items = F.sections[i].items || [];
+    F.sections[i].items.push({ fr:"", ar:"", p:"", fd:"", ad:"", img:"" });
+  }
+  else if (a === "supPlat"){
+    var nom = F.sections[i].items[j].fr || "ce plat";
+    if (!confirm("Supprimer « " + nom + " » ?")) return;
+    F.sections[i].items.splice(j, 1);
+  }
+  else if (a === "pHaut" && j > 0){
+    var it = F.sections[i].items; it.splice(j-1, 0, it.splice(j,1)[0]);
+  }
+  else if (a === "pBas"){
+    var il = F.sections[i].items;
+    if (j < il.length-1) il.splice(j+1, 0, il.splice(j,1)[0]);
+  }
+  else if (a === "devine"){
+    var p = F.sections[i].items[j];
+    if (!p.fr) { alert("Donnez d'abord un nom au plat."); return; }
+    if (!F.slug) { alert("Donnez d'abord un nom court à la maison."); return; }
+    p.img = "/assets/plats/" + F.slug + "/" + slugifie(p.fr) + ".jpg";
+  }
+  else return;
+
+  garder(); rendreSections(); compte();
+});
+
+/* ------------------------------------------------ vérification */
+function verifier(){
+  var dur = [], mou = [];
+
+  if (!F.slug) dur.push("Le nom court est vide : sans lui, la carte n'a pas d'adresse.");
+  if (!/^[a-z0-9-]+$/.test(F.slug || "x")) dur.push("Le nom court ne doit contenir que des lettres sans accent, des chiffres et des tirets.");
+  if (!F.nom.fr) dur.push("Le nom du restaurant en français est vide.");
+  if (!F.nom.ar) mou.push("Le nom en arabe est vide : la carte affichera le nom français en mode arabe.");
+  if (!/^212[0-9]{9}$/.test(F.wa || "")) dur.push("Le WhatsApp doit s'écrire 212 suivi de 9 chiffres — c'est là que partent les commandes.");
+  if (!(F.ouvre >= 0 && F.ouvre <= 23)) dur.push("L'heure d'ouverture n'est pas valide.");
+  if (!(F.ferme > F.ouvre)) dur.push("L'heure de fermeture doit être après l'ouverture (après minuit, écrivez 25 pour 1h).");
+  if (!F.aide.adresse.fr) mou.push("La réponse « Où êtes-vous » est vide : l'assistant gardera l'adresse de la démonstration.");
+  if (!F.aide.payer.fr) mou.push("La réponse « Comment payer » est vide.");
+  if (!F.sections.length) dur.push("La carte n'a aucune section.");
+
+  var np = 0;
+  F.sections.forEach(function(s, i){
+    var ou = "section " + (i+1) + (s.fr ? " (" + s.fr + ")" : "");
+    if (!s.fr) dur.push("Le titre français de la " + ou + " est vide.");
+    if (!s.ar) mou.push("Le titre arabe de la " + ou + " est vide.");
+    if (s.deal){
+      np++;
+      if (!s.fr_t) dur.push("La formule « " + (s.fr||"sans nom") + " » ne dit pas ce qu'elle comprend.");
+      if (!(Number(s.price) > 0)) dur.push("La formule « " + (s.fr||"sans nom") + " » n'a pas de prix.");
+      if (!s.ar_t) mou.push("La formule « " + (s.fr||"sans nom") + " » n'est pas traduite en arabe.");
+      return;
+    }
+    if (!(s.items||[]).length){ dur.push("La " + ou + " ne contient aucun plat."); return; }
+    s.items.forEach(function(it, j){
+      np++;
+      var q = "« " + (it.fr || "plat " + (j+1) + " sans nom") + " » dans " + ou;
+      if (!it.fr) dur.push("Un plat de la " + ou + " n'a pas de nom français.");
+      if (!(Number(it.p) > 0)) dur.push("Le prix manque pour " + q + ".");
+      if (!it.fd) dur.push("La description française manque pour " + q + " — c'est elle qui fait choisir.");
+      if (!it.ar) mou.push("Le nom arabe manque pour " + q + ".");
+      if (!it.ad) mou.push("La description arabe manque pour " + q + ".");
+      if (!it.img) mou.push("La photo manque pour " + q + " : le plat s'affichera sans image.");
+    });
+  });
+
+  var h = "";
+  if (dur.length){
+    h += '<div class="boite bad"><p class="t" style="margin:0 0 .3rem">' + dur.length +
+      ' chose' + (dur.length>1?'s':'') + ' à corriger avant de déposer la fiche</p><ul>' +
+      dur.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + '</ul></div>';
+  } else {
+    h += '<div class="boite good"><p class="t" style="margin:0">La fiche est complète : ' +
+      F.sections.length + ' section' + (F.sections.length>1?'s':'') + ', ' + np +
+      ' plat' + (np>1?'s':'') + '. Elle peut être déposée.</p></div>';
+  }
+  if (mou.length){
+    h += '<div class="boite warn"><p class="t" style="margin:0 0 .3rem">' + mou.length +
+      ' point' + (mou.length>1?'s':'') + ' qui n\'empêchent pas la mise en ligne, mais qui se voient</p><ul>' +
+      mou.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + '</ul></div>';
+  }
+  $("#rap").innerHTML = '<div class="bloc"><h2>Vérification</h2>' + h + '</div>';
+  $("#rap").scrollIntoView({ behavior:"smooth", block:"center" });
+  return !dur.length;
+}
+$("#btVerif").addEventListener("click", verifier);
+
+/* ------------------------------------------------ aperçu */
+$("#btApercu").addEventListener("click", function(){
+  if (!F.sections.length){ alert("Il n'y a rien à montrer : la carte est vide."); return; }
+  var f = JSON.parse(JSON.stringify(F));
+  if (!f.nom.ar) f.nom.ar = f.nom.fr;
+  f.ouvre = Number(f.ouvre) || 12;
+  f.ferme = Number(f.ferme) || 23;
+  f.sections.forEach(function(s){
+    if (s.deal) s.price = Number(s.price) || 0;
+    (s.items||[]).forEach(function(it){
+      it.p = Number(it.p) || 0;
+      if (!it.ar) it.ar = it.fr;
+      if (!it.ad) it.ad = it.fd;
+    });
+  });
+  try { localStorage.setItem("sk-apercu", JSON.stringify(f)); }
+  catch(e){ alert("L'aperçu n'a pas pu être préparé."); return; }
+  window.open("/carte/?r=apercu", "_blank", "noopener");
+});
+
+/* ------------------------------------------------ téléchargement */
+$("#btTel").addEventListener("click", function(){
+  if (!verifier()) return;
+  var f = JSON.parse(JSON.stringify(F));
+  f.ouvre = Number(f.ouvre); f.ferme = Number(f.ferme);
+  f.sections.forEach(function(s){
+    if (s.deal){ s.price = Number(s.price); return; }
+    (s.items||[]).forEach(function(it){ it.p = Number(it.p); });
+  });
+  var txt = JSON.stringify(f, null, 1) + "\n";
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([txt], { type:"application/json" }));
+  a.download = f.slug + ".json";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
+  $("#etat").textContent = "Fiche téléchargée : " + f.slug + ".json";
+});
+
+/* ------------------------------------------------ reprise */
+$("#btImp").addEventListener("click", function(){
+  var t = $("#imp").value.trim();
+  if (!t){ alert("Collez d'abord le contenu du fichier."); return; }
+  var f;
+  try { f = JSON.parse(t); }
+  catch(e){ alert("Ce n'est pas un fichier lisible : " + e.message); return; }
+  if (!f || !f.sections){ alert("Ce fichier ne contient pas de sections."); return; }
+  if (!confirm("Remplacer le travail en cours par cette carte ?")) return;
+  var n = vide();
+  ["slug","wa","demo","ouvre","ferme","sections"].forEach(function(k){
+    if (f[k] != null) n[k] = f[k];
+  });
+  ["nom","tagline","heroSub"].forEach(function(k){
+    if (f[k]) n[k] = { fr: f[k].fr || "", ar: f[k].ar || "" };
+  });
+  if (f.aide){
+    ["adresse","payer"].forEach(function(k){
+      if (f.aide[k]) n.aide[k] = { fr: f.aide[k].fr || "", ar: f.aide[k].ar || "" };
+    });
+  }
+  F = n; garder(); peindre();
+  $("#imp").value = "";
+  $("#etat").textContent = "Carte chargée : " + (F.slug || "sans nom");
+});
+
+peindre();
+})();
+</script>
+</body>
+</html>

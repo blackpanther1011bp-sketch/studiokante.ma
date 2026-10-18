@@ -919,6 +919,24 @@ function echec(quoi){
 var slug = (new URLSearchParams(location.search).get("r") || "dar-sabra")
              .toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 60);
 
+/* Aperçu depuis l'atelier : la fiche voyage par sessionStorage,
+   elle n'est jamais publiée tant que Kanté ne l'a pas déposée. */
+if (slug === "apercu"){
+  var brut = null;
+  /* localStorage et non sessionStorage : un onglet ouvert avec noopener
+     n'hérite pas du sessionStorage de celui qui l'a ouvert. */
+  try { brut = localStorage.getItem("sk-apercu"); } catch(e){}
+  if (brut){
+    try {
+      var fa = JSON.parse(brut);
+      appliquer(fa); paint(); build(); sizeTop();
+    } catch(e){ echec("L'aperçu est illisible."); }
+  } else {
+    echec("Aucun aperçu en mémoire. Repartez de l'atelier.");
+  }
+  return;
+}
+
 fetch("/cartes/" + slug + ".json", { cache: "no-cache" })
   .then(function(r){
     if (!r.ok) throw new Error(r.status === 404 ? "introuvable" : String(r.status));
