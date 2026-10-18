@@ -413,7 +413,7 @@ body[dir="rtl"] .fld label{letter-spacing:0;text-transform:none;font-size:13.5px
 (function(){
 "use strict";
 
-var WA = "212784161021";
+var WA = "";            /* rempli par la fiche du restaurant */
 
 var UI = {
   fr:{
@@ -462,69 +462,7 @@ var UI = {
   }
 };
 
-var DATA = [
-  { id:"formule", fr:"Formule du midi", ar:"صيغة الغداء", deal:true,
-    fr_t:"Entrée, plat et thé à la menthe", ar_t:"مقبّلات، طبق رئيسي وأتاي بالنعناع",
-    fr_d:"Servie du lundi au vendredi, de 12h à 15h. Le plat change chaque jour selon le marché.",
-    ar_d:"تُقدَّم من الاثنين إلى الجمعة، من 12 إلى 15. الطبق يتغيّر يومياً حسب السوق.",
-    price:95
-  },
-  { id:"entrees", fr:"Entrées", ar:"المقبّلات", items:[
-    { fr:"Harira", ar:"الحريرة", p:35, img:"/assets/plats/harira.jpg",
-      fd:"Tomate, lentilles, pois chiches, coriandre. Comme à la maison, servie très chaude.",
-      ad:"طماطم، عدس، حمّص وقزبر. كما في البيت، تُقدَّم ساخنة جداً.", tags:["veg"] },
-    { fr:"Briouates au fromage", ar:"بريوات بالجبن", p:45, img:"/assets/plats/briouates.jpg",
-      fd:"Trois pièces croustillantes, fromage frais et menthe.",
-      ad:"ثلاث قطع مقرمشة، جبن طري ونعناع.", tags:["veg"] },
-    { fr:"Zaalouk et pain maison", ar:"زعلوك مع الخبز البلدي", p:40, img:"/assets/plats/zaalouk.jpg",
-      fd:"Aubergines fondues à l'huile d'olive, ail et cumin.",
-      ad:"باذنجان مطبوخ بزيت الزيتون، ثوم وكمّون.", tags:["veg"] },
-    { fr:"Salade d'oranges à la cannelle", ar:"سلطة البرتقال بالقرفة", p:35, img:"/assets/plats/salade-oranges.jpg",
-      fd:"Oranges de Berkane, fleur d'oranger, cannelle.",
-      ad:"برتقال بركان، ماء الزهر والقرفة.", tags:["veg"] }
-  ]},
-  { id:"plats", fr:"Plats", ar:"الأطباق الرئيسية", items:[
-    { fr:"Tajine d'agneau aux pruneaux", ar:"طاجين اللحم بالبرقوق", p:110, img:"/assets/plats/tajine-agneau.jpg",
-      fd:"Épaule confite trois heures, pruneaux, amandes grillées, sésame.",
-      ad:"كتف مطهوّ ثلاث ساعات، برقوق، لوز محمّص وجنجلان." },
-    { fr:"Poulet mqualli au citron confit", ar:"دجاج مقلّي بالحامض المصيَّر", p:95, img:"/assets/plats/poulet-mqualli.jpg",
-      fd:"Poulet fermier, olives violettes, safran et gingembre.",
-      ad:"دجاج بلدي، زيتون، زعفران وسكنجبير." },
-    { fr:"Couscous du vendredi", ar:"كسكس الجمعة", p:120, img:"/assets/plats/couscous.jpg",
-      fd:"Sept légumes, semoule roulée à la main, bouillon léger. Le vendredi uniquement.",
-      ad:"سبعة خضار، كسكس مفتول باليد ومرق خفيف. يوم الجمعة فقط.", tags:["veg"] },
-    { fr:"Dorade grillée à la chermoula", ar:"الدوراد المشوي بالشرمولة", p:140, img:"/assets/plats/dorade.jpg",
-      fd:"Pêche du jour de Casablanca, chermoula, citron, riz ou frites maison.",
-      ad:"صيد اليوم من الدار البيضاء، شرمولة، حامض، مع أرز أو بطاطس بيتية." },
-    { fr:"Kefta aux œufs", ar:"كفتة بالبيض", p:85, img:"/assets/plats/kefta.jpg",
-      fd:"Boulettes de bœuf au cumin, sauce tomate relevée, deux œufs.",
-      ad:"كرات لحم البقر بالكمّون، مرق طماطم حار وبيضتان.", tags:["hot"] }
-  ]},
-  { id:"desserts", fr:"Desserts", ar:"الحلويات", items:[
-    { fr:"Pastilla au lait", ar:"بسطيلة بالحليب", p:45, img:"/assets/plats/pastilla.jpg",
-      fd:"Feuilles croustillantes, crème à la fleur d'oranger, amandes.",
-      ad:"أوراق مقرمشة، كريمة بماء الزهر ولوز.", tags:["veg"] },
-    { fr:"Orange à la cannelle", ar:"برتقال بالقرفة", p:30, img:"/assets/plats/orange-cannelle.jpg",
-      fd:"Le dessert le plus simple de la maison, et le plus demandé.",
-      ad:"أبسط حلوى في الدار، وأكثرها طلباً.", tags:["veg"] },
-    { fr:"Sellou", ar:"السلو", p:35, img:"/assets/plats/sellou.jpg",
-      fd:"Amandes, sésame, farine grillée, miel. Servi avec un verre de lait.",
-      ad:"لوز، جنجلان، دقيق محمّص وعسل. يُقدَّم مع كأس حليب.", tags:["veg"] }
-  ]},
-  { id:"boissons", fr:"Boissons", ar:"المشروبات", items:[
-    { fr:"Thé à la menthe", ar:"أتاي بالنعناع", p:20, img:"/assets/plats/the-menthe.jpg",
-      fd:"Préparé à la commande, servi à la théière.",
-      ad:"يُحضَّر عند الطلب، ويُقدَّم في البرّاد.", tags:["veg"] },
-    { fr:"Jus d'avocat", ar:"عصير الأفوكادو", p:30, img:"/assets/plats/jus-avocat.jpg",
-      fd:"Avocat, lait, amandes, un trait de miel.",
-      ad:"أفوكادو، حليب، لوز وقليل من العسل.", tags:["veg"] },
-    { fr:"Café nous-nous", ar:"قهوة نص نص", p:15, img:"/assets/plats/cafe-nous-nous.jpg",
-      fd:"Moitié café, moitié lait, dans un verre.",
-      ad:"نصف قهوة ونصف حليب، في كأس.", tags:["veg"] },
-    { fr:"Eau minérale 75 cl", ar:"ماء معدني 75 سل", p:10, img:"/assets/plats/eau.jpg",
-      fd:"Plate ou gazeuse.", ad:"عادي أو غازي.", tags:["veg"] }
-  ]}
-];
+var DATA = [];          /* rempli par la fiche du restaurant */
 
 var TAGS = { veg:{fr:"Végétarien",ar:"نباتي"}, hot:{fr:"Relevé",ar:"حار"} };
 
@@ -697,8 +635,9 @@ function paint(){
 }
 
 function sizeTop(){
-  var h = document.querySelector(".top").offsetHeight;
-  document.documentElement.style.setProperty("--top-h", h + "px");
+  var t = document.querySelector(".top");
+  if (!t) return;                /* la carte n'a pas chargé : rien à mesurer */
+  document.documentElement.style.setProperty("--top-h", t.offsetHeight + "px");
 }
 window.addEventListener("resize", sizeTop);
 window.addEventListener("orientationchange", sizeTop);
@@ -764,7 +703,7 @@ var AIDE_T = {
 };
 
 /* Horaires de la maison, en heures pleines. */
-var OUVRE = 12, FERME = 23;
+var OUVRE = 12, FERME = 23;   /* repli ; la fiche écrase */
 
 function heureTexte(h){ return lang === "fr" ? h + "h" : String(h); }
 
@@ -821,11 +760,11 @@ function repSansViande(){
 
 var AIDE = [
   { q:{ fr:"Vous êtes ouverts ?",        ar:"واش مفتوحين؟" },            r:repOuvert },
-  { q:{ fr:"Réserver une table",          ar:"حجز طاولة" },
+  { id:"reserver", q:{ fr:"Réserver une table",          ar:"حجز طاولة" },
     r:{ fr:"Les réservations se font directement avec nous, par message ou par téléphone. Dites-nous le jour, l'heure et le nombre de personnes.",
         ar:"الحجز يتم معنا مباشرة، عبر رسالة أو بالهاتف. أخبرنا باليوم والساعة وعدد الأشخاص." },
     act:["wa","tel"] },
-  { q:{ fr:"Vous livrez ?",               ar:"واش كتوصلو؟" },
+  { id:"livrer", q:{ fr:"Vous livrez ?",               ar:"واش كتوصلو؟" },
     r:{ fr:"Nous ne livrons pas nous-mêmes. En revanche, vous pouvez <b>commander à emporter</b> depuis cette carte : votre commande nous arrive sur WhatsApp, et nous vous disons dans combien de temps c'est prêt.",
         ar:"لا نقوم بالتوصيل بأنفسنا. لكن يمكنك <b>الطلب للأخذ</b> من هذه القائمة: يصلنا طلبك على واتساب، ونخبرك بالوقت الذي سيكون فيه جاهزاً." },
     act:["carte"] },
@@ -834,11 +773,11 @@ var AIDE = [
     r:{ fr:"Dites-nous laquelle <b>avant de commander</b>, et nous vous dirons ce qui est possible. Tout est préparé dans la même cuisine : nous ne pouvons pas garantir l'absence totale de traces, et nous préférons vous le dire franchement plutôt que de vous rassurer à tort.",
         ar:"أخبرنا بها <b>قبل الطلب</b>، وسنقول لك ما هو ممكن. كل شيء يُحضَّر في نفس المطبخ: لا يمكننا ضمان الغياب التام للأثر، ونفضّل أن نصارحك بدل أن نطمئنك خطأً." },
     act:["wa","tel"] },
-  { q:{ fr:"Où êtes-vous ?",              ar:"فين كاينين؟" },
+  { id:"adresse", q:{ fr:"Où êtes-vous ?",              ar:"فين كاينين؟" },
     r:{ fr:"12, rue des Oudayas, Anfa — Casablanca. On se gare sans trop de mal dans la rue derrière, surtout en semaine.",
         ar:"12، زنقة الوداية، أنفا — الدار البيضاء. يمكن الركن بسهولة في الزنقة الخلفية، خاصة في أيام الأسبوع." },
     act:["maps"] },
-  { q:{ fr:"Comment payer ?",             ar:"كيفاش نخلّص؟" },
+  { id:"payer", q:{ fr:"Comment payer ?",             ar:"كيفاش نخلّص؟" },
     r:{ fr:"Espèces ou carte bancaire, sur place. Le service est compris dans les prix affichés.",
         ar:"نقداً أو بالبطاقة البنكية، في عين المكان. الخدمة مشمولة في الأثمنة المعروضة." } },
   { q:{ fr:"Parler à quelqu'un",          ar:"بغيت نهضر مع شي واحد" },
@@ -937,9 +876,66 @@ document.addEventListener("keydown", function(e){ if (e.key === "Escape") aideFe
 var peindreAvant = paint;
 paint = function(){ peindreAvant(); aidePaint(); };
 
-paint();
-build();
-sizeTop();
+/* ---------------------------------------------------------------
+   Un seul moteur, une fiche par restaurant.
+   /carte/?r=mazair  charge  /cartes/mazair.json
+   --------------------------------------------------------------- */
+function appliquer(f){
+  if (f.wa)             WA = String(f.wa).replace(/[^0-9]/g, "");
+  if (f.sections)       DATA = f.sections;
+  if (typeof f.ouvre === "number") OUVRE = f.ouvre;
+  if (typeof f.ferme === "number") FERME = f.ferme;
+
+  ["fr", "ar"].forEach(function(L){
+    if (f.nom     && f.nom[L])     UI[L].name    = f.nom[L];
+    if (f.tagline && f.tagline[L]) UI[L].tagline = f.tagline[L];
+    if (f.heroSub && f.heroSub[L]) UI[L].heroSub = f.heroSub[L];
+  });
+
+  /* les réponses de l'assistant que le restaurant a écrites lui-même */
+  if (f.aide){
+    AIDE.forEach(function(a){
+      var o = a.id && f.aide[a.id];
+      if (!o) return;
+      if (typeof a.r === "function") return;   /* réponse calculée : on n'y touche pas */
+      ["fr", "ar"].forEach(function(L){ if (o[L]) a.r[L] = o[L]; });
+    });
+  }
+
+  var bar = document.querySelector(".demo-bar");
+  if (bar && !f.demo) bar.remove();
+}
+
+function echec(quoi){
+  var e = document.createElement("div");
+  e.style.cssText = "max-width:34rem;margin:22vh auto;padding:0 24px;text-align:center;font:400 1rem/1.6 var(--sans,sans-serif)";
+  e.innerHTML = '<p style="font-size:1.15rem;font-weight:700;margin:0 0 .5rem">La carte n\'a pas pu être chargée.</p>' +
+    '<p style="margin:0;opacity:.72">' + quoi + ' Rechargez la page, ou prévenez le restaurant.</p>';
+  document.title = "Carte indisponible";
+  document.body.innerHTML = "";
+  document.body.appendChild(e);
+}
+
+var slug = (new URLSearchParams(location.search).get("r") || "dar-sabra")
+             .toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 60);
+
+fetch("/cartes/" + slug + ".json", { cache: "no-cache" })
+  .then(function(r){
+    if (!r.ok) throw new Error(r.status === 404 ? "introuvable" : String(r.status));
+    return r.json();
+  })
+  .then(function(f){
+    if (!f || !f.sections || !f.sections.length) throw new Error("vide");
+    appliquer(f);
+    paint();
+    build();
+    sizeTop();
+  })
+  .catch(function(e){
+    echec(e.message === "introuvable"
+      ? "Cette carte n\'existe pas encore."
+      : "La connexion a échoué.");
+  });
 })();
 </script>
 </body>
