@@ -91,6 +91,21 @@ textarea{min-height:3.6rem;resize:vertical}
 
 .rapport{margin:.9rem 0 0;font-size:.9rem}
 .rapport ul{margin:.4rem 0 0;padding-left:1.1rem}
+.etape{display:flex;gap:.7rem;padding:.75rem 0;border-top:1px solid var(--line)}
+.etape:first-child{border-top:0;padding-top:.2rem}
+.etape .num{flex:0 0 1.6rem;height:1.6rem;border-radius:50%;background:var(--ink);color:var(--bone);
+  font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.etape .co{flex:1;min-width:0}
+.etape b{display:block;margin-bottom:.15rem}
+.etape p{margin:.15rem 0;font-size:.89rem;color:var(--ink-soft)}
+.chem{display:inline-block;background:var(--bone-deep);border:1px solid var(--line);border-radius:7px;
+  padding:.1rem .4rem;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.84em;
+  word-break:break-all}
+.fichiers{margin:.5rem 0 0;max-height:11rem;overflow:auto;border:1px solid var(--line);
+  border-radius:9px;background:var(--bone);padding:.5rem .6rem}
+.fichiers div{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82rem;
+  padding:.1rem 0;word-break:break-all}
+.fichiers div.vide{color:var(--warn);font-family:var(--sans)}
 .rapport li{margin:.2rem 0}
 .rapport .t{font-weight:700}
 .bad{color:var(--bad)}.warn{color:var(--warn)}.good{color:var(--ok)}
@@ -161,6 +176,12 @@ footer{padding:1.6rem 0 1rem;font-size:.85rem;color:var(--ink-soft);border-top:1
   <p class="aide">Collez ici le contenu d'un fichier de <span class="mono">/cartes/</span> pour le modifier, puis « Charger ».</p>
   <textarea id="imp" placeholder='{ "slug": "...", "sections": [ ... ] }' style="min-height:5rem" class="mono"></textarea>
   <div style="margin-top:.6rem"><button class="bt" type="button" id="btImp">Charger ce fichier</button></div>
+</div>
+
+<div class="bloc" id="depot">
+  <h2>Où déposer</h2>
+  <p class="aide">Deux dépôts, dans l'ordre : les photos d'abord, la fiche ensuite. Si la fiche arrive avant les photos, la carte s'affiche quelques minutes avec des images manquantes.</p>
+  <div id="depotCorps"></div>
 </div>
 
 <div id="rap"></div>
@@ -316,6 +337,66 @@ function peindre(){
   });
   rendreSections();
   compte();
+  depot();
+}
+
+var DEPOT = "https://github.com/blackpanther1011bp-sketch/studiokante.ma/upload/main/";
+
+function depot(){
+  var c = $("#depotCorps");
+  if (!c) return;
+  var sl = F.slug || "";
+  if (!sl){
+    c.innerHTML = '<p class="aide" style="margin:0">Donnez d\'abord un nom court à la maison : c\'est lui qui nomme le dossier et l\'adresse.</p>';
+    return;
+  }
+
+  /* les photos que la fiche réclame, dans l'ordre de la carte */
+  var att = [], sans = 0;
+  F.sections.forEach(function(sec){
+    (sec.items || []).forEach(function(it){
+      if (it.img) att.push(it.img); else sans++;
+    });
+  });
+
+  var dossiers = {};
+  att.forEach(function(p){
+    var i = p.lastIndexOf("/");
+    var d = i > 0 ? p.slice(1, i) : "assets/plats";
+    (dossiers[d] = dossiers[d] || []).push(p.slice(i + 1));
+  });
+  var noms = Object.keys(dossiers);
+
+  var liste = "";
+  noms.forEach(function(d){
+    liste += '<div style="opacity:.6;margin-top:.3rem">' + esc(d) + '/</div>' +
+      dossiers[d].map(function(f){ return '<div>&nbsp;&nbsp;' + esc(f) + '</div>'; }).join("");
+  });
+  if (sans) liste += '<div class="vide">' + sans + ' plat' + (sans>1?'s':'') + ' sans photo : ' +
+    (sans>1?'ils s\'afficheront':'il s\'affichera') + ' sans image.</div>';
+  if (!liste) liste = '<div class="vide">Aucune photo renseignée pour le moment.</div>';
+
+  c.innerHTML =
+    '<div class="etape"><span class="num">1</span><div class="co">' +
+      '<b>Les photos</b>' +
+      '<p>Sur votre ordinateur, mettez-les dans un dossier nommé exactement <span class="chem">' + esc(sl) + '</span>, ' +
+      'puis faites glisser ce dossier entier sur la page de dépôt. GitHub garde le dossier.</p>' +
+      '<p><a href="' + DEPOT + 'assets/plats" target="_blank" rel="noopener">Ouvrir le dépôt des photos →</a></p>' +
+      '<p style="margin-top:.4rem">Les ' + att.length + ' fichier' + (att.length>1?'s':'') + ' que la fiche réclame, au nom près :</p>' +
+      '<div class="fichiers">' + liste + '</div>' +
+    '</div></div>' +
+    '<div class="etape"><span class="num">2</span><div class="co">' +
+      '<b>La fiche</b>' +
+      '<p>Le fichier <span class="chem">' + esc(sl) + '.json</span> que le bouton « Télécharger la fiche » vous donne, ' +
+      'à déposer dans <span class="chem">cartes/</span>. Rien d\'autre à toucher.</p>' +
+      '<p><a href="' + DEPOT + 'cartes" target="_blank" rel="noopener">Ouvrir le dépôt de la fiche →</a></p>' +
+    '</div></div>' +
+    '<div class="etape"><span class="num">3</span><div class="co">' +
+      '<b>Deux minutes d\'attente</b>' +
+      '<p>Le temps que le site se reconstruise. La carte est ensuite à cette adresse :</p>' +
+      '<p><a href="/carte/?r=' + encodeURIComponent(sl) + '" target="_blank" rel="noopener">studiokante.ma/carte/?r=' + esc(sl) + '</a> — ' +
+      'c\'est elle qui va sur le QR code de la table.</p>' +
+    '</div></div>';
 }
 
 function compte(){
@@ -339,13 +420,15 @@ document.addEventListener("input", function(e){
     var tt = el.closest(".sec").querySelector(".tt");
     if (tt) tt.textContent = v || "Section sans nom";
   }
+  /* la liste des photos attendues suit les chemins saisis */
+  if (/\.img$/.test(el.dataset.p)) depot();
   garder();
 });
 
 $("#f-slug").addEventListener("input", function(){
   F.slug = slugifie(this.value);
   $("#apSlug").textContent = F.slug || "slug";
-  garder();
+  garder(); depot();
 });
 $("#f-slug").addEventListener("blur", function(){ this.value = F.slug || ""; });
 $("#f-wa").addEventListener("input", function(){
@@ -379,12 +462,12 @@ function idUnique(base){
 
 $("#addSec").addEventListener("click", function(){
   F.sections.push({ id: idUnique("section"), fr:"", ar:"", items:[] });
-  garder(); rendreSections(); compte();
+  garder(); rendreSections(); compte(); depot();
 });
 $("#addFor").addEventListener("click", function(){
   F.sections.unshift({ id: idUnique("formule"), fr:"", ar:"", deal:true,
     fr_t:"", ar_t:"", fr_d:"", ar_d:"", price:"" });
-  garder(); rendreSections(); compte();
+  garder(); rendreSections(); compte(); depot();
 });
 
 document.addEventListener("click", function(e){
@@ -426,7 +509,7 @@ document.addEventListener("click", function(e){
   }
   else return;
 
-  garder(); rendreSections(); compte();
+  garder(); rendreSections(); compte(); depot();
 });
 
 /* ------------------------------------------------ vérification */
