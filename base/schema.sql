@@ -171,6 +171,11 @@ grant update on public.restaurants to authenticated;
 grant insert, update, delete on public.sections, public.plats to authenticated;
 -- personne ne touche à la table des rattachements depuis l'extérieur
 revoke insert, update, delete on public.membres from anon, authenticated;
+-- et un visiteur sans compte n'a même pas à savoir que cette table existe.
+-- (Sans ce revoke, Supabase lui accorde SELECT par défaut : RLS renvoie bien
+--  zéro ligne, mais l'appel répond 200 au lieu d'être refusé. Constaté en
+--  interrogeant un vrai projet.)
+revoke select on public.membres from anon;
 
 -- -------------------------------------------------------- horodatage des maj
 create or replace function public.touche_plat()

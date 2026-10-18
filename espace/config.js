@@ -13,6 +13,6 @@
    toutes les règles. Elle ne doit jamais sortir du tableau de bord.
    -------------------------------------------------------------------- */
 window.SK_BASE = {
-  url:  "",   // ex. https://abcdefghijklm.supabase.co
-  cle:  ""    // la clé « anon public »
+  url:  "https://wlusatnveeepkiimxkag.supabase.co",
+  cle:  "sb_publishable_yDq1MmU23OMNcGBeQ6gJNw_T8MTyGIn"
 };
