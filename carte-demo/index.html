@@ -937,22 +937,68 @@ if (slug === "apercu"){
   return;
 }
 
+/* Deux provenances, dans cet ordre :
+   1. /cartes/<slug>.json  — les cartes posées à la main par le studio.
+      Un fichier statique servi par le CDN : c'est le chemin le plus rapide,
+      et il marche même si la base est en panne.
+   2. la base — les cartes que le restaurant gère lui-même depuis /espace/.
+      On n'y va que si le fichier n'existe pas, et on ne charge la
+      configuration qu'à ce moment-là : le client attablé ne télécharge
+      rien d'inutile. */
+
+function depuisBase(slug){
+  return new Promise(function(ok, non){
+    var c = window.SK_BASE;
+    function tirer(){
+      c = window.SK_BASE;
+      if (!c || !c.url || !c.cle) return non(new Error("introuvable"));
+      fetch(c.url.replace(/\/+$/, "") + "/rest/v1/rpc/carte", {
+        method: "POST",
+        headers: {
+          "apikey": c.cle,
+          "Authorization": "Bearer " + c.cle,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ p_slug: slug })
+      })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(f){
+        if (!f || !f.sections || !f.sections.length) return non(new Error("introuvable"));
+        ok(f);
+      })
+      .catch(function(){ non(new Error("reseau")); });
+    }
+    if (c && c.url) return tirer();
+    var sc = document.createElement("script");
+    sc.src = "/espace/config.js";
+    sc.onload = tirer;
+    sc.onerror = function(){ non(new Error("introuvable")); };
+    document.head.appendChild(sc);
+  });
+}
+
+function afficher(f){
+  if (!f || !f.sections || !f.sections.length) throw new Error("vide");
+  appliquer(f);
+  paint();
+  build();
+  sizeTop();
+}
+
 fetch("/cartes/" + slug + ".json", { cache: "no-cache" })
   .then(function(r){
-    if (!r.ok) throw new Error(r.status === 404 ? "introuvable" : String(r.status));
-    return r.json();
+    if (r.ok) return r.json();
+    if (r.status === 404) return null;        /* on tentera la base */
+    throw new Error("reseau");
   })
   .then(function(f){
-    if (!f || !f.sections || !f.sections.length) throw new Error("vide");
-    appliquer(f);
-    paint();
-    build();
-    sizeTop();
+    if (f) return afficher(f);
+    return depuisBase(slug).then(afficher);
   })
   .catch(function(e){
-    echec(e.message === "introuvable"
-      ? "Cette carte n\'existe pas encore."
-      : "La connexion a échoué.");
+    echec(e.message === "reseau"
+      ? "La connexion a échoué."
+      : "Cette carte n\'existe pas encore.");
   });
 })();
 </script>

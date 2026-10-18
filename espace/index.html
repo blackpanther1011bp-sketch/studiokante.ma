@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Votre carte — Studio Kanté</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;600;700&family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bone:#f3f1e9; --bone-deep:#eae7db; --card:#fffdf8;
+  --ink:#141a14; --ink-soft:#55614f; --line:#d7d4c5;
+  --ok:#3f6b45; --ok-bg:#3f6b451a;
+  --warn:#9a6a1e; --warn-bg:#9a6a1e1a;
+  --bad:#9f3d22; --bad-bg:#9f3d221a;
+  --disp:"Fraunces",Georgia,serif;
+  --sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --ar:"Cairo","Segoe UI",sans-serif;
+  --gut:clamp(16px,4.5vw,36px);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bone);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:4rem}
+.wrap{max-width:720px;margin:0 auto;padding-inline:var(--gut)}
+h1,h2,h3{font-family:var(--disp);font-weight:600;letter-spacing:-.015em;margin:0}
+a{color:#1d3fc4}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,textarea{width:100%;font:inherit;padding:.6rem .7rem;border-radius:9px;
+  border:1px solid var(--line);background:var(--bone);color:var(--ink)}
+input:focus,textarea:focus{outline:2px solid var(--ink);outline-offset:-1px}
+textarea{min-height:3.4rem;resize:vertical}
+.ar{font-family:var(--ar);direction:rtl;text-align:right}
+
+header{padding:1.5rem 0 1.1rem;border-bottom:1px solid var(--line);
+  display:flex;align-items:flex-end;gap:.8rem;flex-wrap:wrap}
+.kick{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-soft);font-weight:700;margin:0 0 .4rem}
+h1{font-size:clamp(1.5rem,5vw,2rem);line-height:1.1}
+header .d{flex:1 1 8rem;min-width:0}
+
+.bt{padding:.6rem 1rem;border-radius:9px;font-weight:700;font-size:.92rem;
+  background:var(--bone-deep);border:1px solid var(--line)}
+.bt.p{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+.bt:disabled{opacity:.5;cursor:not-allowed}
+
+.sec{margin:1.4rem 0 0}
+.sec > h2{font-size:1.15rem;padding-bottom:.4rem;border-bottom:1px solid var(--line)}
+.plat{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:.85rem .9rem;margin:.7rem 0}
+.plat.rupture{opacity:.62}
+.plat-h{display:flex;align-items:center;gap:.6rem;margin-bottom:.55rem}
+.plat-h .nm{flex:1;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.px{display:flex;align-items:center;gap:.4rem;flex:0 0 auto}
+.px input{width:5.2rem;text-align:right;font-weight:700;font-size:1.05rem}
+.px .u{font-size:.8rem;color:var(--ink-soft);font-weight:700}
+
+.bascule{display:inline-flex;align-items:center;gap:.45rem;font-size:.86rem;
+  font-weight:700;color:var(--ink-soft);cursor:pointer}
+.bascule input{width:auto;margin:0}
+.bascule.off{color:var(--bad)}
+
+.plier{font-size:.84rem;font-weight:700;color:var(--ink-soft);
+  padding:.3rem 0;text-decoration:underline}
+.detail{display:none;padding-top:.5rem;border-top:1px solid var(--line);margin-top:.55rem}
+.detail.on{display:block}
+.g2{display:grid;gap:.6rem;grid-template-columns:1fr}
+@media(min-width:34rem){.g2{grid-template-columns:1fr 1fr}}
+label > span{display:block;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-soft);font-weight:700;margin-bottom:.22rem}
+
+.boite{border-radius:12px;padding:.9rem 1rem;margin:1.1rem 0;border:1px solid var(--line);background:var(--card)}
+.boite.warn{background:var(--warn-bg);border-color:#e0cba1}
+.boite.bad{background:var(--bad-bg);border-color:#d9b2a5}
+.boite.good{background:var(--ok-bg);border-color:#b8d3bf}
+.boite h2{font-size:1.1rem;margin-bottom:.3rem}
+.boite p{margin:.4rem 0}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;word-break:break-all}
+
+.etat{position:fixed;left:50%;transform:translateX(-50%);bottom:1.1rem;z-index:40;
+  background:var(--ink);color:var(--bone);padding:.5rem 1rem;border-radius:99px;
+  font-size:.88rem;font-weight:700;opacity:0;transition:opacity .18s;pointer-events:none}
+.etat.on{opacity:1}
+.etat.err{background:var(--bad)}
+
+footer{padding:1.8rem 0 1rem;margin-top:1.6rem;border-top:1px solid var(--line);
+  font-size:.86rem;color:var(--ink-soft)}
+.centre{max-width:26rem;margin:14vh auto;text-align:center}
+.centre h1{margin-bottom:.6rem}
+.centre p{color:var(--ink-soft)}
+.centre form{margin-top:1.2rem;display:flex;flex-direction:column;gap:.6rem}
+@media(prefers-color-scheme:dark){
+ :root:not([data-theme=light]){--bone:#14170f;--bone-deep:#1b1f16;--card:#1c2018;
+  --ink:#f1efe4;--ink-soft:#a7b09c;--line:#2f352a}
+ a{color:#8fb0ff}
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <div class="centre"><p>Un instant…</p></div>
+</div>
+<div class="etat" id="etat"></div>
+
+<script src="/espace/config.js"></script>
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.0/+esm";
+
+var app = document.getElementById("app");
+var zEtat = document.getElementById("etat");
+
+function esc(s){
+  return String(s == null ? "" : s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+var minuteur;
+function dire(txt, err){
+  zEtat.textContent = txt;
+  zEtat.className = "etat on" + (err ? " err" : "");
+  clearTimeout(minuteur);
+  minuteur = setTimeout(function(){ zEtat.className = "etat"; }, err ? 5000 : 1800);
+}
+
+/* ---------------------------------------------------- pas encore branché */
+var C = window.SK_BASE || {};
+if (!C.url || !C.cle){
+  app.innerHTML =
+    '<div class="centre" style="text-align:left">' +
+    '<h1>L\'espace n\'est pas encore branché</h1>' +
+    '<p>Il manque les deux valeurs du projet Supabase dans ' +
+    '<span class="mono">espace/config.js</span> : l\'adresse du projet et la clé ' +
+    '« anon public », que l\'on trouve dans Project Settings → API.</p>' +
+    '<p>Le mode d\'emploi complet est dans <span class="mono">base/ACTIVATION.md</span>.</p>' +
+    '<p style="margin-top:1.2rem"><a href="/">Retour à studiokante.ma</a></p></div>';
+  throw new Error("base non configurée");
+}
+
+var sb = createClient(C.url, C.cle);
+
+/* ---------------------------------------------------------- connexion */
+function ecranConnexion(msg){
+  app.innerHTML =
+    '<div class="centre">' +
+    '<p class="kick">Studio Kanté</p>' +
+    '<h1>Votre carte</h1>' +
+    '<p>Entrez l\'adresse électronique que vous nous avez donnée. Vous recevrez ' +
+    'un lien : il vous connecte sans mot de passe.</p>' +
+    (msg ? '<div class="boite ' + (msg.bon ? 'good' : 'bad') + '" style="text-align:left">' +
+           esc(msg.txt) + '</div>' : '') +
+    '<form id="fc">' +
+    '<input id="mail" type="email" required autocomplete="email" placeholder="vous@restaurant.ma" inputmode="email">' +
+    '<button class="bt p" type="submit" id="btc">Recevoir mon lien</button>' +
+    '</form>' +
+    '<p style="margin-top:1.4rem;font-size:.88rem">Un souci ? Écrivez à Kanté : ' +
+    '<a href="https://wa.me/212784161021">07 84 16 10 21</a></p></div>';
+
+  document.getElementById("fc").addEventListener("submit", async function(e){
+    e.preventDefault();
+    var b = document.getElementById("btc");
+    var mail = document.getElementById("mail").value.trim();
+    b.disabled = true; b.textContent = "Envoi…";
+    var r = await sb.auth.signInWithOtp({
+      email: mail,
+      options: { emailRedirectTo: location.origin + "/espace/" }
+    });
+    if (r.error){
+      ecranConnexion({ txt: "Le lien n'a pas pu être envoyé : " + r.error.message });
+      return;
+    }
+    ecranConnexion({ bon: true, txt: "Lien envoyé à " + mail +
+      ". Ouvrez-le depuis cet appareil. Pensez à regarder les indésirables." });
+  });
+}
+
+/* ------------------------------------------------------- chargement carte */
+async function charger(){
+  app.innerHTML = '<div class="centre"><p>Chargement de votre carte…</p></div>';
+
+  var m = await sb.from("membres").select("restaurant_id");
+  if (m.error){ panne(m.error.message); return; }
+  if (!m.data.length){ orphelin(); return; }
+
+  var rid = m.data[0].restaurant_id;
+  var r = await sb.from("restaurants")
+    .select("id, slug, nom_fr, nom_ar, wa, actif")
+    .eq("id", rid).single();
+  if (r.error){ panne(r.error.message); return; }
+
+  var s = await sb.from("sections")
+    .select("id, cle, rang, titre_fr, formule, prix, plats(id, rang, nom_fr, nom_ar, desc_fr, desc_ar, prix, dispo)")
+    .eq("restaurant_id", rid).order("rang");
+  if (s.error){ panne(s.error.message); return; }
+
+  dessiner(r.data, s.data || []);
+}
+
+function orphelin(){
+  app.innerHTML =
+    '<div class="centre" style="text-align:left">' +
+    '<h1>Votre compte n\'est rattaché à aucune carte</h1>' +
+    '<p>Vous êtes bien connecté, mais ce compte n\'est associé à aucun restaurant. ' +
+    'C\'est Studio Kanté qui fait ce rattachement.</p>' +
+    '<p><a href="https://wa.me/212784161021">Écrire à Kanté — 07 84 16 10 21</a></p>' +
+    '<p style="margin-top:1.2rem"><button class="bt" id="sortir">Se déconnecter</button></p></div>';
+  document.getElementById("sortir").addEventListener("click", deconnexion);
+}
+
+function panne(txt){
+  app.innerHTML =
+    '<div class="centre" style="text-align:left">' +
+    '<h1>Votre carte n\'a pas pu être lue</h1>' +
+    '<div class="boite bad">' + esc(txt) + '</div>' +
+    '<p>Rechargez la page. Si cela se reproduit, prévenez Kanté.</p>' +
+    '<p><button class="bt" id="sortir">Se déconnecter</button></p></div>';
+  document.getElementById("sortir").addEventListener("click", deconnexion);
+}
+
+async function deconnexion(){
+  await sb.auth.signOut();
+  location.href = "/espace/";
+}
+
+/* ------------------------------------------------------------- l'écran */
+function dessiner(resto, sections){
+  var nb = 0, rupt = 0;
+  sections.forEach(function(s){
+    (s.plats || []).forEach(function(p){ nb++; if (!p.dispo) rupt++; });
+  });
+
+  var h =
+    '<header><div class="d"><p class="kick">Votre carte</p><h1>' + esc(resto.nom_fr) + '</h1></div>' +
+    '<button class="bt" id="sortir">Se déconnecter</button></header>';
+
+  h += '<div class="boite"><p style="margin:0">Changez un prix, il est à jour sur toutes les tables ' +
+    'à l\'instant. Un plat en rupture reste visible mais n\'est plus commandable.</p>' +
+    '<p style="margin:.5rem 0 0"><a href="/carte/?r=' + encodeURIComponent(resto.slug) +
+    '" target="_blank" rel="noopener">Voir la carte comme vos clients →</a></p></div>';
+
+  if (rupt) h += '<div class="boite warn"><p style="margin:0"><b>' + rupt + ' plat' +
+    (rupt>1?'s':'') + ' en rupture.</b> Pensez à le' + (rupt>1?'s':'') +
+    ' remettre quand vous êtes réapprovisionné.</p></div>';
+
+  sections.forEach(function(s){
+    if (s.formule){
+      h += '<div class="sec"><h2>' + esc(s.titre_fr) + '</h2>' +
+        '<div class="plat"><div class="plat-h"><span class="nm">Prix de la formule</span>' +
+        '<span class="px"><input type="number" min="0" step="1" value="' +
+        esc(s.prix == null ? "" : Number(s.prix)) + '" data-t="sections" data-id="' + s.id +
+        '" data-c="prix" aria-label="Prix de la formule"><span class="u">DH</span></span>' +
+        '</div></div></div>';
+      return;
+    }
+    var plats = (s.plats || []).slice().sort(function(a,b){
+      return (a.rang - b.rang) || a.nom_fr.localeCompare(b.nom_fr, "fr");
+    });
+    if (!plats.length) return;
+    h += '<div class="sec"><h2>' + esc(s.titre_fr) + '</h2>';
+    plats.forEach(function(p){
+      h += '<div class="plat' + (p.dispo ? '' : ' rupture') + '" data-plat="' + p.id + '">' +
+        '<div class="plat-h"><span class="nm">' + esc(p.nom_fr) + '</span>' +
+        '<span class="px"><input type="number" min="0" step="1" value="' + Number(p.prix) +
+        '" data-t="plats" data-id="' + p.id + '" data-c="prix" aria-label="Prix de ' + esc(p.nom_fr) + '">' +
+        '<span class="u">DH</span></span></div>' +
+        '<label class="bascule' + (p.dispo ? '' : ' off') + '">' +
+          '<input type="checkbox" data-t="plats" data-id="' + p.id + '" data-c="dispo"' +
+          (p.dispo ? ' checked' : '') + '> ' +
+          '<span>' + (p.dispo ? 'Disponible' : 'En rupture') + '</span></label>' +
+        ' &nbsp; <button class="plier" type="button">Nom et description</button>' +
+        '<div class="detail"><div class="g2">' +
+          lab("Nom — français", "plats", p.id, "nom_fr", p.nom_fr) +
+          lab("Nom — arabe", "plats", p.id, "nom_ar", p.nom_ar, true) +
+          zone("Description — français", "plats", p.id, "desc_fr", p.desc_fr) +
+          zone("Description — arabe", "plats", p.id, "desc_ar", p.desc_ar, true) +
+        '</div></div></div>';
+    });
+    h += '</div>';
+  });
+
+  h += '<footer><p>' + nb + ' plat' + (nb>1?'s':'') + ' sur votre carte.</p>' +
+    '<p>Pour ajouter un plat, changer une photo ou refaire une section, ' +
+    'écrivez à Kanté : <a href="https://wa.me/212784161021">07 84 16 10 21</a>.</p></footer>';
+
+  app.innerHTML = h;
+  document.getElementById("sortir").addEventListener("click", deconnexion);
+
+  app.querySelectorAll(".plier").forEach(function(b){
+    b.addEventListener("click", function(){
+      var d = b.parentNode.querySelector(".detail");
+      d.classList.toggle("on");
+      b.textContent = d.classList.contains("on") ? "Replier" : "Nom et description";
+    });
+  });
+}
+
+function lab(t, table, id, col, v, ar){
+  return '<label><span>' + esc(t) + '</span><input' + (ar ? ' class="ar"' : '') +
+    ' value="' + esc(v) + '" data-t="' + table + '" data-id="' + id + '" data-c="' + col + '"></label>';
+}
+function zone(t, table, id, col, v, ar){
+  return '<label><span>' + esc(t) + '</span><textarea' + (ar ? ' class="ar"' : '') +
+    ' data-t="' + table + '" data-id="' + id + '" data-c="' + col + '">' + esc(v) + '</textarea></label>';
+}
+
+/* --------------------------------------------------- enregistrement */
+var attentes = {};
+
+async function pousser(table, id, col, val){
+  var o = {}; o[col] = val;
+  var r = await sb.from(table).update(o).eq("id", id);
+  if (r.error){
+    dire("Non enregistré : " + r.error.message, true);
+    return false;
+  }
+  return true;
+}
+
+app.addEventListener("input", function(e){
+  var el = e.target;
+  if (!el.dataset || !el.dataset.t || el.type === "checkbox") return;
+  var k = el.dataset.t + ":" + el.dataset.id + ":" + el.dataset.c;
+  clearTimeout(attentes[k]);
+  attentes[k] = setTimeout(async function(){
+    var v = el.value;
+    if (el.dataset.c === "prix"){
+      /* Un champ vide, c'est quelqu'un en train de retaper : on n'enregistre
+         pas, et surtout on n'écrit pas 0 DH sur une carte en service. */
+      if (v.trim() === "") return;
+      var n = Number(v);
+      if (!isFinite(n) || n < 0){ dire("Ce prix n'est pas un nombre.", true); return; }
+      if (n === 0){ dire("Un prix à 0 DH : corrigez, ou dites-le à Kanté.", true); return; }
+      v = n;
+    } else {
+      v = v.trim() === "" ? null : v;
+      if (el.dataset.c === "nom_fr" && v === null){
+        dire("Un plat doit garder un nom.", true); return;
+      }
+    }
+    var ok = await pousser(el.dataset.t, el.dataset.id, el.dataset.c, v);
+    if (ok) dire("Enregistré");
+  }, 700);
+}, true);
+
+app.addEventListener("change", async function(e){
+  var el = e.target;
+  if (!el.dataset || el.type !== "checkbox") return;
+  var dispo = el.checked;
+  var ok = await pousser("plats", el.dataset.id, "dispo", dispo);
+  if (!ok){ el.checked = !dispo; return; }
+  var bloc = el.closest(".plat"), bas = el.closest(".bascule");
+  bloc.classList.toggle("rupture", !dispo);
+  bas.classList.toggle("off", !dispo);
+  bas.querySelector("span").textContent = dispo ? "Disponible" : "En rupture";
+  dire(dispo ? "Remis à la carte" : "Marqué en rupture");
+}, true);
+
+/* --------------------------------------------------------------- départ */
+var sess = await sb.auth.getSession();
+if (sess.data.session) charger(); else ecranConnexion();
+
+sb.auth.onAuthStateChange(function(ev){
+  if (ev === "SIGNED_IN") charger();
+  if (ev === "SIGNED_OUT") ecranConnexion();
+});
+</script>
+</body>
+</html>
