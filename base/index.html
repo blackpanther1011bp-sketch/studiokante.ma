@@ -75,6 +75,22 @@ footer{padding:1.6rem 0 1rem;margin-top:1.6rem;border-top:1px solid var(--line);
 
 <pre id="sql">Chargement…</pre>
 
+<div class="boite" style="margin-top:1.6rem">
+  <p><b>Répétition générale</b> — avant ton premier vrai client</p>
+  <p>Ce second script installe une carte d'essai de 16 plats <b>dans la base</b>,
+  sous le nom court <span class="mono">essai</span>. Elle n'a pas de fichier dans
+  <span class="mono">cartes/</span> : elle est donc servie par la base, exactement
+  comme le sera celle d'un client.</p>
+  <p>Après l'avoir lancé : ouvre <a href="/espace/">/espace/</a>, change un prix,
+  puis regarde <a href="/carte/?r=essai">/carte/?r=essai</a>.</p>
+  <div class="rang">
+    <button class="bt p" id="copier2">Copier le script d'essai</button>
+    <a class="bt" href="/base/essai.sql" download>Télécharger</a>
+    <span class="dit" id="dit2">—</span>
+  </div>
+  <pre id="sql2" style="max-height:14rem">Chargement…</pre>
+</div>
+
 <div class="boite bad">
   <p><b>Les deux choses à ne jamais sortir du tableau de bord</b></p>
   <p>La clé <span class="mono">service_role</span> : elle contourne toutes les règles de sécurité.</p>
@@ -91,12 +107,14 @@ footer{padding:1.6rem 0 1rem;margin-top:1.6rem;border-top:1px solid var(--line);
 
 <script>
 (function(){
-  var pre = document.getElementById("sql");
-  var bt = document.getElementById("copier");
-  var dit = document.getElementById("dit");
+
+function brancher(fichier, idPre, idBt, idDit, libelle){
+  var pre = document.getElementById(idPre);
+  var bt  = document.getElementById(idBt);
+  var dit = document.getElementById(idDit);
   var texte = null;
 
-  fetch("/base/schema.sql", { cache: "no-cache" })
+  fetch(fichier, { cache: "no-cache" })
     .then(function(r){ if (!r.ok) throw new Error(r.status); return r.text(); })
     .then(function(t){
       texte = t;
@@ -104,34 +122,40 @@ footer{padding:1.6rem 0 1rem;margin-top:1.6rem;border-top:1px solid var(--line);
       dit.textContent = t.length.toLocaleString("fr-FR") + " caractères";
     })
     .catch(function(){
-      pre.textContent = "Le schéma n'a pas pu être chargé. Recharge la page.";
+      pre.textContent = "Le script n'a pas pu être chargé. Recharge la page.";
       bt.disabled = true;
     });
 
   bt.addEventListener("click", function(){
     if (!texte) return;
+
     function reussi(){
       bt.textContent = "✓ Copié";
       bt.className = "bt ok";
       dit.textContent = "Colle maintenant dans SQL Editor → New query.";
       setTimeout(function(){
-        bt.textContent = "Copier tout le schéma";
+        bt.textContent = libelle;
         bt.className = "bt p";
       }, 4000);
     }
-    if (navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(texte).then(reussi, manuel);
-    } else manuel();
-
     function manuel(){
       /* presse-papiers refusé : on sélectionne tout, l'utilisateur fait Ctrl+C */
       var r = document.createRange();
       r.selectNodeContents(pre);
       var s = window.getSelection();
       s.removeAllRanges(); s.addRange(r);
-      dit.textContent = "Le schéma est sélectionné : fais Ctrl+C (ou ⌘C).";
+      dit.textContent = "Le script est sélectionné : fais Ctrl+C (ou ⌘C).";
     }
+
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(texte).then(reussi, manuel);
+    } else manuel();
   });
+}
+
+brancher("/base/schema.sql", "sql",  "copier",  "dit",  "Copier tout le schéma");
+brancher("/base/essai.sql",  "sql2", "copier2", "dit2", "Copier le script d'essai");
+
 })();
 </script>
 </body>
